@@ -48,10 +48,10 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
          </div>
          <div class="top-right-part">
             <div class="top-pic-name-wrap">
-               <a href="profile.php?username=<?php echo $profileData->userLink; ?>" class="top-pic-name">
-                  <div class="top-pic"><img src="<?php echo $profileData->profilePic; ?>" alt="profile"></div>
+               <a href="profile.php?username=<?php echo $userData->userLink; ?>" class="top-pic-name">
+                  <div class="top-pic"><img src="<?php echo $userData->profilePic; ?>" alt="profile"></div>
                   <span class="top-name top-css border-left">
-                     <?php echo $profileData->firstName; ?>
+                     <?php echo $userData->firstName; ?>
                   </span>
                </a>
             </div>
@@ -193,6 +193,26 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                         </div>
                      </div>
                   </div>
+                  <div class="cover-photo-rest-wrap">
+                     <div class="profile-pic-name">
+                        <div class="profile-pic">
+                           <?php if ($profileId == $userid) {
+                           ?>
+                              <div class="profile-pic-upload">
+                                 <div class="app-pro">
+                                    <img src="assets/image/profile/uploadCoverPhoto.JPG" alt="">
+                                    <div>Update</div>
+                                 </div>
+                              </div>
+                           <?php
+                           } ?>
+                           <img src="<?php echo $profileData->profilePic ?>" alt="" class="profile-pic-me">
+                        </div>
+                        <div class="profile-name">
+                           <?php echo '' . $profileData->first_name . ' ' . $profileData->last_name . '' ?>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
             <div class="cover-bottom-part"></div>
@@ -207,67 +227,73 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
       <div id="adv_dem"></div>
    </main>
 
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-<script>
-   $(function(){
+   <script src="assets/js/jquery-3.6.0.min.js"></script>
+   <script>
+      $(function() {
 
-      $('.add-cover-photo').on('click', function(){
-         $('.add-cov-opt').toggle();
-      });
+         $('.profile-pic-upload').on('click', function(){
+            $('.top-box-show').html('<div class="top-box align-vertical-middle profile-dialoge-show"> <div class="profile-pic-upload-action"> <div class="pro-pic-up"> <div class="file-upload"> <label for="profile-upload" class="file-upload-label"> <snap class="upload-plus-text align-middle"> <snap class="upload-plus-sign">+</snap>Upload Photo</snap> </label> <input type="file" name="file-upload" id="profile-upload" class="file-upload-input"> </div> </div> <div class="pro-pic-choose"></div> </div> </div>');
+         });
 
-      $('#cover-upload').on('change', function(){
-         // console.log("photo uploaded");
-         var name = $('#cover-upload').val().split('\\').pop();
-         var file_data = $('#cover-upload').prop('files')[0];
-         var file_size = file_data["size"];
-         var file_type = file_data["type"].split('/').pop();
+         $('.add-cover-photo').on('click', function() {
+            $('.add-cov-opt').toggle();
+         });
 
-         var userid = '<?php echo $userid; ?>';
-         var imgName = 'user/'+ userid +'/coverphoto/'+ name +'';
-         
-         var form_data = new FormData();
+         $('#cover-upload').on('change', function() {
+            // console.log("photo uploaded");
+            var name = $('#cover-upload').val().split('\\').pop();
+            var file_data = $('#cover-upload').prop('files')[0];
+            var file_size = file_data["size"];
+            var file_type = file_data["type"].split('/').pop();
 
-         form_data.append('file', file_data);
+            var userid = '<?php echo $userid; ?>';
+            var imgName = 'user/' + userid + '/coverphoto/' + name + '';
 
-         if(name != ''){
-            $.post('http://localhost/facebookClone/core/ajax/profile.php', {
-               imgName:imgName, 
-               userid:userid},
-            function(data){
-               // console.log(data);
-            })
-         }
-         $.ajax({
-            url: 'http://localhost/facebookClone/core/ajax/profile.php',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: 'post',
-            success: function(data){
-               $('.profile-cover-wrap').css('background-image', 'url('+ data +')');
-               $('.add-cov-opt').hide();
+            var form_data = new FormData();
+
+            form_data.append('file', file_data);
+
+            if (name != '') {
+               $.post('http://localhost/facebookClone/core/ajax/profile.php', {
+                     imgName: imgName,
+                     userid: userid
+                  },
+                  function(data) {
+                     // console.log(data);
+                  })
             }
+            $.ajax({
+               url: 'http://localhost/facebookClone/core/ajax/profile.php',
+               cache: false,
+               contentType: false,
+               processData: false,
+               data: form_data,
+               type: 'post',
+               success: function(data) {
+                  $('.profile-cover-wrap').css('background-image', 'url(' + data + ')');
+                  $('.add-cov-opt').hide();
+               }
+            })
+
+            // console.log(file_data);
+            console.log(userid);
          })
 
-         // console.log(file_data);
-         console.log(userid);
-      })
 
+         $(document).mouseup(function(e) {
+            var container = new Array();
+            container.push($('.add-cov-opt'));
+            container.push($('.profile-dialoge-show'));
 
-      $(document).mouseup(function(e){
-         var container = new Array();
-         container.push($('.add-cov-opt'));
-
-         $.each(container, function(key, value){
-            if(!$(value).is(e.target) && $(value).has(e.target).length === 0){
-               $(value).hide();
-            }
+            $.each(container, function(key, value) {
+               if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                  $(value).hide();
+               }
+            });
          });
-      });
 
-   });
-</script>
+      });
+   </script>
 </body>
 
 </html>

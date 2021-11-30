@@ -363,3 +363,107 @@ label.file-upload-label {
   margin-left: 5px;
 }
 /*---------------------- Profile Cover END ----------------------*/
+
+/*---------------------- Profile Photo ----------------------*/
+.cover-photo-rest-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-pic-name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 10px 0 10px;
+}
+
+img.profile-pic-me {
+  height: 155px;
+  width: 155px;
+  border: 4px solid white;
+  border-radius: 50%;
+}
+.profile-pic {
+  position: relative;
+}
+
+.profile-pic-upload {
+  background-color: black;
+  color: white;
+  height: 75px;
+  width: 155px;
+  position: absolute;
+  bottom: 0;
+  border-bottom-right-radius: 80px;
+  border-bottom-left-radius: 80px;
+  opacity: .8;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  opacity: 0;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.profile-pic-upload:hover {
+  background-color: black;
+  color: white;
+  height: 75px;
+  width: 155px;
+  position: absolute;
+  bottom: 0;
+  border-bottom-right-radius: 80px;
+  border-bottom-left-radius: 80px;
+  opacity: .8;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  opacity: .8;
+  transition: .3s;
+}
+
+.app-pro {
+  font-size: 12px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.profile-name {
+  margin-left: 20px;
+  margin-top: 30px;
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 0 1px black;
+}
+
+.top-box {
+  background-color: rgba(255,255,255,.93);
+  position: fixed;
+  width: 75%;
+  height: 75%;
+  top: 12.5%;
+  left: 12.5%;
+  display: block;
+  box-shadow: 0 0 5px black;
+  border-radius: 3px;
+  z-index: 999;
+}
+.align-vertical-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+.profile-pic-upload-action {
+  margin-top: 30px;
+}
+.upload-plus-text {
+  font-size: 20px;
+  padding: 20px 40px;
+  border: 1px solid grey;
+}
+.upload-plus-sign{
+  font-size: 30px;
+  margin-right: 10px;
+}
+/*---------------------- Profile Photo END ----------------------*/
