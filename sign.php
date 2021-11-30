@@ -62,7 +62,7 @@ if (isset($_POST['first-name']) && !empty($_POST['first-name'])) {
 
                         $tstrong = true;
                         $token = bin2hex(openssl_random_pseudo_bytes(64, $tstrong));
-                        $loadFromUser->create('token', array('token' => $token, 'user_id' => $user_id));
+                        $loadFromUser->create('token', array('token' => sha1($token), 'user_id' => $user_id));
 
                         setcookie('FBID', $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, true);
 
@@ -87,7 +87,7 @@ if (isset($_POST['first-name']) && !empty($_POST['first-name'])) {
 
                     $tstrong = true;
                     $token = bin2hex(openssl_random_pseudo_bytes(64, $tstrong));
-                    $loadFromUser->create('token', array('token' => $token, 'user_id' => $user_id));
+                    $loadFromUser->create('token', array('token' => sha1($token), 'user_id' => $user_id));
 
                     setcookie('FBID', $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, true);
 

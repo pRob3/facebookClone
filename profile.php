@@ -1,3 +1,15 @@
+<?php
+
+include 'connect/login.php';
+include 'core/load.php';
+
+if(login::isLoggedIn()){
+   $user_id = login::isLoggedIn();
+}else{
+   header('location: sign.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
