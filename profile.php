@@ -3,18 +3,18 @@
 include 'connect/login.php';
 include 'core/load.php';
 
-if(login::isLoggedIn()){
-   $user_id = login::isLoggedIn();
-}else{
+if (login::isLoggedIn()) {
+   $userid = login::isLoggedIn();
+} else {
    header('location: sign.php');
 }
 
-if(isset($_GET['username']) == true && empty($_GET['username']) == false){
-   
+if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
+
    $username = $loadFromUser->checkInput($_GET['username']);
    $profileId = $loadFromUser->userIdByUsername($username);
    $profileData = $loadFromUser->userData($profileId);
-   $userData = $loadFromUser->userData($userId);
+   $userData = $loadFromUser->userData($userid);
 }
 
 ?>
@@ -48,10 +48,10 @@ if(isset($_GET['username']) == true && empty($_GET['username']) == false){
          </div>
          <div class="top-right-part">
             <div class="top-pic-name-wrap">
-               <a href="profile.php?username=bubblan" class="top-pic-name">
-                  <div class="top-pic"><img src="assets/image/yoda-profile-img.jpg" alt=""></div>
+               <a href="profile.php?username=<?php echo $profileData->userLink; ?>" class="top-pic-name">
+                  <div class="top-pic"><img src="<?php echo $profileData->profilePic; ?>" alt="profile"></div>
                   <span class="top-name top-css border-left">
-                     Bubblan
+                     <?php echo $profileData->firstName; ?>
                   </span>
                </a>
             </div>
@@ -148,7 +148,21 @@ if(isset($_GET['username']) == true && empty($_GET['username']) == false){
             </div>
             <div class="top-more top-css top-icon border-left">
                <div class="watch-more-wrap">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.54 6.57" class="more-svg" style="height:20px;width:20px;"><defs><style>.cls-1{fill:#1a2947;}</style></defs><title>more</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="0 0 14.54 0 7.27 6.57 0 0"/></g></g></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.54 6.57" class="more-svg" style="height:20px;width:20px;">
+                     <defs>
+                        <style>
+                           .cls-1 {
+                              fill: #1a2947;
+                           }
+                        </style>
+                     </defs>
+                     <title>more</title>
+                     <g id="Layer_2" data-name="Layer 2">
+                        <g id="Layer_1-2" data-name="Layer 1">
+                           <polygon class="cls-1" points="0 0 14.54 0 7.27 6.57 0 0" />
+                        </g>
+                     </g>
+                  </svg>
                </div>
                <div class="setting-logout-wrap">
 
@@ -160,7 +174,27 @@ if(isset($_GET['username']) == true && empty($_GET['username']) == false){
    <main>
       <div class="main-area">
          <div class="profile-left-wrap">
-            <div class="profile-cover-wrap"></div>
+            <div class="profile-cover-wrap">
+               <div class="profile-cover-wrap" style="background-image: url(<?php echo $profileData->coverPic; ?>);">
+                  <div class="upload-cov-opt-wrap">
+                     <?php if ($profileId == $userid) { ?>
+                        <div class="add-cover-photo">
+                           <img src="assets/image/profile/uploadCoverPhoto.JPG" alt="">
+                           <div class="add-cover-text">Add a cover photo</div>
+                        </div>
+                     <?php } else { ?>
+                        <div class="dont-add-cover-photo"></div>
+                     <?php } ?>
+                     <div class="add-cov-opt">
+                        <div class="select-cover-photo">Select Photo</div>
+                        <div class="file-upload">
+                           <label for="cover-upload" class="file-upload-label">Upload Photo</label>
+                           <input type="file" name="file-upload" id="cover-upload" class="file-upload-input">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
             <div class="cover-bottom-part"></div>
             <div class="bio-timeline">
                <div class="bio-wrap"></div>
