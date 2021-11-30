@@ -74,8 +74,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
-    box-shadow: 0 0 0 30px white inset !important;
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  box-shadow: 0 0 0 30px white inset !important;
 }
 
 .bday {
@@ -169,4 +169,108 @@ input.sign-in.login {
   box-shadow: 0 0 1px black;
   margin-top: 18px;
   padding: 5px;
+}
+
+/*---------------------- Top Bar ----------------------*/
+.top-bar {
+  background-color: #4267b2;
+  height: 40px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-left-part {
+  flex-basis: 40%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 66px;
+}
+
+.profile-logo img {
+  width: 23px;
+  height: 23px;
+  margin-right: 5px;
+}
+
+.profile-logo {
+  display: flex;
+}
+
+.search-wrap {
+  width: 60%;
+  display: flex;
+}
+
+input#main-search {
+  height: 22px;
+  border-radius: 3px;
+  box-shadow: none;
+  border: 0.5px solid grey;
+  width: 100%;
+}
+
+.s-icon {
+  background-color: white;
+  height: 24px;
+  margin: 1px 1px 1px -2px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.top-icon img {
+  height: 20px;
+  width: 20px;
+}
+
+.top-css {
+  font-family: roboto, Arial, sans-serif;
+  font-size: 12px;
+  color: white;
+  padding: 0 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.top-right-part {
+  flex-basis: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-pic img {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+}
+
+.top-pic-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.border-left{
+  border-left: .5px solid rgba(2, 2, 2, .37);
+  height: 20px;
+}
+.request-svg:hover .cls-1{
+  fill: white;
+}
+.message-svg:hover .cls-1{
+  fill: white;
+}
+.notification-svg:hover .cls-1{
+  fill: white;
+}
+.help-svg:hover .cls-1{
+  fill: white;
+}
+.more-svg:hover .cls-1{
+  fill: white;
 }
