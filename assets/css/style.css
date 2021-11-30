@@ -75,6 +75,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
 }
 
 .bday {
@@ -111,4 +112,61 @@ input.sign-up {
   margin: 14px 0;
   color: white;
   font-size: 18px;
+}
+
+.header {
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 8px 15%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #3e5c9a;
+  color: white;
+  height: 95px;
+}
+
+.logo {
+  margin: auto 0;
+  font-size: 40px;
+  flex-basis: 50%;
+}
+
+.sign-in-form {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-input {
+  margin-left: 10px;
+}
+.input-text {
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.input-text-field {
+  background-color: #faffbd;
+  border: none;
+  height: 20px;
+}
+
+.password-input {
+  margin-left: 1rem;
+  margin-top: 19px;
+  margin-right: 1rem;
+}
+.forgotten-acc {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #9cb4d8;
+  cursor: pointer;
+}
+
+input.sign-in.login {
+  height: 30%;
+  background-color: #4267bc;
+  color: white;
+  border: none;
+  box-shadow: 0 0 1px black;
+  margin-top: 18px;
+  padding: 5px;
 }
