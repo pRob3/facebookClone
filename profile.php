@@ -206,6 +206,68 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
       <div class="top-box-show"></div>
       <div id="adv_dem"></div>
    </main>
+
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script>
+   $(function(){
+
+      $('.add-cover-photo').on('click', function(){
+         $('.add-cov-opt').toggle();
+      });
+
+      $('#cover-upload').on('change', function(){
+         // console.log("photo uploaded");
+         var name = $('#cover-upload').val().split('\\').pop();
+         var file_data = $('#cover-upload').prop('files')[0];
+         var file_size = file_data["size"];
+         var file_type = file_data["type"].split('/').pop();
+
+         var userid = '<?php echo $userid; ?>';
+         var imgName = 'user/'+ userid +'/coverphoto/'+ name +'';
+         
+         var form_data = new FormData();
+
+         form_data.append('file', file_data);
+
+         if(name != ''){
+            $.post('http://localhost/facebookClone/core/ajax/profile.php', {
+               imgName:imgName, 
+               userid:userid},
+            function(data){
+               // console.log(data);
+            })
+         }
+         $.ajax({
+            url: 'http://localhost/facebookClone/core/ajax/profile.php',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(data){
+               $('.profile-cover-wrap').css('background-image', 'url('+ data +')');
+               $('.add-cov-opt').hide();
+            }
+         })
+
+         // console.log(file_data);
+         console.log(userid);
+      })
+
+
+      $(document).mouseup(function(e){
+         var container = new Array();
+         container.push($('.add-cov-opt'));
+
+         $.each(container, function(key, value){
+            if(!$(value).is(e.target) && $(value).has(e.target).length === 0){
+               $(value).hide();
+            }
+         });
+      });
+
+   });
+</script>
 </body>
 
 </html>

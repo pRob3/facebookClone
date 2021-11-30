@@ -63,6 +63,29 @@ class User {
 
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public function update($table, $user_id, $fields = array()){
+
+        $columns = '';
+        $i = 1;
+
+        foreach($fields as $name => $value){
+            $columns .= "{$name} = :{$name}";
+
+            if($i < count($fields)){
+                $columns .= ', ';
+            }
+            $i++;
+        }
+        $sql = "UPDATE {$table} SET {$columns} WHERE userId = {$user_id}";
+
+        if($stmt = $this->pdo->prepare($sql)){
+            foreach($fields as $key => $value){
+                $stmt->bindValue(':'.$key, $value);
+            }
+        }
+        $stmt->execute();
+    }
     
 }
 
