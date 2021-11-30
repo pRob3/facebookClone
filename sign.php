@@ -64,8 +64,8 @@ if (isset($_POST['first-name']) && !empty($_POST['first-name'])) {
                         $loadFromUser->create('profile', 
                         array('userId'=>$user_id, 'birthday'=>$birth, 
                         'firstName' => $first_name, 'lastName'=>$last_name, 
-                        'profilePic'=>'assets/images/defaultProfile.png',
-                        'coverPic'=>'assets/images/defaultCover.png',
+                        'profilePic'=>'assets/image/defaultProfile.png',
+                        'coverPic'=>'assets/image/defaultCover.png',
                         'gender'=>$upgen));
 
 
@@ -95,7 +95,7 @@ if (isset($_POST['first-name']) && !empty($_POST['first-name'])) {
 
 
                     // Profile Data
-                    $loadFromUser->create('profile', array('userId'=>$user_id, 'birthday'=>$birth, 'firstName' => $first_name, 'lastName'=>$last_name,'profilePic'=>'assets/images/defaultProfile.png','coverPic'=>'assets/images/defaultCover.png', 'gender'=>$upgen));
+                    $loadFromUser->create('profile', array('userId'=>$user_id, 'birthday'=>$birth, 'firstName' => $first_name, 'lastName'=>$last_name,'profilePic'=>'assets/image/defaultProfile.png','coverPic'=>'assets/image/defaultCover.png', 'gender'=>$upgen));
 
 
                     $tstrong = true;
