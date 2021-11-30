@@ -98,6 +98,58 @@ if (isset($_POST['first-name']) && !empty($_POST['first-name'])) {
     }
 }
 
+// Login form
+if (isset($_POST['in-email-mobile']) && !empty($_POST['in-email-mobile'])) {
+    $email_mobile = $_POST['in-email-mobile'];
+    $in_pass = $_POST['in-pass'];
+
+    if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email_mobile)) {
+        if (!preg_match("^[0-9]{11}^", $email_mobile)) {
+            $error = 'Email or Phone is not correct. Please try again';
+        } else {
+
+            if (DB::query("SELECT mobile FROM users WHERE mobile = :mobile", array(':mobile' => $email_mobile))) {
+                if (password_verify($in_pass, DB::query('SELECT password FROM users WHERE mobile=:mobile', array(':mobile' => $email_mobile))[0]['password'])) {
+
+                    $user_id = DB::query('SELECT user_id FROM users WHERE mobile=:mobile', array(':mobile' => $email_mobile))[0]['user_id'];
+                    $tstrong = true;
+                    $token = bin2hex(openssl_random_pseudo_bytes(64, $tstrong));
+                    $loadFromUser->create('token', array('token' => sha1($token), 'user_id' => $user_id));
+
+                    setcookie('FBID', $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, true);
+
+                    header('Location: index.php');
+                } else {
+                    // Password incorrect
+                    $error = "Login is not correct";
+                }
+            } else {
+                $error = "Login is not correct";
+            }
+        }
+    } else {
+        if (DB::query("SELECT email FROM users WHERE email = :email", array(':email' => $email_mobile))) {
+            if (password_verify($in_pass, DB::query('SELECT password FROM users WHERE email=:email', array(':email' => $email_mobile))[0]['password'])) {
+
+                $user_id = DB::query('SELECT user_id FROM users WHERE email=:email', array(':email' => $email_mobile))[0]['user_id'];
+                $tstrong = true;
+                $token = bin2hex(openssl_random_pseudo_bytes(64, $tstrong));
+                $loadFromUser->create('token', array('token' => sha1($token), 'user_id' => $user_id));
+
+                setcookie('FBID', $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, true);
+
+                header('Location: index.php');
+            } else {
+                // Password incorrect
+                $error = "Login is not correct";
+            }
+        } else {
+            // User not found
+            $error = "Login is not correct";
+        }
+    }
+}
+
 ?>
 
 
@@ -130,7 +182,7 @@ if (isset($_POST['first-name']) && !empty($_POST['first-name'])) {
                 </div>
                 <div class="password-input">
                     <div style="font-size: 12px;padding-bottom: 5px;">Password</div>
-                    <input type="text" name="in-pass" id="in-password" class="input-text-field">
+                    <input type="password" name="in-pass" id="in-password" class="input-text-field">
                     <div class="forgotten-acc">Forgotten account?</div>
                 </div>
                 <div class="login-button">
