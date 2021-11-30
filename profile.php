@@ -9,6 +9,14 @@ if(login::isLoggedIn()){
    header('location: sign.php');
 }
 
+if(isset($_GET['username']) == true && empty($_GET['username']) == false){
+   
+   $username = $loadFromUser->checkInput($_GET['username']);
+   $profileId = $loadFromUser->userIdByUsername($username);
+   $profileData = $loadFromUser->userData($profileId);
+   $userData = $loadFromUser->userData($userId);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

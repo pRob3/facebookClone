@@ -60,6 +60,15 @@ if (isset($_POST['first-name']) && !empty($_POST['first-name'])) {
                     } else {
                         $user_id = $loadFromUser->create('users', array('first_name' => $first_name, 'last_name' => $last_name, 'mobile' => $email_mobile, 'password' => password_hash($password, PASSWORD_BCRYPT), 'screenName' => $screenName, 'userLink' => $userLink, 'birthday' => $birth, 'gender' => $upgen));
 
+                        // Profile Data
+                        $loadFromUser->create('profile', 
+                        array('userId'=>$user_id, 'birthday'=>$birth, 
+                        'firstName' => $first_name, 'lastName'=>$last_name, 
+                        'profilePic'=>'assets/images/defaultProfile.png',
+                        'coverPic'=>'assets/images/defaultCover.png',
+                        'gender'=>$upgen));
+
+
                         $tstrong = true;
                         $token = bin2hex(openssl_random_pseudo_bytes(64, $tstrong));
                         $loadFromUser->create('token', array('token' => sha1($token), 'user_id' => $user_id));
@@ -83,6 +92,10 @@ if (isset($_POST['first-name']) && !empty($_POST['first-name'])) {
                 } else {
 
                     $user_id = $loadFromUser->create('users', array('first_name' => $first_name, 'last_name' => $last_name, 'email' => $email_mobile, 'password' => password_hash($password, PASSWORD_BCRYPT), 'screenName' => $screenName, 'userLink' => $userLink, 'birthday' => $birth, 'gender' => $upgen));
+
+
+                    // Profile Data
+                    $loadFromUser->create('profile', array('userId'=>$user_id, 'birthday'=>$birth, 'firstName' => $first_name, 'lastName'=>$last_name,'profilePic'=>'assets/images/defaultProfile.png','coverPic'=>'assets/images/defaultCover.png', 'gender'=>$upgen));
 
 
                     $tstrong = true;
