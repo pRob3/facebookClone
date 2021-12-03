@@ -215,7 +215,14 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                   </div>
                </div>
             </div>
-            <div class="cover-bottom-part"></div>
+
+            <div class="cover-bottom-part">
+                     <div class="timeline-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Timeline</div>
+                     <div class="about-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">About</div>
+                     <div class="friends-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Friends</div>
+                     <div class="photos-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Photos</div>
+                  </div>
+
             <div class="bio-timeline">
                <div class="bio-wrap"></div>
                <div class="status-timeline-wrap"></div>
@@ -231,26 +238,26 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
    <script>
       $(function() {
 
-         $('.profile-pic-upload').on('click', function(){
+         $('.profile-pic-upload').on('click', function() {
             $('.top-box-show').html('<div class="top-box align-vertical-middle profile-dialoge-show"> <div class="profile-pic-upload-action"> <div class="pro-pic-up"> <div class="file-upload"> <label for="profile-upload" class="file-upload-label"> <snap class="upload-plus-text align-middle"> <snap class="upload-plus-sign">+</snap>Upload Photo</snap> </label> <input type="file" name="file-upload" id="profile-upload" class="file-upload-input"> </div> </div> <div class="pro-pic-choose"></div> </div> </div>');
          });
 
 
-         $(document).on('change', '#profile-upload', function(){
+         $(document).on('change', '#profile-upload', function() {
             var name = $('#profile-upload').val().split('\\').pop();
             var file_data = $('#profile-upload').prop('files')[0];
             var file_size = file_data['size'];
             var file_type = file_data['type'].split('/').pop();
             var userid = <?php echo $userid; ?>;
-            var imgName = 'user/'+ userid +'profilePhoto/'+ name +'';
+            var imgName = 'user/' + userid + '/profilePhoto/' + name + '';
             var form_data = new FormData();
             form_data.append('file', file_data);
 
-            if(name != ''){
+            if (name != '') {
                $.post('http://localhost/facebookclone/core/ajax/profilePhoto.php', {
                   imgName: imgName,
                   userid: userid
-               }, function(data){
+               }, function(data) {
                   // $('#adv_dem').html(data);
                });
 
@@ -261,8 +268,8 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                   processData: false,
                   data: form_data,
                   type: 'post',
-                  success: function(data){
-                     $('.profile_pic-me').attr('src', ""+ data +"");
+                  success: function(data) {
+                     $('.profile_pic-me').attr('src', "" + data + "");
                      $('.profile-dialoge-show').hide();
                   }
                })
