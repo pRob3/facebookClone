@@ -224,7 +224,40 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                   </div>
 
             <div class="bio-timeline">
-               <div class="bio-wrap"></div>
+               <div class="bio-wrap">
+                  <div class="bio-intro">
+                     <div class="intro-wrap">
+                        <img src="assets/image/profile/intro.JPG" alt="bio intro">
+                        <div>Intro</div>
+                     </div>
+                     <div class="intro-icon-text">
+                        <img src="assets/image/profile/addBio.JPG" alt="add bio">
+                        <div class="add-bio-text">Add a short bio to tell more about yourself.</div>
+                        <div class="add-bio-click"><a href="#">Add bio</a></div>
+                     </div>
+                     <div class="bio-details">
+                        <div class="bio-1">
+                           <img src="assets/image/profile/livesIn.JPG" alt="lives in">
+                           <div class="live-text">Lives in <span class="live-text-css blue">Göteborg</span></div>
+                        </div>
+                        <div class="bio-2">
+                           <img src="assets/image/profile/followedBy.JPG" alt="followed by">
+                           <div class="live-text">Followed by <span class="followed-text-css blue">69 people</span></div>
+                        </div>
+                     </div>
+                     <div class="bio-feature">
+                        <img src="assets/image/profile/feature.JPG" alt="feature">
+                        <div class="feat-text">
+                           Showcase what's important to you by adding people, pages, groups and more to your featured section on your public profile.
+                        </div>
+                        <div class="add-feature blue">Add to Featured</div>
+                        <div class="add-feature-link blue">
+                           <div class="link-plus">+</div>
+                           <div>Add Instagram, Websites, Other links</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
                <div class="status-timeline-wrap"></div>
             </div>
          </div>
