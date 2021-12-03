@@ -362,6 +362,10 @@ label.file-upload-label {
 .add-cover-text {
   margin-left: 5px;
 }
+
+.dont-add-cover-photo{
+  padding-bottom: 40px;
+}
 /*---------------------- Profile Cover END ----------------------*/
 
 /*---------------------- Profile Photo ----------------------*/
