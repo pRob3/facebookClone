@@ -9,6 +9,6 @@ global $pdo;
 $loadFromUser = new User($pdo);
 $loadFromPost = new Post($pdo);
 
-define("BASE_URL", "http://localhost/facebookclone");
+define("BASE_URL", "http://localhost/facebookClone/");
 
 ?>

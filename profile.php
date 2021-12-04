@@ -346,6 +346,11 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                         </div>
                      </div>
                   <?php } ?>
+
+                  <div class="ptaf-wrap">
+                     <?php $loadFromPost->posts($userid, $profileId, 20); ?>
+                  </div>
+
                </div>
             </div>
          </div>

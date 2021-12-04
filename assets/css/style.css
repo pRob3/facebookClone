@@ -791,3 +791,162 @@ ul#sortable {
 }
 /*---------------------- Status part END ----------------------*/
 
+/*---------------------- Timeline ----------------------*/
+.dott {
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+.news-feed-text {
+  margin: 12px 0;
+  background-color: white;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 1px gray;
+}
+
+.pro-pic {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
+.nf-pro-privacy {
+  background-image: url('../image/privacy.JPG');
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+}
+
+.nf-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nf-1-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nf-pro-time-privacy {
+  display: flex;
+}
+
+.nf-pro-name-time {
+  margin-left: 5px;
+}
+
+.nf-pro-name {
+  color: #365899;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.nf-pro-time-privacy {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nf-pro-time {
+  font-size: 10px;
+  color: gray;
+}
+
+.nf-1-right-dott {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: -20px;
+  cursor: pointer;
+}
+
+.nf-2-text {
+  margin: 10px 0;
+}
+
+.nf-3 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 5px;
+  margin-top: 5px;
+}
+
+.post-option-details {
+  position: absolute;
+  font-size: 12px;
+  color: #0000009e;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px grey;
+}
+
+.post-option-details ul li {
+  margin-top: 5px;
+  font-size: 12px;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+.post-option-details ul li:hover {
+  background-color: lightgray;
+}
+
+.post-option-details ul {
+  margin: 5px;
+  padding: 0;
+}
+
+.likeReact {
+  background-image: url('../image/likeReact.JPG');
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+}
+
+.nf-3-react-username {
+  font-size: 12px;
+  color: gray;
+}
+
+.nf-4 {
+  height: 42px;
+  border-bottom: 1px solid lightgray;
+  font-size: 14px;
+  color: gray;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.ra {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.like-action-icon img {
+  margin-top: 5px;
+  margin-right: 3px;
+}
+
+.comment-action-icon img {
+  margin-top: 5px;
+  margin-right: 3px;
+}
+
+.share-action-icon img {
+  margin-right: 3px;
+}
+
+.nf-5 {
+  margin: 10px 0;
+}
+
+/*---------------------- Timeline END ----------------------*/
+
