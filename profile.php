@@ -454,28 +454,125 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
             $('.status-share-button-wrap').show('0.5');
          });
 
-         var fileCollection =  new Array();
-         $(document).on('change', '#multiple_files', function(e){
+         var fileCollection = new Array();
+         $(document).on('change', '#multiple_files', function(e) {
             var count = 0;
             var files = e.target.files;
             $(this).removeData();
             var text = "";
 
-            $.each(files, function(i, file){
+            $.each(files, function(i, file) {
                fileCollection.push(file);
                var reader = new FileReader();
 
                reader.readAsDataURL(file);
 
-               reader.onload = function(e){
+               reader.onload = function(e) {
                   var name = document.getElementById("multiple_files").files[i].name;
-                  var template = '<li class="ui-state-default del"><img id="'+ name +'" src="'+e.target.result+'"></li>';
+                  var template = '<li class="ui-state-default del"><img id="' + name + '" src="' + e.target.result + '"></li>';
                   $('#sortable').append(template);
                }
             })
             $('#sortable').append('<div class="rem-img">X</div>')
 
          });
+
+
+         $('.status-share-button').on('click', function() {
+            var statusText = $('.emojionearea-editor').html();
+
+            var formData = new FormData()
+
+            var storeImage = [];
+
+            var error_images = [];
+
+            var files = $('#multiple_files')[0].files;
+
+            if (files.length != 0) {
+               if (files.length > 10) {
+                  error_images += 'You can not select more than 10 images';
+               } else {
+                  for (var i = 0; i < files.length; i++) {
+                     var name = document.getElementById('multiple_files').files[i].name;
+
+                     storeImage += '{\"imageName\":\"user/<?php echo $userid; ?>/postImage/' + name + '\"},';
+
+                     var ext = name.split('.').pop().toLowerCase();
+
+                     if (jQuery.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'mp4']) == -1) {
+                        error_images += '<p>Invalid ' + i + ' File </p>';
+                     }
+
+                     var ofReader = new FileReader();
+
+                     ofReader.readAsDataURL(document.getElementById('multiple_files').files[i]);
+
+                     var f = document.getElementById('multiple_files').files[i];
+
+                     var fsize = f.size || f.fileSize;
+
+                     if (fsize > 2000000000) {
+                        error_images += '<p>' + i + ' File Size is very big</p>';
+                     } else {
+                        formData.append('file[]', document.getElementById('multiple_files').files[i]);
+                     }
+
+                  }
+               }
+
+               if (files.length < 1) {
+
+               } else {
+                  var str = storeImage.replace(/,\s*$/, "");
+
+                  var stIm = '[' + str + ']';
+               }
+               if (error_images == '') {
+                  $.ajax({
+                     url: 'http://localhost/facebookClone/core/ajax/uploadPostImage.php',
+                     method: "POST",
+                     data: formData,
+                     contentType: false,
+                     cache: false,
+                     processData: false,
+                     beforeSend: function() {
+                        $('#error_multiple_files').html('<br/><label> Uploading...</label>');
+                     },
+                     success: function(data) {
+                        $('#error_multiple_files').html(data);
+                        $('#sortable').empty();
+                     }
+                  })
+               } else {
+                  $('#multiple_files').val('');
+                  $('#error_multiple_files').html("<span> " + error_images + "</span>");
+                  return false;
+               }
+            } else {
+               var stIm = '';
+            }
+
+
+            if (stIm == '') {
+               $.post('http://localhost/facebookClone/core/ajax/postSubmit.php', {
+                  onlyStatusText: statusText
+               }, function(data) {
+                  $('#adv_dem').html(data);
+                  location.reload();
+
+               })
+            } else {
+               $.post('http://localhost/facebookClone/core/ajax/postSubmit.php', {
+                  stIm: stIm,
+                  statusText: statusText
+
+               }, function(data) {
+                  $('#adv_dem').html(data);
+                  location.reload();
+               })
+            }
+         })
 
 
          $(document).mouseup(function(e) {
