@@ -494,6 +494,7 @@ img.profile-pic-me {
 /*---------------------- BIO Intro ----------------------*/
 .bio-timeline {
   margin-top: 12px;
+  display: flex;
 }
 
 .bio-intro {
@@ -584,4 +585,166 @@ img.profile-pic-me {
   padding-right: 5px;
 }
 /*---------------------- BIO Intro END ----------------------*/
+
+
+/*---------------------- Status part ----------------------*/
+.status-timeline-wrap {
+  width: 100%;
+}
+
+.status-top-wrap {
+  font-size: 12px;
+  height: 33px;
+  width: 100%;
+  background-color: #f5f6f7;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.status-top {
+  padding-left: 5px;
+}
+
+.status-mid {
+  width: 100%;
+  display: flex;
+  background-color: white;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.status-prof {
+  margin: 5px;
+}
+.status-prof-textarea {
+  width: 100%;
+}
+
+.status-prof-textarea textarea {
+  border: none;
+  padding: 0;
+  resize: none;
+  width: 90%;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: lightgray;
+}
+
+.status-bot {
+  display: flex;
+  border-top: 1px solid lightgray;
+  background-color: white;
+  height: 42px;
+  padding-left: 5px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.status-bot-1 {
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f6f7;
+  border-radius: 20px;
+  margin: 5px;
+  padding: 5px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.8);
+  cursor: pointer;
+}
+
+.dott{
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+.newsfeed-privacy {
+  background-color: rgba(255,255,255,0.56);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.newsfeed {
+  display: flex;
+  align-items: center;
+}
+
+.newsfeed-icon {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: white;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.newsfeed-text {
+  font-size: 12px;
+  font-weight: 600;
+  background-color: white;
+  margin-left: 10px;
+}
+
+.status-privacy {
+  display: flex;
+  align-items: center;
+  border: 1px solid grey;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.privacy-downarrow-icon img {
+  height: 12px;
+  width: 12px;
+}
+
+.privacy-text {
+  margin: 3px 2px 2px 2px;
+}
+
+.seemore-sharebutton {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(255,255,255,.56);
+  padding: 5px 10px;
+}
+
+span.status-seemore {
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+.share-seemore-option {
+  border: 1px solid grey;
+  padding: 5px;
+  min-width: fit-content;
+}
+
+.status-share-button.align-middle {
+  font-size: 14px;
+  background-color: rgba(66, 103, 178);
+  padding: 5px;
+  color: white;
+  width: 100%;
+  font-weight: 600;
+  margin: 10px;
+  text-align: center;
+}
+
+.status-wrap{
+  border-radius: 3px;
+  box-shadow: 0 0 1px grey;
+}
+
+.status-share-button-wrap {
+  display: none;
+}
+/*---------------------- Status part END ----------------------*/
 

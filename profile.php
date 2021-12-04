@@ -27,6 +27,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>User Profile</title>
    <link rel="stylesheet" href="assets/css/style.css">
+   <link rel="stylesheet" href="assets/dist/emojionearea.min.css">
 </head>
 
 <body>
@@ -217,11 +218,11 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
             </div>
 
             <div class="cover-bottom-part">
-                     <div class="timeline-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Timeline</div>
-                     <div class="about-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">About</div>
-                     <div class="friends-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Friends</div>
-                     <div class="photos-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Photos</div>
-                  </div>
+               <div class="timeline-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Timeline</div>
+               <div class="about-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">About</div>
+               <div class="friends-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Friends</div>
+               <div class="photos-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Photos</div>
+            </div>
 
             <div class="bio-timeline">
                <div class="bio-wrap">
@@ -258,7 +259,92 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                      </div>
                   </div>
                </div>
-               <div class="status-timeline-wrap"></div>
+               <div class="status-timeline-wrap">
+                  <?php if ($profileId == $userid) { ?>
+
+                     <div class="profile-status-write">
+                        <div class="status-wrap">
+                           <div class="status-top-wrap">
+                              <div class="status-top">
+                                 Create Post
+                              </div>
+                           </div>
+                        </div>
+                        <div class="status-mid">
+                           <div class="status-prof">
+                              <div class="top-pic">
+                                 <img src="<?php echo $userData->profilePic ?>" alt="">
+                              </div>
+                           </div>
+                           <div class="status-prof-textarea">
+                              <textarea name="textStatus" id="statusEmoji" cols="5" rows="5" class="status align-middle"></textarea>
+                           </div>
+                        </div>
+                        <div class="status-bot">
+                           <div class="file-upload-remIm">
+                              <label for="multiple_file" class="file-upload-label">
+                                 <div class="status-bot-1">
+                                    <img src="assets/image//photo.JPG" alt="">
+                                    <div class="status-bot-text">Photo/Video</div>
+                                 </div>
+                              </label>
+                              <input type="file" name="file-upload" id="multiple_file" class="file-upload-input" data-multiple-caption="{count} files selected" multiple="">
+                           </div>
+                           <div class="status-bot-1">
+                              <img src="assets/image/tag.JPG" alt="">
+                              <div class="status-bot-text">Tag Friends</div>
+                           </div>
+                           <div class="status-bot-1">
+                              <img src="assets/image/activities.JPG" alt="">
+                              <div class="status-bot-text">Feeling/Activities</div>
+                           </div>
+                        </div>
+                        <ul id="sortable"></ul>
+                        <div class="status-share-button-wrap">
+                           <div class="status-share-button">
+                              <div class="newsfeed-privacy">
+                                 <div class="newsfeed">
+                                    <div class="right-sign-icon">
+                                       <img src="assets/image/profile/rightSign.JPG" alt="">
+                                    </div>
+                                    <div class="newsfeed-icon align-middle">
+                                       <img src="assets/image/profile/newsFeed.JPG" alt="">
+                                    </div>
+                                    <div class="newsfeed-text">
+                                       News Feed
+                                    </div>
+                                 </div>
+                                 <div class="status-privacy-wrap">
+                                    <div class="status-privacy">
+                                       <div class="privacy-icon align-middle">
+                                          <img src="assets/image/profile/publicIcon.JPG" alt="">
+                                       </div>
+                                       <div class="privacy-text">Public</div>
+                                       <div class="privacy-downarrow-icon align-middle">
+                                          <img src="assets/image/watchmore.png" alt="">
+                                       </div>
+                                    </div>
+                                    <div class="status-privacy-option">
+
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="seemore-sharebutton">
+                              <div class="share-seemore-option">
+                                 <div class="privacy-downarrow-icon align-middle">
+                                    <img src="assets/image/watchmore.png" alt="">
+                                    <span class="status-seemore">See More</span>
+                                 </div>
+                              </div>
+                              <div class="status-share-button align-middle">
+                                 Share
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  <?php } ?>
+               </div>
             </div>
          </div>
          <div class="profile-right-wrap"></div>
@@ -268,6 +354,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
    </main>
 
    <script src="assets/js/jquery-3.6.0.min.js"></script>
+   <script src="assets/dist/emojionearea.min.js"></script>
    <script>
       $(function() {
 
@@ -277,6 +364,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
 
 
          $(document).on('change', '#profile-upload', function() {
+
             var name = $('#profile-upload').val().split('\\').pop();
             var file_data = $('#profile-upload').prop('files')[0];
             var file_size = file_data['size'];
@@ -305,9 +393,17 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                      $('.profile_pic-me').attr('src', "" + data + "");
                      $('.profile-dialoge-show').hide();
                   }
-               })
+               });
             }
-         })
+         });
+         
+         
+         
+         
+         
+         
+         
+         ;
 
          $('.add-cover-photo').on('click', function() {
             $('.add-cov-opt').toggle();
@@ -347,21 +443,45 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                   $('.profile-cover-wrap').css('background-image', 'url(' + data + ')');
                   $('.add-cov-opt').hide();
                }
-            })
-
+            });
             // console.log(file_data);
-            console.log(userid);
-         })
+            //console.log(userid);
+         });
+
+         $('#statusEmoji').emojioneArea({
+            pickPosition: "right",
+            spellcheck: true
+         });
+
+         $(document).on('focus','.emojionearea-editor', function(){
+            $('.status-share-button-wrap').show('0.5');
+         });
+         $(document).on('click','.status-bot', function(){
+            $('.status-share-button-wrap').show('0.5');
+         });
 
 
          $(document).mouseup(function(e) {
             var container = new Array();
             container.push($('.add-cov-opt'));
             container.push($('.profile-dialoge-show'));
+            
 
             $.each(container, function(key, value) {
                if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
                   $(value).hide();
+               }
+            });
+         });
+         
+         $(document).mouseup(function(e) {
+            var container = new Array();
+            container.push($('.profile-status-write'));
+            
+
+            $.each(container, function(key, value) {
+               if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                  $('.status-share-button-wrap').hide('.2');
                }
             });
          });
