@@ -282,13 +282,13 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                         </div>
                         <div class="status-bot">
                            <div class="file-upload-remIm">
-                              <label for="multiple_file" class="file-upload-label">
+                              <label for="multiple_files" class="file-upload-label">
                                  <div class="status-bot-1">
                                     <img src="assets/image//photo.JPG" alt="">
                                     <div class="status-bot-text">Photo/Video</div>
                                  </div>
                               </label>
-                              <input type="file" name="file-upload" id="multiple_file" class="file-upload-input" data-multiple-caption="{count} files selected" multiple="">
+                              <input type="file" name="file-upload" id="multiple_files" class="file-upload-input" data-multiple-caption="{count} files selected" multiple="">
                            </div>
                            <div class="status-bot-1">
                               <img src="assets/image/tag.JPG" alt="">
@@ -299,7 +299,9 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                               <div class="status-bot-text">Feeling/Activities</div>
                            </div>
                         </div>
-                        <ul id="sortable"></ul>
+                        <ul id="sortable">
+
+                        </ul>
                         <div class="status-share-button-wrap">
                            <div class="status-share-button">
                               <div class="newsfeed-privacy">
@@ -396,14 +398,6 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                });
             }
          });
-         
-         
-         
-         
-         
-         
-         
-         ;
 
          $('.add-cover-photo').on('click', function() {
             $('.add-cov-opt').toggle();
@@ -453,11 +447,34 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
             spellcheck: true
          });
 
-         $(document).on('focus','.emojionearea-editor', function(){
+         $(document).on('focus', '.emojionearea-editor', function() {
             $('.status-share-button-wrap').show('0.5');
          });
-         $(document).on('click','.status-bot', function(){
+         $(document).on('click', '.status-bot', function() {
             $('.status-share-button-wrap').show('0.5');
+         });
+
+         var fileCollection =  new Array();
+         $(document).on('change', '#multiple_files', function(e){
+            var count = 0;
+            var files = e.target.files;
+            $(this).removeData();
+            var text = "";
+
+            $.each(files, function(i, file){
+               fileCollection.push(file);
+               var reader = new FileReader();
+
+               reader.readAsDataURL(file);
+
+               reader.onload = function(e){
+                  var name = document.getElementById("multiple_files").files[i].name;
+                  var template = '<li class="ui-state-default del"><img id="'+ name +'" src="'+e.target.result+'"></li>';
+                  $('#sortable').append(template);
+               }
+            })
+            $('#sortable').append('<div class="rem-img">X</div>')
+
          });
 
 
@@ -465,7 +482,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
             var container = new Array();
             container.push($('.add-cov-opt'));
             container.push($('.profile-dialoge-show'));
-            
+
 
             $.each(container, function(key, value) {
                if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
@@ -473,11 +490,11 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                }
             });
          });
-         
+
          $(document).mouseup(function(e) {
             var container = new Array();
             container.push($('.profile-status-write'));
-            
+
 
             $.each(container, function(key, value) {
                if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {

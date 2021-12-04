@@ -705,6 +705,7 @@ img.profile-pic-me {
 }
 
 .privacy-text {
+  font-size: 12px;
   margin: 3px 2px 2px 2px;
 }
 
@@ -734,7 +735,7 @@ span.status-seemore {
   color: white;
   width: 100%;
   font-weight: 600;
-  margin: 10px;
+  margin: 10px 0 10px 10px;
   text-align: center;
 }
 
@@ -745,6 +746,48 @@ span.status-seemore {
 
 .status-share-button-wrap {
   display: none;
+}
+
+/* ul#sortable{
+  display: none;
+} */
+
+ul#sortable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+  background-color: rgba(255,255,255,0.99);
+  flex-wrap: wrap;
+  position: relative;
+}
+
+#sortable li {
+  position:relative;
+  margin: 0 3px 0 3px;
+  padding: 0.233rem;
+}
+
+#sortable li img {
+  object-fit: cover;
+  width: 60px;
+  height: 60px;
+}
+
+.rem-img{
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%;
+  height: 1rem;
+  width: 1rem;
+  font-size: 0.69rem;
 }
 /*---------------------- Status part END ----------------------*/
 
