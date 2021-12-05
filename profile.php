@@ -365,6 +365,8 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
    <script>
       $(function() {
 
+         var BASE_URL = 'http://localhost/facebookclone/';
+
          $('.profile-pic-upload').on('click', function() {
             $('.top-box-show').html('<div class="top-box align-vertical-middle profile-dialoge-show"> <div class="profile-pic-upload-action"> <div class="pro-pic-up"> <div class="file-upload"> <label for="profile-upload" class="file-upload-label"> <snap class="upload-plus-text align-middle"> <snap class="upload-plus-sign">+</snap>Upload Photo</snap> </label> <input type="file" name="file-upload" id="profile-upload" class="file-upload-input"> </div> </div> <div class="pro-pic-choose"></div> </div> </div>');
          });
@@ -382,7 +384,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
             form_data.append('file', file_data);
 
             if (name != '') {
-               $.post('http://localhost/facebookclone/core/ajax/profilePhoto.php', {
+               $.post(BASE_URL + 'core/ajax/profilePhoto.php', {
                   imgName: imgName,
                   userid: userid
                }, function(data) {
@@ -390,7 +392,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                });
 
                $.ajax({
-                  url: 'http://localhost/facebookclone/core/ajax/profilePhoto.php',
+                  url: BASE_URL + 'core/ajax/profilePhoto.php',
                   cache: false,
                   contentType: false,
                   processData: false,
@@ -423,7 +425,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
             form_data.append('file', file_data);
 
             if (name != '') {
-               $.post('http://localhost/facebookClone/core/ajax/profile.php', {
+               $.post(BASE_URL + 'core/ajax/profile.php', {
                      imgName: imgName,
                      userid: userid
                   },
@@ -432,7 +434,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                   })
             }
             $.ajax({
-               url: 'http://localhost/facebookClone/core/ajax/profile.php',
+               url: BASE_URL + 'core/ajax/profile.php',
                cache: false,
                contentType: false,
                processData: false,
@@ -535,7 +537,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                }
                if (error_images == '') {
                   $.ajax({
-                     url: 'http://localhost/facebookClone/core/ajax/uploadPostImage.php',
+                     url: BASE_URL + 'core/ajax/uploadPostImage.php',
                      method: "POST",
                      data: formData,
                      contentType: false,
@@ -560,7 +562,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
 
 
             if (stIm == '') {
-               $.post('http://localhost/facebookClone/core/ajax/postSubmit.php', {
+               $.post(BASE_URL + 'core/ajax/postSubmit.php', {
                   onlyStatusText: statusText
                }, function(data) {
                   $('#adv_dem').html(data);
@@ -568,7 +570,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
 
                })
             } else {
-               $.post('http://localhost/facebookClone/core/ajax/postSubmit.php', {
+               $.post(BASE_URL + 'core/ajax/postSubmit.php', {
                   stIm: stIm,
                   statusText: statusText
 
@@ -581,87 +583,87 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
 
 
          $(document).mouseup(function(e) {
-                var container = new Array();
-                container.push($('.add-cov-opt'));
-                container.push($('.profile-dialoge-show'));
-                container.push($('.notification-list-wrap'));
+            var container = new Array();
+            container.push($('.add-cov-opt'));
+            container.push($('.profile-dialoge-show'));
+            container.push($('.notification-list-wrap'));
 
-                $.each(container, function(key, value) {
-                    if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
-                        $(value).hide();
-                    }
-                })
-
+            $.each(container, function(key, value) {
+               if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                  $(value).hide();
+               }
             })
 
-            $(document).mouseup(function(e) {
-                var container = new Array();
-                container.push($('.post-option-details-container'));
-                container.push($('.top-box-show'));
-                container.push($('.com-option-details-container'));
-                container.push($('.reply-option-details-container'));
-                container.push($('.shared-post-option-details-container'));
+         })
 
-                $.each(container, function(key, value) {
-                    if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
-                        $(value).empty();
-                    }
-                })
+         $(document).mouseup(function(e) {
+            var container = new Array();
+            container.push($('.post-option-details-container'));
+            container.push($('.top-box-show'));
+            container.push($('.com-option-details-container'));
+            container.push($('.reply-option-details-container'));
+            container.push($('.shared-post-option-details-container'));
 
+            $.each(container, function(key, value) {
+               if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                  $(value).empty();
+               }
             })
 
-            $(document).mouseup(function(e) {
-                var container = new Array();
-                container.push($('.profile-status-write'));
+         })
 
-                $.each(container, function(key, value) {
-                    if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
-                        $('.status-share-button-wrap').hide('0.2');
-                    }
-                })
+         $(document).mouseup(function(e) {
+            var container = new Array();
+            container.push($('.profile-status-write'));
 
-
+            $.each(container, function(key, value) {
+               if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                  $('.status-share-button-wrap').hide('0.2');
+               }
             })
 
-            $(document).mouseup(function(e) {
-                var container = new Array();
-                container.push($('.post-img-wrap'));
 
-                $.each(container, function(key, value) {
-                    if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
-                        $('.top-wrap').remove();
-                    }
-                })
+         })
+
+         $(document).mouseup(function(e) {
+            var container = new Array();
+            container.push($('.post-img-wrap'));
+
+            $.each(container, function(key, value) {
+               if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                  $('.top-wrap').remove();
+               }
             })
+         })
 
          $(document).on('click', '.postImage', function() {
-                var userid = $(this).data('userid');
-                var postid = $(this).data('postid');
-                var profileid = $(this).data('profileid');
-                var imageSrc = $(this).attr('src');
+            var userid = $(this).data('userid');
+            var postid = $(this).data('postid');
+            var profileid = $(this).data('profileid');
+            var imageSrc = $(this).attr('src');
 
-                $.post('http://localhost/facebookclone/core/ajax/imgFetchShow.php', {
-                    fetchImgInfo: userid,
-                    postid: postid,
-                    imageSrc: imageSrc
-                }, function(data) {
+            $.post(BASE_URL + 'core/ajax/imgFetchShow.php', {
+               fetchImgInfo: userid,
+               postid: postid,
+               imageSrc: imageSrc
+            }, function(data) {
 
-                    $('.top-box-show').html(data);
-                    
-                })
+               $('.top-box-show').html(data);
 
-            });
+            })
+
+         });
          //--------------------- POST OPTION -----------------------//
-         $(document).on('click', '.post-option', function(){
+         $(document).on('click', '.post-option', function() {
             $('.post-option').removeAttr('id');
             $(this).attr('id', 'opt-click');
             var postid = $(this).data('postid');
             var userid = $(this).data('userid');
             var postDetails = $(this).siblings('.post-option-details-container');
-            $(postDetails).show().html('<div class="post-option-details"><ul><li class="post-edit" data-postid="'+postid+'" data-userid="'+userid+'">Edit</li><li class="post-delete" data-postid="'+postid+'" data-userid="'+userid+'">Delete</li><li class="post-privacy" data-postid="'+postid+'" data-userid="'+userid+'">Privacy</li></ul></div>');
+            $(postDetails).show().html('<div class="post-option-details"><ul><li class="post-edit" data-postid="' + postid + '" data-userid="' + userid + '">Edit</li><li class="post-delete" data-postid="' + postid + '" data-userid="' + userid + '">Delete</li><li class="post-privacy" data-postid="' + postid + '" data-userid="' + userid + '">Privacy</li></ul></div>');
          })
 
-         $(document).on('click', 'li.post-edit', function(){
+         $(document).on('click', 'li.post-edit', function() {
             var statusTextContainer = $(this).parents('.nf-1').siblings('.nf-2').find('.nf-2-text');
             var addId = $(statusTextContainer).attr('id', 'editPostPut');
             var getPostText1 = $(statusTextContainer).text();
@@ -676,44 +678,180 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
 
          })
 
-         $(document).on('click', '.edit-post-save', function(){
+         $(document).on('click', '.edit-post-save', function() {
             var postid = $(this).data('postid');
             var userid = $(this).data('userid');
             var editedText = $(this).parents('.edit-post-submit').siblings('.edit-post-value').find('.editStatus');
             var editedTextVal = $(editedText).val();
 
-            $.post('http://localhost/facebookclone/core/ajax/editPost.php',{
+            $.post(BASE_URL + 'core/ajax/editPost.php', {
                editedTextVal: editedTextVal,
                postid: postid,
-               userid: userid               
-            }, function(data){
+               userid: userid
+            }, function(data) {
                $('#editPostPut').html(data).removeAttr('id');
                $('.top-box-show').empty();
             })
          })
 
          $(document).on('click', '.post-delete', function() {
-                var postid = $(this).data('postid');
-                var userid = $(this).data('userid');
-                var postContainer = $(this).parents('.profile-timeline');
-                var r = confirm("Do you want to delete the post?");
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            var postContainer = $(this).parents('.profile-timeline');
+            var r = confirm("Do you want to delete the post?");
 
-                if (r == true) {
-                    $.post('http://localhost/facebookclone/core/ajax/editPost.php', {
-                        deletePost: postid,
-                        userid: userid
-                    }, function(data) {
-                        $(postContainer).empty();
+            if (r == true) {
+               $.post(BASE_URL + 'core/ajax/editPost.php', {
+                  deletePost: postid,
+                  userid: userid
+               }, function(data) {
+                  $(postContainer).empty();
 
-                        //                        alert(data);
-
-
+                  //                        alert(data);
 
 
-                    })
-                }
-            })
+
+
+               })
+            }
+         })
          //--------------------- POST OPTION END-----------------------//
+
+
+         //--------------------- Main REACT ---------------------------//
+         $(document).on('click', '.like-action', function() {
+            var likeActionIcon = $(this).find('.like-action-icon img');
+            var likeReactParent = $(this).parents('.like-action-wrap');
+            var nf4 = $(likeReactParent).parents('.nf-4');
+            var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
+            var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
+            var reactNumText = $(reactCount).text();
+            var postId = $(likeReactParent).data('postid');
+            var userId = $(likeReactParent).data('userid');
+            var typeText = $(this).find('.like-action-text span');
+            var typeR = $(typeText).text();
+            var spanClass = $(this).find('.like-action-text').find('span');
+
+
+            if ($(spanClass).attr('class') !== undefined) {
+
+               if ($(likeActionIcon).attr('src') == 'assets/image/likeAction.JPG') {
+                  (spanClass).addClass('like-color');
+                  $(likeActionIcon).attr('src', 'assets/image/react/like.png').addClass('reactIconSize');
+                  spanClass.text('Like');
+                  mainReactSubmit(typeR, postId, userId, nf_3);
+               } else {
+                  $(likeActionIcon).attr('src', 'assets/image/likeAction.JPG');
+                  spanClass.removeClass();
+                  spanClass.text('Like');
+                  mainReactDelete(typeR, postId, userId, nf_3);
+               }
+            } else if ($(spanClass).attr('class') === undefined) {
+               (spanClass).addClass('like-color');
+               $(likeActionIcon).attr('src', 'assets/image/react/like.png').addClass('reactIconSize');
+               spanClass.text('Like');
+               mainReactSubmit(typeR, postId, userId, nf_3);
+            } else {
+               (spanClass).addClass('like-color');
+               $(likeActionIcon).attr('src', 'assets/image/react/like.png').addClass('reactIconSize');
+               spanClass.text('Like');
+               mainReactSubmit(typeR, postId, userId, nf_3);
+            }
+
+
+         })
+
+         function mainReactSubmit(typeR, postId, userId, nf_3) {
+            var profileid = "<?php echo $profileId; ?>";
+            $.post(BASE_URL + 'core/ajax/react.php', {
+               reactType: typeR,
+               postId: postId,
+               userId: userId,
+               profileid: profileid
+            }, function(data) {
+               $(nf_3).empty().html(data);
+            })
+         }
+
+         function mainReactDelete(typeR, postId, userId, nf_3) {
+            var profileid = "<?php echo $profileId; ?>";
+            $.post(BASE_URL + 'core/ajax/react.php', {
+               deleteReactType: typeR,
+               postId: postId,
+               userId: userId,
+               profileid: profileid
+            }, function(data) {
+               $(nf_3).empty().html(data);
+            })
+         }
+
+         $('.like-action-wrap').hover(function() {
+            var mainReact = $(this).find('.react-bundle-wrap');
+            $(mainReact).html('<div class="react-bundle align-middle" style="position:absolute;margin-top: -43px; margin-left: -40px; display:flex; background-color:white;padding: 0 2px;border-radius: 25px; box-shadow: 0px 0px 5px black; height:45px; width:270px; justify-content:space-around; transition: 0.3s;"> <div class="like-react-click align-middle"> <img class="main-icon-css" src="' + BASE_URL + 'assets/image/react/like.png " alt=""></div> <div class="love-react-click align-middle"> <img class="main-icon-css" src="' + BASE_URL + 'assets/image/react/love.png " alt=""></div> <div class="haha-react-click align-middle"> <img class="main-icon-css" src="' + BASE_URL + 'assets/image/react/haha.png " alt=""></div> <div class="wow-react-click align-middle"> <img class="main-icon-css" src="' + BASE_URL + 'assets/image/react/wow.png " alt=""></div> <div class="sad-react-click align-middle"> <img class="main-icon-css" src="' + BASE_URL + 'assets/image/react/sad.png " alt=""></div> <div class="angry-react-click align-middle"> <img class="main-icon-css" src="' + BASE_URL + 'assets/image/react/angry.png " alt=""></div> </div>');
+         }, function() {
+            var mainReact = $(this).find('.react-bundle-wrap');
+            $(mainReact).html('');
+         })
+
+         $(document).on('click', '.main-icon-css', function() {
+            var likeReact = $(this).parent();
+            reactReply(likeReact);
+         })
+
+         function reactReply(sClass) {
+            if ($(sClass).hasClass('like-react-click')) {
+               mainReactSub('like', 'blue');
+            } else if ($(sClass).hasClass('love-react-click')) {
+               mainReactSub('love', 'red');
+            } else if ($(sClass).hasClass('haha-react-click')) {
+               mainReactSub('haha', 'yellow');
+            } else if ($(sClass).hasClass('wow-react-click')) {
+               mainReactSub('wow', 'yellow');
+            } else if ($(sClass).hasClass('sad-react-click')) {
+               mainReactSub('sad', 'yellow');
+            } else if ($(sClass).hasClass('angry-react-click')) {
+               mainReactSub('angry', 'red');
+            } else {
+               console.log('Not found');
+            }
+         }
+
+         function mainReactSub(typeR, color) {
+            var reactColor = '' + typeR + '-color';
+            var pClass = $('.' + typeR + '-react-click.align-middle');
+            var likeReactParent = $(pClass).parents('.like-action-wrap');
+            var nf4 = $(likeReactParent).parents('.nf-4');
+            var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
+            var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
+            var reactNumText = $(reactCount).text();
+
+            var postId = $(likeReactParent).data('postid');
+            var userId = $(likeReactParent).data('userid');
+            var likeAction = $(likeReactParent).find('.like-action');
+            var likeActionIcon = $(likeAction).find('.like-action-icon img');
+            var spanClass = $(likeAction).find('.like-action-text').find('span');
+
+            if ($(spanClass).hasClass(reactColor)) {
+               $(spanClass).removeClass();
+               spanClass.text('Like');
+               $(likeActionIcon).attr('src', 'assets/image/likeAction.JPG');
+               mainReactDelete(typeR, postId, userId, nf_3);
+            } else if ($(spanClass).attr('class') !== undefined) {
+               $(spanClass).removeClass().addClass(reactColor);
+               spanClass.text(typeR);
+               $(likeActionIcon).removeAttr('src').attr('src', 'assets/image/react/' + typeR + '.png').addClass('reactIconSize');
+               mainReactSubmit(typeR, postId, userId, nf_3);
+            } else {
+               $(spanClass).addClass(reactColor);
+               // $(likeActionIcon).attr('src', 'assets/image/react/' + typeR + '.png').addClass('reactIconSize');
+               spanClass.text(typeR);
+               $(likeActionIcon).removeAttr('src').attr('src', 'assets/image/react/' + typeR + '.png').addClass('reactIconSize');
+               mainReactSubmit(typeR, postId, userId, nf_3);
+            }
+
+
+         }
+         //--------------------- Main REACT END-----------------------//
 
 
       });

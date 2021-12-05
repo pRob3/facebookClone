@@ -948,5 +948,63 @@ ul#sortable {
   margin: 10px 0;
 }
 
+.main-icon-css {
+  height: 35px;
+  width: 35px;
+  /*                            padding: 0 5px;*/
+  cursor: pointer;
+  position: absolute;
+}
+
+.main-icon-css:hover {
+  height: 42px;
+  width: 42px;
+  /*                            padding: 0 5px;*/
+  transform: rotate(30deg);
+  transition: 0.2s;
+  cursor: pointer;
+  position: absolute;
+}
+
+.like-color {
+  color: #4267B2;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.love-color {
+  color: #f63459;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.wow-color {
+  color: #fbdb68;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.haha-color {
+  color: #fbdb68;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.sad-color {
+  color: #fbdb68;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.angry-color {
+  color: #e4605a;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.reactIconSize{
+  height:15px;
+  width: 15px;
+}
 /*---------------------- Timeline END ----------------------*/
 
