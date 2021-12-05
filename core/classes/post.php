@@ -59,7 +59,7 @@ class Post extends User
                                 $count = 0;
 
                                 for ($i = 0; $i < count((array)$imgJson); $i++) {
-                                    echo ' <div class="post-img-box" data-postImgID="' . $post->id . '" style="max-height:400px;overflow:hidden;"><img src="' . BASE_URL . $imgJson['' . $count++ . '']->imageName . '" class="postImage" style="width:100%;cursor:pointer;" /></div>';
+                                    echo ' <div class="post-img-box" data-postImgID="' . $post->id . '" style="max-height:400px;overflow:hidden;"><img src="' . BASE_URL . $imgJson['' . $count++ . '']->imageName . '" class="postImage" style="width:100%;cursor:pointer;" data-postid="'. $post->post_id .'"  data-profileid="'. $profileId .'" data-userid="'.$user_id.'" /></div>';
                                 }
                                 ?>
                             </div>
@@ -104,6 +104,16 @@ class Post extends User
 <?php
         }
     }
+
+    public function postUpd($user_id, $post_id, $editText){
+        $stmt = $this->pdo->prepare('UPDATE post SET post = :editText WHERE post_id=:post_id AND userId = :user_id');
+        $stmt->bindParam(":post_id", $post_id, PDO::PARAM_INT);
+        $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(":editText", $editText, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+
 }
 
 ?>
