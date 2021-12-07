@@ -365,7 +365,7 @@ class Post extends User
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-    
+
     public function commentReactCheck($userid, $postid, $commentid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM react WHERE reactBy = :userid AND reactOn = :postid AND reactCommentOn = :commentid and reactReplyOn = '0' ");
@@ -374,6 +374,16 @@ class Post extends User
         $stmt->bindParam(":commentid", $commentid, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function commentUpd($userid, $postid, $editedTextVal, $commentid){
+        $stmt = $this->pdo->prepare("UPDATE comments SET comment = :editedText WHERE commentID =:commentid AND commentBy = :userid AND commentOn = :postid");
+        $stmt->bindParam(":commentid", $commentid, PDO::PARAM_INT);
+        $stmt->bindParam(":userid", $userid, PDO::PARAM_INT);
+        $stmt->bindParam(":postid", $postid, PDO::PARAM_INT);
+        $stmt->bindParam(":editedText", $editedTextVal, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }
 

@@ -31,7 +31,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
 </head>
 
 <body>
-<div class="u_p_id" data-uid="<?php echo $userid ?>" data-pid="<?php echo $profileId ?>"></div>
+   <div class="u_p_id" data-uid="<?php echo $userid ?>" data-pid="<?php echo $profileId ?>"></div>
    <header>
       <div class="top-bar">
          <div class="top-left-part">
@@ -1009,6 +1009,69 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                   $(com_nf_3).empty().html(data);
                });
          }
+
+         $(document).on('click', '.com-dot', function() {
+            $('.com-dot').removeAttr('id');
+            $(this).attr('id', 'com-opt-click');
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            var commentid = $(this).data('commentid');
+            var comDetails = $(this).siblings('.com-option-details-container');
+            $(comDetails).show().html('<div class="com-option-details" style="z-index:2;"><ul><li class="com-edit" data-postid="' + postid + '" data-userid="' + userid + '" data-commentid="' + commentid + '">Edit</li><li class="com-delete" data-postid="' + postid + '" data-userid="' + userid + '" data-commentid="' + commentid + '">Delete</li><li class="com-privacy" data-postid="' + postid + '" data-userid="' + userid + '">Privacy</li></ul></div>');
+         })
+
+         $(document).on('click', 'li.com-edit', function() {
+            var comTextContainer = $(this).parents('.com-dot-option-wrap').siblings('.com-pro-text').find('.com-text');
+            var addId = $(comTextContainer).attr('id', 'editComPut');
+            var getComText1 = $(comTextContainer).text();
+            var postid = $(comTextContainer).data('postid');
+            var userid = $(comTextContainer).data('userid');
+            var commentid = $(comTextContainer).data('commentid');
+            var profilepic = $(comTextContainer).data('profilepic');
+            var getComText = getComText1.replace(/\s+/g, " ").trim();
+            $('.top-box-show').html('<div class="top-box profile-dialog-show" style="top: 12.5%;left: 22.5%;width: 55%;"><div class="edit-post-header align-middle " style="justify-content: space-between; padding: 10px; height: 20px; background-color: lightgray;font-size: 14px; font-weight:600; "><div class="edit-post-text">Edit Comment</div><div class="edit-post-close" style="padding: 5px; color: gray; cursor:pointer;">x</div></div><div class="edit-post-value" style="border-bottom: 1px solid lightgray;"><div class="status-med"><div class="status-prof"><div class="top-pic"><img src="' + profilepic + '" alt=""></div></div><div class="status-prof-textarea"><textarea data-autoresize rows="5" columns="5" placeholder="" name="textStatus" class="editCom align-middle" style="font-family:sens-serif; font-weight:400; padding:5px;">' + getComText + '</textarea></div></div></div><div class="edit-post-submit" style="position: absolute;right:0; bottom: 0; display: flex; align-items: center; margin: 10px;"><div class="status-privacy-wrap"><div class="status-privacy  "><div class="privacy-icon align-middle"><img src="assets/image/profile/publicIcon.JPG" alt=""></div><div class="privacy-text">Public</div><div class="privacy-downarrow-icon align-middle"><img src="assets/image/watchmore.png" alt=""></div></div><div class="status-privacy-option"></div></div><div class="edit-com-save" style="padding: 3px 15px; background-color: #4267bc;color: white; font-size: 14px; margin-left:5px; cursor:pointer;" data-postid="' + postid + '" data-userid="' + userid + '" data-commentid="' + commentid + '" >Save</div></div></div>');
+         })
+
+         $(document).on('click', '.edit-com-save', function() {
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            var commentid = $(this).data('commentid');
+            var editedText = $(this).parents('.edit-post-submit').siblings('.edit-post-value').find('.editCom');
+            var editedTextVal = $(editedText).val();
+
+console.log(commentid);
+
+console.log(postid +" "+ userid + ""+ commentid +" "+ editedText +" "+  editedTextVal)
+
+            $.post(BASE_URL + 'core/ajax/editComment.php', {
+               postid: postid,
+               userid: userid,
+               editedTextVal: editedTextVal,
+               commentid: commentid
+            }, function(data) {
+               $('#editComPut').html(data).removeAttr('id');
+               $('.top-box-show').empty();
+            })
+         })
+
+         $(document).on('click', '.com-delete', function() {
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            var commentid = $(this).data('commentid');
+            var comContainer = $(this).parents('.new-comment');
+            var profileid = p_id;
+
+            var r = confirm('Do you want to delete the comment?');
+            if (r === true) {
+               $.post(BASE_URL + 'core/ajax/editComment.php', {
+                  deletePost: postid,
+                  userid: userid,
+                  commentid: commentid
+               }, function(data) {
+                  $(comContainer).empty();
+               })
+            }
+         })
          //--------------------- Comment END-----------------------//
 
 
