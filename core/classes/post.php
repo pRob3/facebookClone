@@ -1147,7 +1147,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
     }
     public function searchText($search)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM users LEFT JOIN profile ON users.user_id = profile.userId WHERE  users.userLInk LIKE ? ");
+        $stmt = $this->pdo->prepare("SELECT * FROM users LEFT JOIN profile ON users.user_id = profile.userId WHERE  users.userLink LIKE ? ");
 
         $stmt->bindValue(1, $search . '%', PDO::PARAM_STR);
         $stmt->execute();

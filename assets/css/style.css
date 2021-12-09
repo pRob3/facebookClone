@@ -255,23 +255,23 @@ input#main-search {
   justify-content: center;
   align-items: center;
 }
-.border-left{
-  border-left: .5px solid rgba(2, 2, 2, .37);
+.border-left {
+  border-left: 0.5px solid rgba(2, 2, 2, 0.37);
   height: 20px;
 }
-.request-svg:hover .cls-1{
+.request-svg:hover .cls-1 {
   fill: white;
 }
-.message-svg:hover .cls-1{
+.message-svg:hover .cls-1 {
   fill: white;
 }
-.notification-svg:hover .cls-1{
+.notification-svg:hover .cls-1 {
   fill: white;
 }
-.help-svg:hover .cls-1{
+.help-svg:hover .cls-1 {
   fill: white;
 }
-.more-svg:hover .cls-1{
+.more-svg:hover .cls-1 {
   fill: white;
 }
 
@@ -324,7 +324,7 @@ input#main-search {
   box-shadow: 0 0 20px black;
   background-color: white;
   border-radius: 2px;
-  transition: .2s;
+  transition: 0.2s;
   z-index: 1;
   display: none;
 }
@@ -332,7 +332,6 @@ input#main-search {
 .select-cover-photo {
   margin-bottom: 10px;
 }
-
 
 .file-upload {
   position: relative;
@@ -344,7 +343,7 @@ label.file-upload-label {
   display: block;
   color: #000;
   border-radius: 0.4em;
-  transition: background .3s;
+  transition: background 0.3s;
   cursor: pointer;
 }
 
@@ -363,7 +362,7 @@ label.file-upload-label {
   margin-left: 5px;
 }
 
-.dont-add-cover-photo{
+.dont-add-cover-photo {
   padding-bottom: 40px;
 }
 /*---------------------- Profile Cover END ----------------------*/
@@ -401,12 +400,12 @@ img.profile-pic-me {
   bottom: 0;
   border-bottom-right-radius: 80px;
   border-bottom-left-radius: 80px;
-  opacity: .8;
+  opacity: 0.8;
   margin-bottom: 10px;
   margin-left: 5px;
   opacity: 0;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .profile-pic-upload:hover {
@@ -418,11 +417,11 @@ img.profile-pic-me {
   bottom: 0;
   border-bottom-right-radius: 80px;
   border-bottom-left-radius: 80px;
-  opacity: .8;
+  opacity: 0.8;
   margin-bottom: 10px;
   margin-left: 5px;
-  opacity: .8;
-  transition: .3s;
+  opacity: 0.8;
+  transition: 0.3s;
 }
 
 .app-pro {
@@ -441,7 +440,7 @@ img.profile-pic-me {
 }
 
 .top-box {
-  background-color: rgba(255,255,255,.93);
+  background-color: rgba(255, 255, 255, 0.93);
   position: fixed;
   width: 75%;
   height: 75%;
@@ -466,7 +465,7 @@ img.profile-pic-me {
   padding: 20px 40px;
   border: 1px solid grey;
 }
-.upload-plus-sign{
+.upload-plus-sign {
   font-size: 30px;
   margin-right: 10px;
 }
@@ -489,7 +488,6 @@ img.profile-pic-me {
   cursor: pointer;
 }
 /*---------------------- Profile Photo END ----------------------*/
-
 
 /*---------------------- BIO Intro ----------------------*/
 .bio-timeline {
@@ -586,7 +584,6 @@ img.profile-pic-me {
 }
 /*---------------------- BIO Intro END ----------------------*/
 
-
 /*---------------------- Status part ----------------------*/
 .status-timeline-wrap {
   width: 100%;
@@ -651,17 +648,17 @@ img.profile-pic-me {
   margin: 5px;
   padding: 5px;
   font-weight: 600;
-  color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 }
 
-.dott{
+.dott {
   font-size: 20px;
   padding-bottom: 20px;
 }
 
 .newsfeed-privacy {
-  background-color: rgba(255,255,255,0.56);
+  background-color: rgba(255, 255, 255, 0.56);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -712,7 +709,7 @@ img.profile-pic-me {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: rgba(255,255,255,.56);
+  background-color: rgba(255, 255, 255, 0.56);
   padding: 5px 10px;
 }
 
@@ -738,7 +735,7 @@ span.status-seemore {
   text-align: center;
 }
 
-.status-wrap{
+.status-wrap {
   border-radius: 3px;
   box-shadow: 0 0 1px grey;
 }
@@ -757,13 +754,13 @@ ul#sortable {
   padding: 0;
   display: flex;
   width: 100%;
-  background-color: rgba(255,255,255,0.99);
+  background-color: rgba(255, 255, 255, 0.99);
   flex-wrap: wrap;
   position: relative;
 }
 
 #sortable li {
-  position:relative;
+  position: relative;
   margin: 0 3px 0 3px;
   padding: 0.233rem;
 }
@@ -774,7 +771,7 @@ ul#sortable {
   height: 60px;
 }
 
-.rem-img{
+.rem-img {
   position: absolute;
   top: 0;
   right: 0;
@@ -811,7 +808,7 @@ ul#sortable {
 }
 
 .nf-pro-privacy {
-  background-image: url('../image/privacy.JPG');
+  background-image: url("../image/privacy.JPG");
   background-repeat: no-repeat;
   width: 20px;
   height: 20px;
@@ -901,7 +898,7 @@ ul#sortable {
 }
 
 .likeReact {
-  background-image: url('../image/likeReact.JPG');
+  background-image: url("../image/likeReact.JPG");
   background-repeat: no-repeat;
   width: 20px;
   height: 20px;
@@ -982,7 +979,6 @@ ul#sortable {
   cursor: pointer;
   position: absolute;
 }
-
 
 .com-pro-text {
   color: black;
@@ -1104,7 +1100,7 @@ li.new-comment {
   box-shadow: 0px 0px 5px grey;
 }
 
-.com-option-details ul{
+.com-option-details ul {
   padding: 0;
 }
 
@@ -1114,7 +1110,7 @@ li.new-comment {
 }
 
 .like-color {
-  color: #4267B2;
+  color: #4267b2;
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -1149,8 +1145,8 @@ li.new-comment {
   text-transform: capitalize;
 }
 
-.reactIconSize{
-  height:15px;
+.reactIconSize {
+  height: 15px;
   width: 15px;
 }
 /*---------------------- Timeline END ----------------------*/
@@ -1270,7 +1266,6 @@ li.new-comment {
   margin-right: 10px;
 }
 
-
 /*...Reply END...*/
 
 /*... Share ...*/
@@ -1293,7 +1288,46 @@ li.new-comment {
   background-color: lightgray;
 }
 .shared-post-option-details ul {
-  padding:0;
+  padding: 0;
   margin: 5px;
 }
 /*...Share END ...*/
+
+/*....... search..........*/
+
+.search-wrap {
+  width: 60%;
+  display: inline;
+  z-index: 1;
+}
+
+.search-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+input#main-search {
+  height: 22px;
+  border-radius: 3px;
+  box-shadow: none;
+  border: 0.5px solid gray;
+  width: 100%;
+}
+
+#main-search {
+  border-right: white;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.s-icon {
+  background-color: white;
+  height: 23px;
+  margin-top: 1px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+/*....... search END..........*/
