@@ -12,7 +12,7 @@ if(isset($_POST['comment'])){
 
     $commentid = $loadFromUser->create('comments', array('commentBy'=>$userid, 'comment_parent_id' => $postid, 'comment'=>$comment_text, 'commentOn'=>$postid, 'commentAt' => date('Y-m-d H:i:s')));
 
-
+    $userData = $loadFromUser->userData($user_id);
     $commentDetails = $loadFromPost->lastCommentFetch($commentid);
 
     if(!empty($commentDetails)){
@@ -38,7 +38,7 @@ if(isset($_POST['comment'])){
                                     <span class="nf-pro-name">
                                                             <a href="" class="nf-pro-name"><?php echo ''.$comment->firstName.' '.$comment->lastName.'' ?> </a>
                                                         </span>
-                                    <span class="com-text" style="margin-left:5px; " data-postid="<?php echo $comment->commentOn; ?> " data-userid="<?php echo $user_id; ?>" data-commentid="<?php echo $comment->commentID;  ?>" data-profilepic="<?php echo $userdata->profilePic; ?>"><?php echo $comment->comment; ?></span>
+                                    <span class="com-text" style="margin-left:5px; " data-postid="<?php echo $comment->commentOn; ?> " data-userid="<?php echo $user_id; ?>" data-commentid="<?php echo $comment->commentID;  ?>" data-profilepic="<?php echo $userData->profilePic; ?>"><?php echo $comment->comment; ?></span>
                                 </div>
                                 <div class="com-nf-3-wrap">
                                     <?php
@@ -93,7 +93,7 @@ if(isset($_POST['comment'])){
                                                     }
                                                     ?>
                         </div>
-                        <div class="com-reply-action" data-postid="<?php echo $comment->commentOn; ?>" data-userid="<?php echo $user_id; ?>" data-commentid="<?php echo $comment->commentID; ?>" data-profilepic="<?php echo $userdata->profilePic;?>">
+                        <div class="com-reply-action" data-postid="<?php echo $comment->commentOn; ?>" data-userid="<?php echo $user_id; ?>" data-commentid="<?php echo $comment->commentID; ?>" data-profilepic="<?php echo $userData->profilePic;?>">
                             Reply
                         </div>
                         <div class="com-time">

@@ -1271,4 +1271,29 @@ li.new-comment {
 }
 
 
-/*...Reply end...*/
+/*...Reply END...*/
+
+/*... Share ...*/
+.shared-post-option-details {
+  position: absolute;
+  font-size: 12px;
+  color: #0000009e;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px grey;
+}
+.shared-post-option-details ul li {
+  margin-top: 5px;
+  font-size: 12px;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+.shared-post-option-details ul li:hover {
+  background-color: lightgray;
+}
+.shared-post-option-details ul {
+  padding:0;
+  margin: 5px;
+}
+/*...Share END ...*/
