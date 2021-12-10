@@ -15,6 +15,8 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
    $profileId = $loadFromUser->userIdByUsername($username);
    $profileData = $loadFromUser->userData($profileId);
    $userData = $loadFromUser->userData($userid);
+   $requestCheck = $loadFromPost->requestCheck($userid, $profileId);
+   $requestConf = $loadFromPost->requestConf($profileId, $userid);
 }
 
 ?>
@@ -215,6 +217,77 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                         <div class="profile-name">
                            <?php echo '' . $profileData->first_name . ' ' . $profileData->last_name . '' ?>
                         </div>
+                     </div>
+
+                     <div class="profile-action">
+                        <?php
+                        if ($userid == $profileId) {
+                        ?>
+                           <a href="about.php">
+                              <div class="profile-edit-button" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                 <img src="assets/image/profile/editProfile.JPG" alt="">
+                                 <div class="edit-profile-button-text" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Edit Profile</div>
+                              </div>
+                           </a>
+
+                           <?php
+                        } else {
+                           if (empty($requestCheck)) {
+
+                              if (empty($requestConf)) {
+                           ?>
+                                 <div class="profile-add-friend" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                    <img src="assets/image/friendRequestGray.JPG" alt="">
+                                    <div class="edit-profile-button-text">Add Friend</div>
+                                 </div>
+
+                              <?php
+                              } else if ($requestConf->reqStatus == '0') { ?>
+                                 <div class="profile-friend-confirm" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                    <div class="edit-profile-confirm-button" style="position:relative;">
+                                       <div class="con-req accept-req align-middle" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                          <img src="assets/image/friendRequestGray.JPG" alt="">Confirm Request
+                                       </div>
+                                       <div class="request-cancel" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Cancel Request</div>
+                                    </div>
+                                 </div>
+                              <?php
+                              } else if ($requestConf->reqStatus == '1') { ?>
+                                 <div class="profile-friend-confirm" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                    <div class="edit-profile-confirm-button" style="position:relative;">
+                                       <div class="con-req align-middle">
+                                          <img src="assets/image/rightsignGray.JPG" alt="">Friend
+                                       </div>
+                                       <div class="request-unfriend" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Unfriend</div>
+                                    </div>
+                                 </div>
+                              <?php
+                              } else {
+                              }
+                           } else if ($requestCheck->reqStatus == '0') { ?>
+                              <div class="profile-friend-sent" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                 <img src="assets/image/friendRequestGray.JPG" alt="">
+                                 <div class="edit-profile-button-text">Friend Request Sent</div>
+                              </div>
+                           <?php
+                           } else if ($requestCheck->reqStatus == '1') { ?>
+                              <div class="profile-friend-confirm" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                 <div class="edit-profile-confirm-button" style="position:relative;">
+                                    <div class="con-req align-middle">
+                                       <img src="assets/image/rightsignGray.JPG" alt="">Friend
+                                    </div>
+                                    <div class="request-unfriend" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                       Unfriend
+                                    </div>
+                                 </div>
+                              </div>
+
+                        <?php
+                           } else {
+                              echo 'Not found';
+                           }
+                        }
+                        ?>
                      </div>
                   </div>
                </div>
@@ -1460,6 +1533,84 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
          })
 
          //........................... Live Search END ......................
+
+         //........................... Friend Request ......................
+         $(document).on('click', '.profile-add-friend', function() {
+            $(this).parents('.profile-action').find('.profile-follow-button').removeClass().addClass('profile-unfollow-button').html('<img src="assets/image/rightsignGray.JPG" alt=""><div class="profile-activity-button-text">Following</div>');
+            $(this).find('.edit-profile-button-text').text('Friend Request Sent');
+            $(this).removeClass().addClass('profile-friend-sent');
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+
+            $.post(BASE_URL + 'core/ajax/request.php', {
+               request: profileid,
+               userid: userid
+            }, function(data) {
+
+            })
+         })
+
+         $(document).on('click', '.accept-req', function() {
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+
+            $(this).parent().empty().html('<div class="con-req align-middle"><img src="assets/image/rightsignGray.JPG" alt="">Friend</div><div class="request-unfriend" data-userid="' + userid + '" data-profileid="' + profileid + '">Unfriend</div>');
+
+            $.post(BASE_URL + 'core/ajax/request.php', {
+               confirmRequest: profileid,
+               userid: userid
+            }, function(data) {})
+         });
+
+         $(document).on('click', '.profile-friend-sent', function() {
+
+                $(this).find('.edit-profile-button-text').text('Add Friend');
+                $(this).removeClass().addClass('profile-add-friend');
+
+                var userid = $(this).data('userid');
+                var profileid = $(this).data('profileid');
+
+                $.post( BASE_URL +'core/ajax/request.php', {
+                    cancelSentRequest: profileid,
+                    userid: userid
+                }, function(data) {})
+
+            })
+
+            $(document).on('click', '.request-cancel', function() {
+                $(this).parents('.profile-friend-confirm').removeClass().addClass('profile-add-friend').html(' <img src="assets/image/friendRequestGray.JPG" alt=""><div class="edit-profile-button-text">Add Friend</div>');
+                var userid = $(this).data('userid');
+                var profileid = $(this).data('profileid');
+                $.post( BASE_URL +'core/ajax/request.php', {
+                    cancelSentRequest: userid,
+                    userid: profileid
+                }, function(data) {})
+            })
+
+            $(document).on('click', '.request-unfriend', function() {
+                $(this).parents('.profile-friend-confirm').removeClass().addClass('profile-add-friend').html(' <img src="assets/image/friendRequestGray.JPG" alt=""><div class="edit-profile-button-text">Add Friend</div>');
+                var userid = $(this).data('userid');
+                var profileid = $(this).data('profileid');
+                $.post( BASE_URL +'core/ajax/request.php', {
+                    unfriendRequest: profileid,
+                    userid: userid
+                }, function(data) {})
+            })
+
+            $(document).on('mouseenter', '.edit-profile-confirm-button', function() {
+                var reqCancel = $(this).find('.request-cancel');
+                var reqUnfriend = $(this).find('.request-unfriend');
+                $(reqCancel).show();
+                $(reqUnfriend).show();
+            })
+            
+            $(document).on('mouseleave', '.profile-friend-confirm', function() {
+                var reqCancel = $(this).find('.request-cancel');
+                var reqUnfriend = $(this).find('.request-unfriend');
+                $(reqCancel).hide();
+                $(reqUnfriend).hide();
+            })
+         //........................... Friend Request END ......................
 
       });
    </script>

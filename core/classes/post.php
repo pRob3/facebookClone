@@ -1136,6 +1136,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+    
     public function sharedPostUpd($userid, $postid, $editText)
     {
         $stmt = $this->pdo->prepare("UPDATE post SET shareText = :editText WHERE post_id =:post_id AND userId = :user_id");
@@ -1145,6 +1146,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->bindParam(":editText", $editText, PDO::PARAM_STR);
         $stmt->execute();
     }
+
     public function searchText($search)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users LEFT JOIN profile ON users.user_id = profile.userId WHERE  users.userLink LIKE ? ");
@@ -1153,6 +1155,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
     public function requestCheck($userid, $profileId)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM request WHERE reqtReceiver = :profileid and ReqtSender = :userid ");
@@ -1162,6 +1165,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
     public function requestConf($profileid, $userid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM request WHERE reqtReceiver = :userid AND reqtSender =:profileid");
@@ -1171,6 +1175,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
     public function updateConfirmReq($profileid, $userid)
     {
         $stmt = $this->pdo->prepare("UPDATE request SET reqStatus = 1 WHERE reqtReceiver = :userid AND reqtSender = :profileid");
@@ -1179,6 +1184,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
     public function followCheck($profileId, $userid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM follow WHERE (sender = :profileid AND receiver =:userid) OR (sender = :userid AND receiver = :profileid)");

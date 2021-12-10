@@ -365,6 +365,177 @@ label.file-upload-label {
 .dont-add-cover-photo {
   padding-bottom: 40px;
 }
+
+
+.profile-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-right: 15px;
+}
+.profile-edit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: gray;
+  font-weight: 600;
+  padding: 0 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.profile-add-friend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: #484848;
+  font-weight: 600;
+  padding: 0 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.profile-friend-sent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: #484848;
+  font-weight: 600;
+  padding: 0 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.profile-friend-confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: #484848;
+  font-weight: 600;
+  padding: 0 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.profile-friend-already {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: #484848;
+  font-weight: 600;
+  padding: 0 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.profile-activity-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: gray;
+  font-weight: 600;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.profile-message-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: #484848;
+  font-weight: 600;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.profile-follow-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: #484848;
+  font-weight: 600;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.profile-unfollow-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f6;
+  height: 26px;
+  font-size: 12px;
+  color: #484848;
+  font-weight: 600;
+  padding: 0 10px;
+  cursor: pointer;
+  border: 1px solid gray;
+}
+.request-cancel {
+  position: absolute;
+  margin-top: 3px;
+  background-color: white;
+  padding: 5px 10px;
+  border: 1px solid gray;
+  width: 99%;
+  text-align: center;
+  margin-left: -11px;
+  display: none;
+}
+.request-cancel:hover {
+  position: absolute;
+  margin-top: 3px;
+  background-color: lightgray;
+  padding: 5px 10px;
+  border: 1px solid gray;
+  width: 99%;
+  text-align: center;
+  margin-left: -11px;
+  display: none;
+}
+.request-unfriend {
+  position: absolute;
+  margin-top: 3px;
+  background-color: white;
+  padding: 5px 10px;
+  border: 1px solid gray;
+  width: 99%;
+  text-align: center;
+  margin-left: -11px;
+  display: none;
+}
+.profile-activity-button-dot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 26px;
+  font-size: 20px;
+  color: gray;
+  font-weight: 600;
+  padding: 0 10px;
+  border-left: 1px solid gray;
+  width: 20px;
+  /*    margin-top: 26px;*/
+}
+
 /*---------------------- Profile Cover END ----------------------*/
 
 /*---------------------- Profile Photo ----------------------*/
