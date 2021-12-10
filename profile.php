@@ -17,6 +17,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
    $userData = $loadFromUser->userData($userid);
    $requestCheck = $loadFromPost->requestCheck($userid, $profileId);
    $requestConf = $loadFromPost->requestConf($profileId, $userid);
+   $followCheck = $loadFromPost->followCheck($profileId, $userid);
 }
 
 ?>
@@ -282,9 +283,24 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                                  </div>
                               </div>
 
-                        <?php
+                           <?php
                            } else {
                               echo 'Not found';
+                           }
+                           if (empty($followCheck)) { ?>
+                              <div class="profile-follow-button" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>" style="border-right:1px solid gray;">
+                                 <img src="assets/image/followGray.JPG" alt="">
+                                 <div class="profile-activity-button-text">Follow</div>
+                              </div>
+                           <?php
+                           } else {
+                           ?>
+                              <div class="profile-unfollow-button" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>" style="border-right:1px solid gray;">
+                                 <img src="assets/image/rightsignGray.JPG" alt="">
+                                 <div class="profile-activity-button-text">Unfollow</div>
+                              </div>
+
+                        <?php
                            }
                         }
                         ?>
@@ -1545,9 +1561,13 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
             $.post(BASE_URL + 'core/ajax/request.php', {
                request: profileid,
                userid: userid
-            }, function(data) {
+            }, function(data) {})
 
-            })
+            $.post(BASE_URL + 'core/ajax/request.php', {
+                    follow: profileid,
+                    userid: userid
+                }, function(data) {})
+
          })
 
          $(document).on('click', '.accept-req', function() {
@@ -1563,54 +1583,83 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
          });
 
          $(document).on('click', '.profile-friend-sent', function() {
+            $(this).parents('.profile-action').find('.profile-unfollow-button').removeClass().addClass('profile-unfollow-button').html('<img src="assets/image/followGray.JPG" alt=""><div class="profile-activity-button-text">Follow</div>');
 
-                $(this).find('.edit-profile-button-text').text('Add Friend');
-                $(this).removeClass().addClass('profile-add-friend');
+            $(this).find('.edit-profile-button-text').text('Add Friend');
+            $(this).removeClass().addClass('profile-add-friend');
 
-                var userid = $(this).data('userid');
-                var profileid = $(this).data('profileid');
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
 
-                $.post( BASE_URL +'core/ajax/request.php', {
-                    cancelSentRequest: profileid,
+            $.post(BASE_URL + 'core/ajax/request.php', {
+               cancelSentRequest: profileid,
+               userid: userid
+            }, function(data) {})
+
+            $.post(BASE_URL + 'core/ajax/request.php', {
+                    unfollow: profileid,
                     userid: userid
                 }, function(data) {})
 
-            })
+         })
 
-            $(document).on('click', '.request-cancel', function() {
-                $(this).parents('.profile-friend-confirm').removeClass().addClass('profile-add-friend').html(' <img src="assets/image/friendRequestGray.JPG" alt=""><div class="edit-profile-button-text">Add Friend</div>');
-                var userid = $(this).data('userid');
-                var profileid = $(this).data('profileid');
-                $.post( BASE_URL +'core/ajax/request.php', {
-                    cancelSentRequest: userid,
-                    userid: profileid
-                }, function(data) {})
-            })
+         $(document).on('click', '.request-cancel', function() {
+            $(this).parents('.profile-friend-confirm').removeClass().addClass('profile-add-friend').html(' <img src="assets/image/friendRequestGray.JPG" alt=""><div class="edit-profile-button-text">Add Friend</div>');
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+            $.post(BASE_URL + 'core/ajax/request.php', {
+               cancelSentRequest: userid,
+               userid: profileid
+            }, function(data) {})
+         })
 
-            $(document).on('click', '.request-unfriend', function() {
-                $(this).parents('.profile-friend-confirm').removeClass().addClass('profile-add-friend').html(' <img src="assets/image/friendRequestGray.JPG" alt=""><div class="edit-profile-button-text">Add Friend</div>');
-                var userid = $(this).data('userid');
-                var profileid = $(this).data('profileid');
-                $.post( BASE_URL +'core/ajax/request.php', {
-                    unfriendRequest: profileid,
-                    userid: userid
-                }, function(data) {})
-            })
+         $(document).on('click', '.request-unfriend', function() {
+            $(this).parents('.profile-friend-confirm').removeClass().addClass('profile-add-friend').html(' <img src="assets/image/friendRequestGray.JPG" alt=""><div class="edit-profile-button-text">Add Friend</div>');
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+            $.post(BASE_URL + 'core/ajax/request.php', {
+               unfriendRequest: profileid,
+               userid: userid
+            }, function(data) {})
+         })
 
-            $(document).on('mouseenter', '.edit-profile-confirm-button', function() {
-                var reqCancel = $(this).find('.request-cancel');
-                var reqUnfriend = $(this).find('.request-unfriend');
-                $(reqCancel).show();
-                $(reqUnfriend).show();
-            })
-            
-            $(document).on('mouseleave', '.profile-friend-confirm', function() {
-                var reqCancel = $(this).find('.request-cancel');
-                var reqUnfriend = $(this).find('.request-unfriend');
-                $(reqCancel).hide();
-                $(reqUnfriend).hide();
-            })
+         $(document).on('mouseenter', '.edit-profile-confirm-button', function() {
+            var reqCancel = $(this).find('.request-cancel');
+            var reqUnfriend = $(this).find('.request-unfriend');
+            $(reqCancel).show();
+            $(reqUnfriend).show();
+         })
+
+         $(document).on('mouseleave', '.profile-friend-confirm', function() {
+            var reqCancel = $(this).find('.request-cancel');
+            var reqUnfriend = $(this).find('.request-unfriend');
+            $(reqCancel).hide();
+            $(reqUnfriend).hide();
+         })
          //........................... Friend Request END ......................
+
+         //...........................follow  ......................
+         $(document).on('click', '.profile-follow-button', function() {
+            $(this).removeClass().addClass('profile-unfollow-button').html(' <img src="assets/image/rightsignGray.JPG" alt=""><div class="profile-activity-button-text">Following</div>');
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+
+            $.post(BASE_URL +'core/ajax/request.php', {
+               follow: profileid,
+               userid: userid
+            }, function(data) {})
+         })
+         $(document).on('click', '.profile-unfollow-button', function() {
+            $(this).removeClass().addClass('profile-follow-button').html(' <img src="assets/image/followGray.JPG" alt=""><div class="profile-activity-button-text">Follow</div>');
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+
+            $.post(BASE_URL +'core/ajax/request.php', {
+               unfollow: profileid,
+               userid: userid
+            }, function(data) {})
+         })
+         //...........................follow end ......................
 
       });
    </script>
