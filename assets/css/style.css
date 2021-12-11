@@ -1502,3 +1502,232 @@ input#main-search {
 }
 
 /*....... search END..........*/
+
+
+/*....................... About ...................*/
+.about-wrap {
+  margin: 10px 0;
+  background-color: #e9ebee;
+  /*    padding: 10px;*/
+
+  border-radius: 3px;
+  box-shadow: 0px 0px 1px grey;
+  width: 100%;
+}
+.about-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 29px;
+  padding: 16px 0 12px 15px;
+  background-color: #f5f6f7;
+  border-bottom: 1px solid #f5f6f7;
+  border-radius: 2px 2px 0 0;
+}
+.about-text {
+  font-size: 19px;
+  font-weight: 600;
+  color: #524f4f;
+  margin-left: 10px;
+}
+.about-main {
+  background-color: white;
+  display: flex;
+  min-height: 90vh;
+}
+.about-menu {
+  background-color: white;
+  flex-basis: 30%;
+  border-right: 1px solid lightgray;
+  ;
+}
+.about-menu-details {
+  background-color: white;
+  flex-basis: 70%;
+}
+.about-menu ul li {
+  margin-bottom: 23px;
+  padding-left: 18px;
+  font-size: 13px;
+  color: gray;
+  cursor: pointer;
+}
+.about-menu ul li:hover {
+  margin-bottom: 23px;
+  padding-left: 14px;
+  font-size: 13px;
+  color: black;
+  cursor: pointer;
+  border-left: 4px solid #4267B2;
+}
+.activeAbout {
+  color: black;
+  font-weight: 600;
+}
+.overview-wrap {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: flex-start;
+}
+.overview-left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.add-workplace.align-middle,
+.add-school.align-middle,
+.add-place.align-middle,
+.add-relationship.align-middle,
+.add-currentCity.align-middle,
+.add-otherPlace.align-middle,
+.add-hometown.align-middle,
+.add-college.align-middle,
+.add-highSchool.align-middle,
+.add-address.align-middle,
+.add-website.align-middle,
+.add-socialLink.align-middle,
+.add-language.align-middle,
+.add-religion.align-middle,
+.add-politicalViews.align-middle,
+.add-relationship.align-middle,
+.add-aboutYou.align-middle,
+.add-quotes.align-middle,
+.add-otherName.align-middle,
+.add-professional.align-middle {
+  color: #3578e5;
+  cursor: pointer;
+}
+.plus-square {
+  padding: 7px 12px;
+  border: 1px dashed;
+  margin-right: 10px;
+}
+.overview-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 11px;
+  color: #5a5a5a;
+}
+.about-work-heading {
+  color: #a5a5a5;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: -0px;
+  /*    padding-bottom: 5px;*/
+}
+.about-border {
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  margin: 12px 0px;
+}
+.contact-mobile-number {
+  font-size: 13px;
+  color: black;
+}
+.contact-mobile-text,
+.contact-id-text {
+  font-size: 13px;
+  color: gray;
+}
+.contact-id-number {
+  font-size: 14px;
+  font-weight: 600;
+}
+input.about-class {
+  height: 26px;
+  width: 100%;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.about-submit {
+  background-color: #4267B2;
+  display: inline-block;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.about-success {
+color: #4267b2;
+font-size: 13px;
+}
+.setting {
+  cursor: pointer;
+}
+.wrap55 {
+  background-color: rgba(0, 0, 0, 0.97);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 999;
+  overflow-y: scroll;
+  display: block;
+}
+
+.request-countt {
+  font-size: 12px;
+  padding: 3px;
+  border: 1px solid gray;
+  margin-right: 10px;
+}
+
+.request-count-number {
+  padding: 2px;
+  color: white;
+  background-color: red;
+  margin-left: 3px;
+}
+
+.friend-follow-tab {
+  display: flex;
+  margin-left: 15px;
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.friend-tab {
+  color: #32518e;
+  font-weight: 600;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.follow-tab {
+  color: #32518e;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.friend-tab-open {
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.friends-box {
+  width: 350px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 2px gray;
+  border-radius: 2px;
+  margin-left: 15px;
+  height: 100px;
+}
+
+.friend-name {
+  margin-left: 5px;
+  color: #32518e;
+  font-size: 14px;
+}
+
+/*....................... About End ...................*/

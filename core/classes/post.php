@@ -1194,12 +1194,13 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
-    
+
     public function aboutOverview($aboutData, $userid, $profileid, $heading)
     {
         $userdata = $this->userdata($profileid);
         echo ($userid != $profileid) ? '<span class="about-success">' . $userdata->$aboutData . '</span><br>' : (($userdata->$aboutData == '') ? '<div class="add-' . $aboutData . ' align-middle" data-userid="' . $userid . '" data-profileid="' . $profileid . '" style="margin: 0 0 20px 0;"><div class="plus-square">+</div><div class="' . $aboutData . '" style="font-size:15px;">' . $heading . '</div></div> ' : '<div class="add-' . $aboutData . ' align-middle" data-userid="' . $userid . '" data-profileid="' . $profileid . '" style=" margin: 0 0 20px 0"> <span class="about-success">' . $userdata->$aboutData . '</span></div><br>');
     }
+    
     public function aboutOverviewAlt($aboutData, $userid, $profileid, $heading)
     {
         $userdata = $this->userdata($profileid);
