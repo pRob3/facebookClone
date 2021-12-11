@@ -31,7 +31,7 @@ $followCheck = $loadFromPost->followCheck($profileId, $userid);
 
 <head>
    <meta charset="UTF-8">
-   <title>Farhan Abir</title>
+   <title>Facebook Clone</title>
    <link rel="stylesheet" href="assets/css/style.css">
    <link rel="stylesheet" href="assets/dist/emojionearea.min.css">
 
