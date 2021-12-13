@@ -21,24 +21,27 @@ $userData = $loadFromUser->userData($userid);
 $requestCheck = $loadFromPost->requestCheck($userid, $profileId);
 $requestConf = $loadFromPost->requestConf($profileId, $userid);
 $followCheck = $loadFromPost->followCheck($profileId, $userid);
+$requestData = $loadFromPost->requestData($profileId);
+$friendsdata = $loadFromPost->friendsdata($profileId);
+$followersdata = $loadFromPost->followersdata($profileId);
+
+
 ?>
 
 
 <!DOCTYPE html>
-
 <html lang="en">
+
 
 <head>
    <meta charset="UTF-8">
-   <title>Facebook Clone</title>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Facebook Clone - Friends</title>
    <link rel="stylesheet" href="assets/css/style.css">
    <link rel="stylesheet" href="assets/dist/emojionearea.min.css">
-
-   <style>
-
-
-   </style>
 </head>
+
 
 <body>
 
@@ -321,8 +324,6 @@ $followCheck = $loadFromPost->followCheck($profileId, $userid);
                      ?>
                   </div>
                </div>
-
-
             </div>
             <?php
             include 'include/cover-button.php';
@@ -330,65 +331,189 @@ $followCheck = $loadFromPost->followCheck($profileId, $userid);
             <div class="bio-timeline">
                <div class="about-wrap">
                   <div class="about-header">
-                     <div class="about-icon"><img src="assets/image/profile/about.JPG" alt=""></div>
-                     <div class="about-text">About</div>
+                     <div class="about-icon"><img src="assets/image/profile/friends.JPG" alt=""></div>
+                     <div class="about-text">Friends</div>
                      <div class="hideAboutFieldRestore" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>" style="display:none;"></div>
                      <div class="hideAboutFieldRestoreHeading" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>" style="display:none;"></div>
+                     <?php
+                     if ($requestData->reqCount == '0') {
+                     } else {
+                        if ($userid != $profileId) {
+                        } else { ?>
+                           <div class="request-countt align-middle" style="margin-left:5px;">
+                              <div class="request-count-text">Friend Request</div>
+                              <div class="request-count-number">
+                              <?php echo $requestData->reqCount;
+                           } ?>
+                              </div>
+                           </div>
+                        <?php }
+                        ?>
                   </div>
-                  <div class="about-main">
-                     <div class="about-menu">
-                        <ul>
-                           <li class="overview" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>"><span class="activeAbout" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Overview</span></li>
-                           <li class="work-education" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>"><span data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Work and Education</span></li>
-                           <li class="places-lived" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>"><span data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Places You've Lived</span></li>
-                           <li class="contact-basic" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>"><span data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Contact and Basic Info</span></li>
-                           <li class="family-relation" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>"><span data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Family and Relationship</span></li>
-                           <li class="details-you" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>"><span data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Details About You</span></li>
-                           <li class="life-events" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>"><span data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Life Events</span></li>
-                        </ul>
-                     </div>
-                     <div class="about-menu-details">
-                        <div class="overview-wrap" style="flex-basis:70%; ">
-                           <div class="overview-left">
-                              <div class="about-work-heading">WORK</div>
-                              <div class="about-border"></div>
-                              <?php $loadFromPost->aboutOverview('workplace', $userid, $profileId, 'Add a workplace'); ?>
-
-                              <div class="about-work-heading">SCHOOL</div>
-                              <div class="about-border"></div>
-                              <?php $loadFromPost->aboutOverview('highSchool', $userid, $profileId, 'Add high school'); ?>
-                              <div class="about-work-heading">PLACE</div>
-                              <div class="about-border"></div>
-                              <?php $loadFromPost->aboutOverviewAlt('address', $userid, $profileId, 'Add your current place'); ?>
-                              <div class="about-work-heading">RELATIONSHIP</div>
-                              <div class="about-border"></div>
-                              <?php $loadFromPost->aboutOverview('relationship', $userid, $profileId, 'Add your relationship status'); ?>
-
-                           </div>
-                           <div class="overview-right" style="flex-basis:30%;">
-                              <a href="setting.php" class="overview-right">
-                                 <div class="overview-mobile align-middle" style="margin-bottom:10px;">
-                                    <div class="overview-mobile-icon align-middle"><img src="assets/image/profile/overview%20mobile.JPG" alt="" style="margin-right:5px;"></div>
-                                    <div class="overview-mobile-number"><?php echo $userData->mobile; ?></div>
-                                 </div>
-                                 <div class="overview-birthday align-middle">
-                                    <div class="overview-mobile-icon align-middle"><img src="assets/image/profile/overview%20birthday.JPG" alt="" style="margin-right:5px;"></div>
-                                    <div class="overview-mobile-number"><?php echo $userData->birthday; ?></div>
-                                 </div>
-                              </a>
-
-                           </div>
-
+                  <div class="friend-follow-tab" style="margin-left:0;background-color: white;padding-left: 15px;">
+                     <div class="friend-tab">
+                        <div class="friend-tab"> All Friends(
+                           <?php echo count($friendsdata); ?>)
                         </div>
+                     </div>
+                     <div class="follower-tab follow-tab"> Followers(
+                        <?php echo count($followersdata); ?>)
+                     </div>
+                  </div>
+                  <div class="about-main about-main-sib">
+                     <div class="friend-follower-wrap">
+                        <div class="freind-request-wrapp">
+                           <div class="about-main" style="flex-wrap:wrap;">
+                              <div class="friend-tab-open about-main" style="flex-wrap:wrap; margin-top:15px;">
+                                 <?php
+                                 if (empty($friendsdata)) {
+                                 } else {
+                                    foreach ($friendsdata as $friend) {
+                                       $requestCheck = $loadFromPost->requestCheck($userid, $friend->userId);
+                                       $requestConf = $loadFromPost->requestConf($friend->userId, $userid);
+                                    ?>
+                                       <div class="friends-box">
+                                          <a href="<?php echo BASE_URL . $friend->userLink; ?>">
+                                             <div class="friend-img-name align-middle">
+                                                <span class="friend-img">
+                                                   <img src="<?php echo $friend->profilePic; ?>" style="height:100px; width:100px;border:0.5px solid gray;" alt="">
+                                                </span>
+                                                <span class="friend-name"><?php echo '' . $friend->firstName . ' ' . $friend->lastName . ''; ?></span>
+                                             </div>
+                                          </a>
+                                          <div class="profile-action" style="margin-top:0;">
+
+                                             <?php
+
+                                             if (empty($requestCheck)) {
+                                                if (empty($requestConf)) {  ?>
+
+                                                   <div class="profile-add-friend" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                                      <img src="assets/image/friendRequestGray.JPG" alt="">
+                                                      <div class="edit-profile-button-text">Add Friend</div>
+                                                   </div>
+
+                                                <?php
+
+                                                } else if ($requestConf->reqStatus == '0') { ?>
+                                                   <div class="profile-friend-confirm" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                                      <div class="edit-profile-confirm-button" style="position:relative;">
+                                                         <div class="con-req accept-req align-middle" data-userid="<?php $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                                            <img src="assets/image/friendRequestGray.JPG" alt="">Confirm Request
+                                                         </div>
+                                                         <div class="request-cancel" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Cancel Request</div>
+                                                      </div>
+                                                   </div>
+
+
+                                                <?php
+                                                } else if ($requestConf->reqStatus == '1') { ?>
+                                                   <div class="profile-friend-confirm" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                                      <div class="edit-profile-confirm-button" style="position:relative;">
+                                                         <div class="con-req align-middle">
+                                                            <img src="assets/image/rightsignGray.JPG" alt="">Friend
+                                                         </div>
+                                                         <div class="request-unfriend" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Unfriend</div>
+                                                      </div>
+                                                   </div>
+
+                                                <?php
+
+                                                } else {
+                                                }
+                                             } else if ($requestCheck->reqStatus == '0') { ?>
+
+                                                <div class="profile-friend-sent" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                                   <img src="assets/image/friendRequestGray.JPG" alt="">
+                                                   <div class="edit-profile-button-text">Friend Request Sent</div>
+                                                </div>
+                                             <?php
+                                             } else if ($requestCheck->reqStatus == '1') { ?>
+                                                <div class="profile-friend-confirm" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                                   <div class="edit-profile-confirm-button" style="position:relative;">
+                                                      <div class="con-req align-middle">
+                                                         <img src="assets/image/rightsignGray.JPG" alt="">Friend
+                                                      </div>
+                                                      <div class="request-unfriend" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">
+                                                         Unfriend
+                                                      </div>
+                                                   </div>
+                                                </div>
+
+                                             <?php
+                                             } else {
+                                                echo 'Not found';
+                                             }
+
+
+
+
+                                             ?>
+
+                                          </div>
+                                       </div>
+
+                                    <?php
+                                    }
+                                 }
+                                 ?>
+                              </div>
+                              <div class="follower-tab-open about-main" style="flex-wrap:wrap; margin-top:15px; display:none;">
+                                 <?php
+                                 if (empty($followersdata)) {
+                                 } else {
+                                    foreach ($followersdata as $follower) {
+                                       $followCheck2 = $loadFromPost->followCheck($follower->userId, $userid);
+                                       //                                        $requestCheck =$loadFromPost->requestCheck($userid, $follower->userId);
+                                       //                                        $requestConf = $loadFromPost->requestConf($follower->userId, $userid);
+                                 ?>
+                                       <div class="friends-box">
+                                          <a href="<?php echo BASE_URL . $friend->userLink; ?>">
+                                             <div class="friend-img-name align-middle">
+                                                <span class="friend-img">
+                                                   <img src="<?php echo $friend->profilePic; ?>" style="height:100px; width:100px;border:0.5px solid gray;" alt="">
+                                                </span>
+                                                <span class="friend-name"><?php echo '' . $friend->firstName . ' ' . $friend->lastName . ''; ?></span>
+                                             </div>
+                                          </a>
+                                          <div class="profile-action" style="margin-top:0;">
+                                             <?php
+                                             if (empty($followCheck2)) { ?>
+
+                                                <div class="profile-follow-button" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>" style="border-right:1px solid gray;">
+                                                   <img src="assets/image/followGray.JPG" alt="">
+                                                   <div class="profile-activity-button-text">Follow</div>
+                                                </div>
+
+
+                                             <?php
+                                             } else { ?>
+                                                <div class="profile-unfollow-button" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>" style="border-right:1px solid gray;">
+                                                   <img src="assets/image/rightsignGray.JPG" alt="">
+                                                   <div class="profile-activity-button-text">Unfollow</div>
+                                                </div>
+
+                                             <?php
+                                             } ?>
+                                          </div>
+                                       </div>
+
+                                 <?php
+                                    }
+                                 }
+                                 ?>
+                              </div>
+                           </div>
+                        </div>
+
                      </div>
                   </div>
                </div>
             </div>
+            <div class="profile-right-wrap "></div>
          </div>
-         <div class="profile-right-wrap "></div>
-      </div>
-      <div class="top-box-show"></div>
-      <div id="adv_dem "></div>
+         <div class="top-box-show"></div>
+         <div id="adv_dem "></div>
 
    </main>
 
@@ -399,6 +524,17 @@ $followCheck = $loadFromPost->followCheck($profileId, $userid);
    <script src="assets/dist/emojionearea.min.js"></script>
    <script>
       $(function() {
+
+         $(document).on('click', '.friend-tab', function() {
+            $(this).parents('.friend-follow-tab').siblings('.about-main-sib').find('.friend-tab-open').show();
+            $(this).parents('.friend-follow-tab').siblings('.about-main-sib').find('.follower-tab-open').hide();
+         })
+         $(document).on('click', '.follower-tab', function() {
+            $(this).parents('.friend-follow-tab').siblings('.about-main-sib').find('.follower-tab-open').show();
+            $(this).parents('.friend-follow-tab').siblings('.about-main-sib').find('.friend-tab-open').hide();
+         })
+
+
          $('.profile-pic-upload').on('click', function() {
             $('.top-box-show').html('<div class="top-box align-vertical-middle profile-dialoge-show "> <div class="profile-pic-upload-action "> <div class="pro-pic-up "> <div class="file-upload "> <label for="profile-upload " class="file-upload-label "> <snap class="upload-plus-text align-middle "> <snap class="upload-plus-sign ">+</snap>Upload Photo</snap> </label> <input type="file " name="file-upload " id="profile-upload " class="file-upload-input "> </div> </div> <div class="pro-pic-choose "></div> </div> </div>')
          })

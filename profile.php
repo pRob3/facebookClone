@@ -9,16 +9,18 @@ if (login::isLoggedIn()) {
    header('location: sign.php');
 }
 
-if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
-
+if(isset($_GET['username']) == true && empty($_GET['username']) === false){
    $username = $loadFromUser->checkInput($_GET['username']);
    $profileId = $loadFromUser->userIdByUsername($username);
+}else{
+   $profileId = $userid;
+}
    $profileData = $loadFromUser->userData($profileId);
    $userData = $loadFromUser->userData($userid);
    $requestCheck = $loadFromPost->requestCheck($userid, $profileId);
    $requestConf = $loadFromPost->requestConf($profileId, $userid);
    $followCheck = $loadFromPost->followCheck($profileId, $userid);
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -309,12 +311,9 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
                </div>
             </div>
 
-            <div class="cover-bottom-part">
-               <div class="timeline-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Timeline</div>
-               <div class="about-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">About</div>
-               <div class="friends-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Friends</div>
-               <div class="photos-button align-middle cover-btn-css" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $profileId; ?>">Photos</div>
-            </div>
+            <?php
+            include 'include/cover-button.php';
+            ?>
 
             <div class="bio-timeline">
                <div class="bio-wrap">
@@ -954,7 +953,10 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
             $(this).parents('.nf-4').siblings('.nf-5').find('input.comment-input-style.comment-submit').focus();
          })
 
-         $('.comment-submit').keyup(function(e) {
+
+         $(document).on('keyup', '.comment-submit', function (e) {
+
+            console.log("submit comment");
             if (e.keyCode === 13) {
                var inputNull = $(this);
                var comment = $(this).val();
@@ -988,6 +990,7 @@ if (isset($_GET['username']) == true && empty($_GET['username']) == false) {
          commentHover();
 
          function commentHover() {
+            
             $('.com-like-react').hover(function() {
                var mainReact = $(this).find('.com-react-bundle-wrap');
                $(mainReact).html('<div class="react-bundle align-middle" style="position:absolute;margin-top: -45px; margin-left: -40px; display:flex; background-color:white;padding: 0 2px;border-radius: 25px; box-shadow: 0px 0px 5px black; height:45px; width:270px; justify-content:space-around; transition: 0.3s;z-index:2"><div class="com-like-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/like.png "; ?>" alt=""></div><div class="com-love-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/love.png "; ?>" alt=""></div><div class="com-haha-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/haha.png "; ?>" alt=""></div><div class="com-wow-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/wow.png "; ?>" alt=""></div><div class="com-sad-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/sad.png "; ?>" alt=""></div><div class="com-angry-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/angry.png "; ?>" alt=""></div></div>');

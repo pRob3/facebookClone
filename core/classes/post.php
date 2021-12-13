@@ -1328,6 +1328,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
     public function followersdata($profileid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM follow LEFT JOIN profile ON profile.userId = follow.sender LEFT JOIN users ON users.user_id = follow.sender WHERE follow.receiver = :profileid");
@@ -1335,6 +1336,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+    
     public function yourPhoto($profileId)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM `post` WHERE postImage != '' and postBy = :profileid");
