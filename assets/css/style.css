@@ -366,7 +366,6 @@ label.file-upload-label {
   padding-bottom: 40px;
 }
 
-
 .profile-action {
   display: flex;
   justify-content: center;
@@ -1503,7 +1502,6 @@ input#main-search {
 
 /*....... search END..........*/
 
-
 /*....................... About ...................*/
 .about-wrap {
   margin: 10px 0;
@@ -1539,7 +1537,6 @@ input#main-search {
   background-color: white;
   flex-basis: 30%;
   border-right: 1px solid lightgray;
-  ;
 }
 .about-menu-details {
   background-color: white;
@@ -1558,7 +1555,7 @@ input#main-search {
   font-size: 13px;
   color: black;
   cursor: pointer;
-  border-left: 4px solid #4267B2;
+  border-left: 4px solid #4267b2;
 }
 .activeAbout {
   color: black;
@@ -1645,7 +1642,7 @@ input.about-class {
   margin-bottom: 5px;
 }
 .about-submit {
-  background-color: #4267B2;
+  background-color: #4267b2;
   display: inline-block;
   color: white;
   font-size: 11px;
@@ -1655,8 +1652,8 @@ input.about-class {
   cursor: pointer;
 }
 .about-success {
-color: #4267b2;
-font-size: 13px;
+  color: #4267b2;
+  font-size: 13px;
 }
 .setting {
   cursor: pointer;
@@ -1731,3 +1728,186 @@ font-size: 13px;
 }
 
 /*....................... About End ...................*/
+
+/*..................message............*/
+
+.msg-user-name-wrap {
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  /*                align-items: center;*/
+}
+
+.msg-user-photo-name-wrap {
+  /*
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              padding: 0 115px 0 0;
+*/
+  cursor: pointer;
+}
+.msg-user-photo img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.msg-user-name-text {
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+.msg-user-name {
+  font-size: 13px;
+}
+
+.msg-user-text {
+  font-size: 13px;
+  color: gray;
+  display: flex;
+}
+
+.msg-date {
+  font-size: 12px;
+  color: gray;
+}
+.msg-previ {
+  max-width: 103px;
+  margin-right: 5px;
+  overflow: hidden;
+  height: 15px;
+}
+.msg-setting-img {
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.msg-box {
+}
+
+.msg-date-setting {
+  font-size: 13px;
+  display: flex;
+}
+
+.left-msg {
+  display: flex;
+  margin-top: 10px;
+}
+
+.receiver-text-time {
+  margin-left: 5px;
+  max-width: 80%;
+}
+
+.right-receiver-text-time {
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 80%;
+}
+
+.receiver-text {
+  font-size: 12px;
+  padding: 9px;
+  background-color: rgba(211, 211, 211, 0.44);
+  border-radius: 20px;
+  max-width: 80%;
+}
+
+.receiver-time {
+  font-size: 12px;
+  color: gray;
+}
+
+.right-msg {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.write-msg-input {
+  position: fixed;
+  bottom: 0;
+  min-width: 50%;
+  max-width: 49%;
+  margin-bottom: 5px;
+}
+
+.emojionearea .emojionearea-editor {
+  min-height: 40px;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #00bcd4;
+  border-radius: 10px;
+}
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #007786;
+}
+
+ul.msg-user-add > li:first-child {
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+.loader {
+  background: url(../../assets/image/ajax-loader.gif) no-repeat;
+  height: 300px;
+  width: 300px;
+  z-index: 999999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0.3;
+  /*                display: none;*/
+}
+
+.emojionearea {
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  background-color: ghostwhite;
+}
+
+.emojionearea.focused {
+  -webkit-box-shadow: none;
+  /*border: 0.5px solid lightgray;*/
+}
+
+.emojionearea .emojionearea-editor {
+  min-height: 40px;
+  border-radius: 20px;
+  font-size: 14px;
+  padding: 8px 0 0 10px;
+  background-color: #9e9e9e2b;
+  letter-spacing: 2px;
+  font-family: roboto, Halvetica;
+  /*border: 0.5px solid lightgray;*/
+}
+.emojionearea-editor {
+  background-color: white !important;
+}
+img.emojioneemoji {
+  height: 20px;
+  vertical-align: middle;
+}
+/*..................message end............*/

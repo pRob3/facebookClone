@@ -35,14 +35,12 @@ if (isset($_POST['msgUser'])) {
    $searchResult = $loadFromPost->searchMsgUser($msgUser, $userid);
    echo '<ul style="background-color:white; padding:5px; margin-top:0; box-shadow: 0 0 5px gray; border-radius:3px;" >';
    foreach ($searchResult as $search) {
-
       ?>
       <li class="mention-individuals align-middle" style="background-color:#4267b2; color:white; font-size:12px; padding:3px; margin-bottom:5px; cursor:pointer;" data-profileid="<?php echo $search->user_id; ?>">
          <img src="<?php echo BASE_URL . $search->profilePic; ?>" class="search-image" alt="" style="height:30px; width:20px;">
          <div class="mention-name" style="margin-left:3px;font-size:13px;"><?php echo '' . $search->first_name . ' ' . $search->last_name . ''; ?></div>
       </li>
-
-<?php
+   <?php
    }
    echo '</ul>';
 }

@@ -1211,6 +1211,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
     public function lastPersonWithAllUserMSG($userid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON (SELECT IF(messages.messageFrom = :userid, messages.messageTo, messages.messageFrom)) = profile.userId LEFT JOIN users ON profile.userId = users.user_id WHERE (messages.messageTo = :userid OR messages.messageFrom = :userid) AND messages.messageID IN (SELECT MAX(messages.messageID) FROM messages GROUP BY messages.messageTo, messages.messageFrom ORDER BY messages.messageID DESC) GROUP BY profile.id ORDER BY messages.messageOn DESC;");
+
         $stmt->bindParam(":userid", $userid, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -1220,31 +1221,41 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
     public function lastPersonMsg($userid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM profile LEFT JOIN messages ON profile.userId = (SELECT IF(messages.messageTo =:userid, messages.messageFrom, messages.messageTo)) WHERE (messages.messageFrom = :userid OR messages.messageTo = :userid) ORDER BY messages.messageOn DESC LIMIT 0, 1");
+
         $stmt->bindParam(":userid", $userid, PDO::PARAM_INT);
         $stmt->execute();
+        
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
     public function messageData($userid, $lastpersonid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON profile.userId = messages.messageFrom WHERE (messageTo = :userid and messageFrom=:otherid) OR (messageTo = :otherid and messageFrom=:userid) ORDER BY messageOn ASC");
+        
         $stmt->bindParam(":userid", $userid, PDO::PARAM_INT);
         $stmt->bindParam(":otherid", $lastpersonid, PDO::PARAM_INT);
         $stmt->execute();
+        
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
     public function searchMsgUser($msgUser, $userid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users LEFT JOIN profile ON users.user_id = profile.userId WHERE users.user_id != ? AND users.userLink LIKE ? ");
+
         $stmt->bindValue(1, $userid, PDO::PARAM_INT);
         $stmt->bindValue(2,  $msgUser . '%', PDO::PARAM_STR);
         $stmt->execute();
+        
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
     public function notification($userid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM notification LEFT JOIN profile ON notification.notificationFrom = profile.userId LEFT JOIN users ON profile.userId = users.user_id WHERE notification.notificationFor = :userid ORDER BY notification.notificationOn DESC; ");
         $stmt->bindValue(':userid', $userid, PDO::PARAM_INT);
         $stmt->execute();
+        
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
