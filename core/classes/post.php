@@ -1309,7 +1309,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-    
+
     public function notificationCountReset($userid)
     {
         $stmt = $this->pdo->prepare("UPDATE notification SET notificationCount = '1' WHERE notificationFor = :userid AND notificationCount = '0' ");
@@ -1335,6 +1335,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
     public function confirmRequestUpdate($profileid, $userid)
     {
         $stmt = $this->pdo->prepare("UPDATE notification SET friendStatus = '1', notificationCount = '0' WHERE notificationFrom = :profileid AND notificationFor = :userid   ");
@@ -1343,13 +1344,20 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
     public function postDetails($postid)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM users LEFT JOIN profile ON users.user_id = profile.userId LEFT JOIN post ON post.userId = users.user_id WHERE post.post_id = :postid  ");
+        $stmt = $this->pdo->prepare("SELECT * FROM users 
+                                        LEFT JOIN profile ON users.user_id = profile.userId 
+                                        LEFT JOIN post ON post.userId = users.user_id 
+                                        WHERE post.post_id = :postid"
+                                    );
+
         $stmt->bindValue(':postid', $postid, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
     public function requestData($profileId)
     {
         $stmt = $this->pdo->prepare(" SELECT count(*) as reqCount FROM request WHERE reqStatus = 0 AND reqtReceiver = :profileid  ");
