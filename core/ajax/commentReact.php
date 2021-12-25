@@ -17,6 +17,11 @@ if (isset($_POST['commentid'])) {
    $loadFromUser->create('react', array('reactBy' => $userid, 'reactOn' => $postid, 'reactCommentOn' => $commentid, 'reactType' => $reactType, 'reactTimeOn' => date('Y-m-d H:i:s')));
 
 
+   if ($profileid != $userid) {
+
+      $loadFromUser->create('notification', array('notificationFrom' => $userid, 'notificationFor' => $profileid, 'postid' => $postid, 'type' => 'commentReact', 'status' => '0', 'notificationCount' => '0', 'notificationOn' => date('Y-m-d H:i:s')));
+   }
+
    $com_react_max_show = $loadFromPost->com_react_max_show($postid, $commentid);
    $com_main_react_count = $loadFromPost->com_main_react_count($postid, $commentid);
 
@@ -53,7 +58,7 @@ if (isset($_POST['deleteReactType'])) {
    $loadFromUser->delete('react', array('reactBy' => $userid, 'reactOn' => $postid, 'reactCommentOn' => $delCommentid));
    $com_react_max_show = $loadFromPost->com_react_max_show($postid, $delCommentid);
    $com_main_react_count = $loadFromPost->com_main_react_count($postid, $delCommentid);
-   
+
    if (!empty($com_react_max_show)) {
    ?>
       <div class="com-nf-3 align-middle">

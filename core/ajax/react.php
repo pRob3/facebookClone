@@ -14,9 +14,9 @@ if (isset($_POST['reactType'])) {
 
    $loadFromUser->create('react', array('reactBy' => $userid, 'reactOn' => $postid, 'reactType' => $reactType, 'reactTimeOn' => date('Y-m-d H:i:s')));
 
-   //  if($profileid != $userid){
-   //    $loadFromUser->create('notification',array('notificationFrom'=>$userid, 'notificationFor' => $profileid, 'postid' => $postid, 'type'=>'postReact', 'status'=> '0', 'notificationCount'=>'0', 'notificationOn'=>date('Y-m-d H:i:s')));
-   //  }
+    if($profileid != $userid){
+      $loadFromUser->create('notification',array('notificationFrom'=>$userid, 'notificationFor' => $profileid, 'postid' => $postid, 'type'=>'postReact', 'status'=> '0', 'notificationCount'=>'0', 'notificationOn'=>date('Y-m-d H:i:s')));
+    }
 
 
    $react_max_show = $loadFromPost->react_max_show($postid);

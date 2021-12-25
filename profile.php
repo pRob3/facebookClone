@@ -9,19 +9,22 @@ if (login::isLoggedIn()) {
    header('location: sign.php');
 }
 
-if(isset($_GET['username']) == true && empty($_GET['username']) === false){
+if (isset($_GET['username']) == true && empty($_GET['username']) === false) {
    $username = $loadFromUser->checkInput($_GET['username']);
    $profileId = $loadFromUser->userIdByUsername($username);
-}else{
+} else {
    $profileId = $userid;
 }
-   $profileData = $loadFromUser->userData($profileId);
-   $userData = $loadFromUser->userData($userid);
-   $requestCheck = $loadFromPost->requestCheck($userid, $profileId);
-   $requestConf = $loadFromPost->requestConf($profileId, $userid);
-   $followCheck = $loadFromPost->followCheck($profileId, $userid);
+$profileData = $loadFromUser->userData($profileId);
+$userData = $loadFromUser->userData($userid);
+$requestCheck = $loadFromPost->requestCheck($userid, $profileId);
+$requestConf = $loadFromPost->requestConf($profileId, $userid);
+$followCheck = $loadFromPost->followCheck($profileId, $userid);
 
-
+$notification = $loadFromPost->notification($userid);
+$notificationCount = $loadFromPost->notificationCount($userid);
+$requestNotificationCount = $loadFromPost->requestNotificationCount($userid);
+$messageNotification = $loadFromPost->messageNotificationCount($userid);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +33,7 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>User Profile</title>
+   <title><?php echo ''. $profileData->firstName .' '. $profileData->lastName .''; ?></title>
    <link rel="stylesheet" href="assets/css/style.css">
    <link rel="stylesheet" href="assets/dist/emojionearea.min.css">
 </head>
@@ -41,8 +44,8 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
       <div class="top-bar">
          <div class="top-left-part">
             <div class="profile-logo"><img src="assets/image/logo.jpg" alt=""></div>
-            <div class="search-wrap">
-               <div class="search-input">
+            <div class="search-wrap" style="display: inline;z-index:1;">
+               <div class="search-input" style="display:flex;justify-content:center;align-items:center;width:100%;">
                   <input type="text" name="main-search" id="main-search">
                   <div class="s-icon top-icon top-css">
                      <img src="assets/image/icons8-search-36.png" alt="">
@@ -57,19 +60,25 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
          </div>
          <div class="top-right-part">
             <div class="top-pic-name-wrap">
-               <a href="profile.php?username=<?php echo $userData->userLink; ?>" class="top-pic-name">
-                  <div class="top-pic"><img src="<?php echo $userData->profilePic; ?>" alt="profile"></div>
-                  <span class="top-name top-css border-left">
+               <a href="<?php echo $userData->userLink; ?>" class="top-pic-name ">
+                  <div class="top-pic"><img src="<?php echo $userData->profilePic; ?>" alt=""></div>
+                  <span class="top-name top-css border-left ">
                      <?php echo $userData->firstName; ?>
                   </span>
                </a>
+
             </div>
             <a href="index.php">
                <span class="top-home top-css border-left">Home</span>
             </a>
-            <div class="top-request top-css top-icon border-left">
-               <div class="request-count"></div>
-               <svg xmlns="http://www.w3.org/2000/svg" class="request-svg" viewBox="0 0 15.8 13.63" style="height:20px;width:20px;">
+            <div class="request-top-notification top-css top-icon border-left " style="position:relative;">
+               <?php if (empty(count($requestNotificationCount))) {
+                  echo '<div class="request-count"></div>';
+               } else {
+                  echo '<div class="request-count">' . count($requestNotificationCount) . '</div>';
+               } ?>
+
+               <svg xmlns="http://www.w3.org/2000/svg" class="request-svg" viewBox="0 0 15.8 13.63" style="height:20px; width:20px;">
                   <defs>
                      <style>
                         .cls-1 {
@@ -80,18 +89,65 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
                   <title>request</title>
                   <g id="Layer_2" data-name="Layer 2">
                      <g id="Layer_1-2" data-name="Layer 1">
-                        <path class="cls-1" d="M13.2,7.77a7.64,7.64,0,0,0-1.94-.45,7.64,7.64,0,0,0-1.93.45,3.78,3.78,0,0,0-2.6,3.55.7.7,0,0,0,.45.71,12.65,12.65,0,0,0,4.08.59A12.7,12.7,0,0,0,15.35,12a.71.71,0,0,0,.45-.71A3.79,3.79,0,0,0,13.2,7.77Z" />
-                        <ellipse class="cls-1" cx="11.34" cy="4.03" rx="2.48" ry="2.9" />
-                        <path class="cls-1" d="M7.68,7.88a9,9,0,0,0-2.3-.54,8.81,8.81,0,0,0-2.29.54A4.5,4.5,0,0,0,0,12.09a.87.87,0,0,0,.53.85,15.28,15.28,0,0,0,4.85.68,15.25,15.25,0,0,0,4.85-.68.87.87,0,0,0,.53-.85A4.49,4.49,0,0,0,7.68,7.88Z" />
-                        <ellipse class="cls-1" cx="5.47" cy="3.44" rx="2.94" ry="3.44" />
+                        <path class="cls-1 <?php if (empty(count($requestNotificationCount))) {
+                                             } else {
+                                                echo 'active-noti';
+                                             } ?>" d="M13.2,7.77a7.64,7.64,0,0,0-1.94-.45,7.64,7.64,0,0,0-1.93.45,3.78,3.78,0,0,0-2.6,3.55.7.7,0,0,0,.45.71,12.65,12.65,0,0,0,4.08.59A12.7,12.7,0,0,0,15.35,12a.71.71,0,0,0,.45-.71A3.79,3.79,0,0,0,13.2,7.77Z" />
+                        <ellipse class="cls-1 <?php if (empty(count($requestNotificationCount))) {
+                                                } else {
+                                                   echo 'active-noti';
+                                                } ?>" cx="11.34" cy="4.03" rx="2.48" ry="2.9" />
+                        <path class="cls-1 <?php if (empty(count($requestNotificationCount))) {
+                                             } else {
+                                                echo 'active-noti';
+                                             } ?>" d="M7.68,7.88a9,9,0,0,0-2.3-.54,8.81,8.81,0,0,0-2.29.54A4.5,4.5,0,0,0,0,12.09a.87.87,0,0,0,.53.85,15.28,15.28,0,0,0,4.85.68,15.25,15.25,0,0,0,4.85-.68.87.87,0,0,0,.53-.85A4.49,4.49,0,0,0,7.68,7.88Z" />
+                        <ellipse class="cls-1 <?php if (empty(count($requestNotificationCount))) {
+                                                } else {
+                                                   echo 'active-noti';
+                                                } ?>" cx="5.47" cy="3.44" rx="2.94" ry="3.44" />
                      </g>
                   </g>
                </svg>
+               <div class="request-notification-list-wrap">
+
+                  <ul style="margin:0; padding:0;" class="notify-ul">
+                     <?php if (empty($requestNotificationCount)) {
+                     } else {
+                        foreach ($requestNotificationCount as $notify) { ?>
+
+                           <li class="item-notification-wrap <?php echo ($notify->status == '0') ? 'unread-notification' : 'read-notification' ?>" data-postid="<?php echo $notify->postid; ?>" data-notificationid="<?php echo $notify->ID; ?>" data-profileid="<?php echo $notify->userId; ?>">
+                              <?php if ($notify->type == 'request') { ?>
+                                 <a href="<?php echo $notify->userLink; ?>" target="_blank" class="item-notification">
+
+                                 <?php } else if ($notify->type == 'message') {
+                              } else { ?>
+                                    <a href="post.php?username=<?php echo $notify->userLink; ?>&postid=<?php echo $notify->postid; ?>&profileid=<?php echo $notify->userId; ?>" target="_blank" class="item-notification">
+                                    <?php } ?>
+                                    <img src="<?php echo $notify->profilePic; ?>" style="height:40px; width:40px; border-radius:50%;" alt="">
+                                    <div class="notification-type-details">
+                                       <span style="font-weight:600; font-size:14px; color:#CDDC39;margin-left:5px;">
+                                          <?php echo '' . $notify->firstName . ' ' . $notify->lastName . ''; ?></span>
+                                       <?php echo ($notify->type == 'comment') ? 'commented on your <span>post</span>' : (($notify->type == 'postReact') ? 'reacted on your <span>post</span>' : (($notify->type == 'request' && $notify->friendStatus == '1' && $notify->notificationFrom == $userid) ? 'accepted your friend request' : (($notify->type == 'request'  && $notify->notificationFor == $userid && $notify->notificationCount == '0') ? 'Sent you a friend request' : 'reacted on your <span>comment</span>'))); ?>
+
+                                    </div>
+                                    </a>
+                           </li>
+
+                     <?php  }
+                     }  ?>
+                  </ul>
+               </div>
+
             </div>
-            <a href="messenger.php">
-               <div class="top-messenger top-css top-icon border-left">
-                  <div class="message-count"></div>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.64 13.64" class="message-svg" style="height:20px;width:20px;">
+            <a href="messenger.php" class="message-top-notification">
+
+               <div class="top-messenger top-css top-icon border-left " style="position:relative;">
+                  <?php if (empty(count($messageNotification))) {
+                     echo '<div class="message-count"></div>';
+                  } else {
+                     echo '<div class="message-count">' . count($messageNotification) . '</div>';
+                  } ?>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="message-svg" style="height:20px; width:20px;" viewBox="0 0 12.64 13.64">
                      <defs>
                         <style>
                            .cls-1 {
@@ -102,14 +158,23 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
                      <title>message</title>
                      <g id="Layer_2" data-name="Layer 2">
                         <g id="Layer_1-2" data-name="Layer 1">
-                           <path class="cls-1" d="M6.32,0A6.32,6.32,0,0,0,1.94,10.87c.34.33-.32,2.51.09,2.75s1.79-1.48,2.21-1.33a6.22,6.22,0,0,0,2.08.35A6.32,6.32,0,0,0,6.32,0Zm.21,8.08L5.72,6.74l-2.43,1,2.4-3,.84,1.53,2.82-.71Z" />
+                           <path class="cls-1 <?php if (empty(count($messageNotification))) {
+                                                } else {
+                                                   echo 'msg-active-noti';
+                                                } ?>" d="M6.32,0A6.32,6.32,0,0,0,1.94,10.87c.34.33-.32,2.51.09,2.75s1.79-1.48,2.21-1.33a6.22,6.22,0,0,0,2.08.35A6.32,6.32,0,0,0,6.32,0Zm.21,8.08L5.72,6.74l-2.43,1,2.4-3,.84,1.53,2.82-.71Z" />
                         </g>
                      </g>
                   </svg>
                </div>
             </a>
-            <div class="top-notification top-css top-icon border-left">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.06 13.92" class="notification-svg" style="height:20px;width:20px;">
+            <div class="top-notification top-css top-icon border-left " style="position: relative;">
+               <?php if (empty(count($notificationCount))) {
+                  echo '<div class="notification-count"></div>';
+               } else {
+                  echo '<div class="notification-count">' . count($notificationCount) . '</div>';
+               } ?>
+
+               <svg xmlns="http://www.w3.org/2000/svg" class="notification-svg" style="height:20px; width:20px;" viewBox="0 0 12.06 13.92">
                   <defs>
                      <style>
                         .cls-1 {
@@ -126,20 +191,75 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
                   <title>notification</title>
                   <g id="Layer_2" data-name="Layer 2">
                      <g id="Layer_1-2" data-name="Layer 1">
-                        <path class="cls-1" d="M11.32,9A10.07,10.07,0,0,0,7.65,2.1,2.42,2.42,0,0,0,4.8,2,9.66,9.66,0,0,0,.74,9a2,2,0,0,0-.25,2.81H11.57A2,2,0,0,0,11.32,9Z" />
-                        <path class="cls-1" d="M8.07,12.32a1.86,1.86,0,0,1-2,1.6,1.86,1.86,0,0,1-2-1.6" />
-                        <ellipse class="cls-2" cx="6.17" cy="1.82" rx="1.21" ry="1.32" />
+                        <path class="cls-1  <?php if (empty(count($notificationCount))) {
+                                             } else {
+                                                echo 'active-noti';
+                                             } ?>" d="M11.32,9A10.07,10.07,0,0,0,7.65,2.1,2.42,2.42,0,0,0,4.8,2,9.66,9.66,0,0,0,.74,9a2,2,0,0,0-.25,2.81H11.57A2,2,0,0,0,11.32,9Z" />
+                        <path class="cls-1 <?php if (empty(count($notificationCount))) {
+                                             } else {
+                                                echo 'active-noti';
+                                             } ?>" d="M8.07,12.32a1.86,1.86,0,0,1-2,1.6,1.86,1.86,0,0,1-2-1.6" />
+                        <ellipse class="cls-2 <?php if (empty(count($notificationCount))) {
+                                                } else {
+                                                   echo 'active-noti2';
+                                                } ?>" cx="6.17" cy="1.82" rx="1.21" ry="1.32" />
                      </g>
                   </g>
                </svg>
                <div class="notification-list-wrap">
-                  <ul>
+                  <ul style="margin:0; padding:0;" class="notify-ul">
+                     <?php if (empty($notification)) {
+                     } else {
+                        foreach ($notification as $notify) {
 
+                           if ($notify->type == 'request' || $notify->type == 'message') {
+                           } else if ($notify->type == 'mention') {  ?>
+                              <li class="item-notification-wrap <?php echo ($notify->status == '0') ? 'unread-notification' : 'read-notification' ?>" data-postid="<?php echo $notify->postid; ?>" data-notificationid="<?php echo $notify->ID; ?>" data-profileid="<?php echo $notify->userId; ?>">
+                                 <?php if ($notify->type == 'request') { ?>
+                                    <a href="<?php echo $notify->userLink; ?>" target="_blank" class="item-notification">
+
+                                    <?php } else if ($notify->type == 'message') {
+                                 } else { ?>
+                                       <a href="post.php?username=<?php echo $notify->userLink; ?>&postid=<?php echo $notify->postid; ?>&profileid=<?php echo $notify->userId; ?>" target="_blank" class="item-notification">
+                                       <?php } ?>
+                                       <img src="<?php echo $notify->profilePic; ?>" style="height:40px; width:40px; border-radius:50%;" alt="">
+                                       <div class="notification-type-details">
+                                          <span style="font-weight:600; font-size:14px; color:#CDDC39;margin-left:5px;">
+                                             <?php echo '' . $notify->firstName . ' ' . $notify->lastName . ''; ?></span>
+                                             <?php echo 'mentioned you in a <span>post</span>'; ?>
+                                       </div>
+                                       </a>
+                              </li>
+
+
+                           <?php } else { ?>
+
+                              <li class="item-notification-wrap <?php echo ($notify->status == '0') ? 'unread-notification' : 'read-notification' ?>" data-postid="<?php echo $notify->postid; ?>" data-notificationid="<?php echo $notify->ID; ?>" data-profileid="<?php echo $notify->userId; ?>">
+                                 <?php if ($notify->type == 'request') { ?>
+                                    <a href="<?php echo $notify->userLink; ?>" target="_blank" class="item-notification">
+
+                                    <?php } else if ($notify->type == 'message') {
+                                 } else { ?>
+                                       <a href="post.php?username=<?php echo $notify->userLink; ?>&postid=<?php echo $notify->postid; ?>&profileid=<?php echo $notify->userId; ?>" target="_blank" class="item-notification">
+                                       <?php } ?>
+                                       <img src="<?php echo $notify->profilePic; ?>" style="height:40px; width:40px; border-radius:50%;" alt="">
+                                       <div class="notification-type-details">
+                                          <span style="font-weight:600; font-size:14px; color:#CDDC39;margin-left:5px;">
+                                             <?php echo '' . $notify->firstName . ' ' . $notify->lastName . ''; ?></span>
+                                          <?php echo ($notify->type == 'comment') ? 'commented on your <span>post</span>' : (($notify->type == 'postReact') ? 'reacted on your <span>post</span>' : (($notify->type == 'request' && $notify->friendStatus == '1' && $notify->notificationFrom == $userid) ? 'Friend request accepted' : (($notify->type == 'request'  && $notify->notificationFor == $userid && $notify->notificationCount == '0') ? 'Sent you a friend request' : 'reacted on your <span>comment</span>'))); ?>
+
+                                       </div>
+                                       </a>
+                              </li>
+
+                     <?php }
+                        }
+                     }  ?>
                   </ul>
                </div>
             </div>
-            <div class="top-help top-css top-icon border-left">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.69 13.69" class="help-svg" style="height:20px;width:20px;">
+            <div class="top-help top-css top-icon border-left ">
+               <svg xmlns="http://www.w3.org/2000/svg" class="help-svg" style="height:20px; width:20px;" viewBox="0 0 13.69 13.69">
                   <defs>
                      <style>
                         .cls-1 {
@@ -155,9 +275,9 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
                   </g>
                </svg>
             </div>
-            <div class="top-more top-css top-icon border-left">
-               <div class="watch-more-wrap">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.54 6.57" class="more-svg" style="height:20px;width:20px;">
+            <div class="top-more top-css top-icon border-left ">
+               <div class="watchmore-wrap">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="more-svg" style="height:20px; width:20px;" viewBox="0 0 14.54 6.57">
                      <defs>
                         <style>
                            .cls-1 {
@@ -173,8 +293,18 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
                      </g>
                   </svg>
                </div>
-               <div class="setting-logout-wrap">
+               <div class="setting-logout-wrap" style="position:relative;margin-top: 41px;display:none;">
+                  <div class="s-1-wrap" style="position:absolute;background-color:white;color:gray;padding: 10px 10px; box-shadow: 0 0 5px gray; border-radius: 2px;    margin-left: -60px;">
+                     <div class="setting-option align-middle" style="padding:10px;">
+                        <img src="assets/image/settings.png" alt="" style="border-radius:50%; margin-right:5px;">
+                        <div>Settings</div>
+                     </div>
+                     <div class="logout-option align-middle" style="padding:10px;">
+                        <img src="assets/image/logout.png" alt="" style="border-radius:50%;margin-right:5px;">
+                        <div>Logout</div>
+                     </div>
 
+                  </div>
                </div>
             </div>
          </div>
@@ -459,6 +589,79 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
          var BASE_URL = 'http://localhost/facebookclone/';
          var u_id = $('.u_p_id').data('uid');
          var p_id = $('.u_p_id').data('pid');
+
+
+         function notificationUpdate(userid){
+            $.post(BASE_URL +'core/ajax/notify.php', {
+               notificationUpdate: userid
+            }, function(data){
+               if(data.trim() === '0'){
+                  $('.notification-count').empty();
+                  $('.notification-count').css({"background-color":"transparent"});
+               }else{
+                  $('.notification-count').html(data);
+                  $('.notification-count').css({"background-color":"red"});
+               }
+            })
+         }
+
+         function requestNotificationUpdate(userid){
+            $.post(BASE_URL +'core/ajax/notify.php', {
+               requestNotificationUpdate: userid
+            }, function(data){
+               if(data.trim() === '0'){
+                  $('.request-count').empty();
+                  $('.request-count').css({"background-color":"transparent"});
+               }else{
+                  $('.request-count').html(data);
+                  $('.request-count').css({"background-color":"red"});
+               }
+            })
+         }
+
+         $(document).on('click', '.top-notification', function(){
+            $('.notification-list-wrap').toggle();
+
+            $.post(BASE_URL +'core/ajax/notify.php', {
+               notify:u_id
+            }, function(data){
+            });
+         })
+         $(document).on('click', '.request-top-notification', function(){
+            $('.request-notification-list-wrap').toggle();
+
+            $.post(BASE_URL +'core/ajax/notify.php', {
+               notify:u_id
+            }, function(data){
+            });
+         })
+
+         var notificationInterval;
+         notificationInterval = setInterval(function(){
+            notificationUpdate(u_id);
+         }, 1000);
+
+
+         var requestNotificationInterval;
+         requestNotificationInterval = setInterval(function(){
+            requestNotificationUpdate(u_id);
+         }, 1000);
+
+
+         $(document).on('click', '.unread-notification', function(){
+            $(this).removeClass('unread-notification').addClass('read-notification');
+            var postid = $(this).data('postid');
+            var notificationid = $(this).data('notificationid');
+            var profileid = $(this).data('profileid');
+            $.post(BASE_URL+'core/ajax/notify.php', {
+               statusUpdate: u_id,
+               profileid: profileid,
+               postid: postid,
+               notificationId: notificationid
+            }, function(data){
+
+            })
+         });
 
          $('.profile-pic-upload').on('click', function() {
             $('.top-box-show').html('<div class="top-box align-vertical-middle profile-dialoge-show"> <div class="profile-pic-upload-action"> <div class="pro-pic-up"> <div class="file-upload"> <label for="profile-upload" class="file-upload-label"> <snap class="upload-plus-text align-middle"> <snap class="upload-plus-sign">+</snap>Upload Photo</snap> </label> <input type="file" name="file-upload" id="profile-upload" class="file-upload-input"> </div> </div> <div class="pro-pic-choose"></div> </div> </div>');
@@ -954,7 +1157,7 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
          })
 
 
-         $(document).on('keyup', '.comment-submit', function (e) {
+         $(document).on('keyup', '.comment-submit', function(e) {
 
             console.log("submit comment");
             if (e.keyCode === 13) {
@@ -990,7 +1193,7 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
          commentHover();
 
          function commentHover() {
-            
+
             $('.com-like-react').hover(function() {
                var mainReact = $(this).find('.com-react-bundle-wrap');
                $(mainReact).html('<div class="react-bundle align-middle" style="position:absolute;margin-top: -45px; margin-left: -40px; display:flex; background-color:white;padding: 0 2px;border-radius: 25px; box-shadow: 0px 0px 5px black; height:45px; width:270px; justify-content:space-around; transition: 0.3s;z-index:2"><div class="com-like-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/like.png "; ?>" alt=""></div><div class="com-love-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/love.png "; ?>" alt=""></div><div class="com-haha-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/haha.png "; ?>" alt=""></div><div class="com-wow-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/wow.png "; ?>" alt=""></div><div class="com-sad-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/sad.png "; ?>" alt=""></div><div class="com-angry-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/angry.png "; ?>" alt=""></div></div>');
@@ -1567,9 +1770,9 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
             }, function(data) {})
 
             $.post(BASE_URL + 'core/ajax/request.php', {
-                    follow: profileid,
-                    userid: userid
-                }, function(data) {})
+               follow: profileid,
+               userid: userid
+            }, function(data) {})
 
          })
 
@@ -1600,9 +1803,9 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
             }, function(data) {})
 
             $.post(BASE_URL + 'core/ajax/request.php', {
-                    unfollow: profileid,
-                    userid: userid
-                }, function(data) {})
+               unfollow: profileid,
+               userid: userid
+            }, function(data) {})
 
          })
 
@@ -1647,7 +1850,7 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
             var userid = $(this).data('userid');
             var profileid = $(this).data('profileid');
 
-            $.post(BASE_URL +'core/ajax/request.php', {
+            $.post(BASE_URL + 'core/ajax/request.php', {
                follow: profileid,
                userid: userid
             }, function(data) {})
@@ -1657,7 +1860,7 @@ if(isset($_GET['username']) == true && empty($_GET['username']) === false){
             var userid = $(this).data('userid');
             var profileid = $(this).data('profileid');
 
-            $.post(BASE_URL +'core/ajax/request.php', {
+            $.post(BASE_URL + 'core/ajax/request.php', {
                unfollow: profileid,
                userid: userid
             }, function(data) {})

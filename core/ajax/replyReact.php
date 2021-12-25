@@ -17,6 +17,9 @@ if (isset($_POST['commentid'])) {
 
    $loadFromUser->create('react', array('reactBy' => $userid, 'reactOn' => $postid, 'reactCommentOn' => $commentid, 'reactReplyOn' => $commentparentid, 'reactType' => $reactType, 'reactTimeOn' => date('Y-m-d H:i:s')));
 
+   if ($profileid != $userid) {
+      $loadFromUser->create('notification', array('notificationFrom' => $userid, 'notificationFor' => $profileid, 'postid' => $postid, 'type' => 'commentReact', 'status' => '0', 'notificationCount' => '0', 'notificationOn' => date('Y-m-d H:i:s')));
+   }
 
    $reply_react_count = $loadFromPost->reply_main_react_count($postid, $commentid, $commentparentid);
    $reply_react_max_show = $loadFromPost->reply_react_max_show($postid, $commentid, $commentparentid);

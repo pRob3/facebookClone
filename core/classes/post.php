@@ -1252,7 +1252,13 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
 
     public function notification($userid)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM notification LEFT JOIN profile ON notification.notificationFrom = profile.userId LEFT JOIN users ON profile.userId = users.user_id WHERE notification.notificationFor = :userid ORDER BY notification.notificationOn DESC; ");
+        $stmt = $this->pdo->prepare("SELECT * FROM notification 
+                                        LEFT JOIN profile ON notification.notificationFrom = profile.userId 
+                                        LEFT JOIN users ON profile.userId = users.user_id 
+                                        WHERE 
+                                        notification.notificationFor = :userid 
+                                        ORDER BY notification.notificationOn DESC; ");
+
         $stmt->bindValue(':userid', $userid, PDO::PARAM_INT);
         $stmt->execute();
         
@@ -1261,14 +1267,36 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
 
     public function notificationCount($userid)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM notification LEFT JOIN profile ON notification.notificationFrom = profile.userId LEFT JOIN users ON profile.userId = users.user_id WHERE notification.notificationFor = :userid AND notification.notificationCount = '0' AND notification.type != 'request' AND notification.type != 'message' ORDER BY notification.notificationOn DESC; ");
+        $stmt = $this->pdo->prepare("SELECT * FROM notification 
+                                        LEFT JOIN profile ON notification.notificationFrom = profile.userId 
+                                        LEFT JOIN users ON profile.userId = users.user_id 
+                                        WHERE 
+                                        notification.notificationFor = :userid AND 
+                                        notification.notificationCount = '0' AND 
+                                        notification.type != 'request' AND 
+                                        notification.type != 'message' 
+                                        ORDER BY notification.notificationOn DESC; ");
+
         $stmt->bindValue(':userid', $userid, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     public function requestNotificationCount($userid)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM notification LEFT JOIN profile ON (SELECT IF(notification.notificationFrom = :userid, notification.notificationFor, notification.notificationFrom)) = profile.userId LEFT JOIN users ON profile.userId = users.user_id WHERE (notification.notificationFrom =:userid AND notification.type = 'request' AND notification.notificationCount = '0' AND notification.friendStatus ='1') OR ( notification.type = 'request' AND notification.notificationCount = '0' AND notification.notificationFor = :userid)  ORDER BY notification.notificationOn DESC;");
+        $stmt = $this->pdo->prepare("SELECT * FROM notification 
+                                        LEFT JOIN profile ON (SELECT IF(notification.notificationFrom = :userid, notification.notificationFor, notification.notificationFrom)) = profile.userId 
+                                        LEFT JOIN users ON profile.userId = users.user_id 
+                                        WHERE 
+                                        (notification.notificationFrom =:userid AND 
+                                        notification.type = 'request' AND 
+                                        notification.notificationCount = '0' AND 
+                                        notification.friendStatus ='1') 
+                                        OR 
+                                        ( notification.type = 'request' AND 
+                                        notification.notificationCount = '0' AND 
+                                        notification.notificationFor = :userid) 
+                                        ORDER BY notification.notificationOn DESC;");
+
         $stmt->bindValue(':userid', $userid, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -1281,6 +1309,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+    
     public function notificationCountReset($userid)
     {
         $stmt = $this->pdo->prepare("UPDATE notification SET notificationCount = '1' WHERE notificationFor = :userid AND notificationCount = '0' ");

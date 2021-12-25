@@ -1785,8 +1785,8 @@ input.about-class {
   border-radius: 50%;
 }
 
-.msg-box {
-}
+/* .msg-box {
+} */
 
 .msg-date-setting {
   font-size: 13px;
@@ -1890,6 +1890,7 @@ ul.msg-user-add > li:first-child {
 
 .emojionearea.focused {
   -webkit-box-shadow: none;
+  box-shadow: none;
   /*border: 0.5px solid lightgray;*/
 }
 
@@ -1911,3 +1912,138 @@ img.emojioneemoji {
   vertical-align: middle;
 }
 /*..................message end............*/
+
+/*................. Notification ..........*/
+.notification-count {
+  position: relative;
+}
+
+.notification-svg:hover .cls-2 {
+  fill: black;
+  stroke: white;
+}
+
+.notification-count {
+  position: absolute;
+  top: -5px;
+  left: 26px;
+  background-color: red;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.request-count {
+  position: absolute;
+  top: -5px;
+  left: 26px;
+  background-color: red;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.message-count {
+  position: absolute;
+  top: -5px;
+  left: 26px;
+  background-color: red;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.notification-svg .active-noti {
+  fill: white;
+  stroke: white;
+}
+
+.notification-svg .active-noti2 {
+  fill: black;
+  stroke: white;
+}
+
+.notification-list-wrap {
+  position: absolute;
+  /*    background-color: white;*/
+  color: black;
+  top: 31px;
+  z-index: 9;
+  display: none;
+  /*    box-shadow: 2px 2px 5px grey;*/
+  height: 300px;
+  /* overflow-y: scroll; */
+  display: none;
+}
+
+.request-notification-list-wrap {
+  position: absolute;
+  /*    background-color: white;*/
+  color: black;
+  top: 31px;
+  z-index: 9;
+  display: none;
+  /*    box-shadow: 2px 2px 5px grey;*/
+}
+
+.item-notification {
+  display: flex;
+  /*    justify-content: space-evenly;*/
+  align-items: center;
+  width: 320px;
+  /* background-color: #9E9E9E; */
+  /*color: gray;*/
+  padding: 10px 10px;
+  margin-bottom: 5px;
+}
+
+.item-notification-wrap:hover {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 320px;
+  background-color: #6f6f6f;
+  color: white;
+  padding: 0 20px 0 0;
+  /* margin-bottom: 5px; */
+}
+
+li.item-notification-wrap a:hover {
+  color: white;
+  /*margin-bottom: 5px;*/
+}
+
+li.item-notification-wrap {
+  /*     padding: 5px 10px;*/
+  border-bottom: 1px solid lightgray;
+}
+
+li.item-notification-wrap a {
+  color: gray;
+}
+
+.unread-notification {
+  background-color: #ffeb3b63;
+}
+
+.read-notification {
+  background-color: #fff;
+}
+
+ul.notify-ul {
+  background-color: white;
+  box-shadow: 2px 2px 5px grey;
+}
+
+ellipse.cls-1.active-noti {
+  fill: white;
+  stroke: white;
+}
+
+path.cls-1.active-noti {
+  fill: white;
+  stroke: white;
+}
+
+path.cls-1.msg-active-noti {
+  fill: white;
+  /*    stroke: white;*/
+}
+/*................. Notification END ..........*/
