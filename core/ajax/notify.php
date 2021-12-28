@@ -11,12 +11,14 @@ if (isset($_POST['notificationUpdate'])) {
 
    echo count($notification);
 }
+
 if (isset($_POST['requestNotificationUpdate'])) {
    $userid = $_POST['requestNotificationUpdate'];
    $notification = $loadFromPost->requestNotificationCount($userid);
 
    echo count($notification);
 }
+
 if (isset($_POST['messageNotificationUpdate'])) {
    $userid = $_POST['messageNotificationUpdate'];
 
@@ -39,6 +41,7 @@ if (isset($_POST['messageNotify'])) {
    $userid = $_POST['messageNotify'];
    $loadFromPost->notificationCountReset2($userid, 'message');
 }
+
 if (isset($_POST['statusUpdate'])) {
 
    $userid = $_POST['statusUpdate'];

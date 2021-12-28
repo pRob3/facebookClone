@@ -245,7 +245,7 @@ if (isset($_POST['fetchImgInfo'])) {
                                                                                         </a>
 
                                                                                         <div class="com-react-placeholder-wrap align-middle">
-                                                                                            <div class="com-text" data-commentid="<?php echo $comment->commentID; ?>" data-postid="<?php echo $comment->commentOn; ?>" data-profilepic="<?php echo $userdata->profilePic; ?>" data-replyid="<?php echo $reply->commentID; ?>" data-userid="<?php echo $userid; ?>" style="margin-left:5px;">
+                                                                                            <div class="com-text" data-commentid="<?php echo $comment->commentID; ?>" data-postid="<?php echo $comment->commentOn; ?>" data-profilepic="<?php echo $userData->profilePic; ?>" data-replyid="<?php echo $reply->commentID; ?>" data-userid="<?php echo $userid; ?>" style="margin-left:5px;">
                                                                                                 <?php echo $reply->comment; ?>
                                                                                             </div>
                                                                                             <div class="com-nf-3-wrap">
@@ -301,7 +301,7 @@ if (isset($_POST['fetchImgInfo'])) {
                                                                                         } ?>
 
                                                                                     </div>
-                                                                                    <div class="com-reply-action-child" style="cursor:pointer;" data-postid="<?php echo $reply->commentOn; ?>" data-userid="<?php echo $userid; ?>" data-commentid="<?php echo $reply->commentReplyID; ?>" data-profilepic="<?php echo $userdata->profilePic; ?>">
+                                                                                    <div class="com-reply-action-child" style="cursor:pointer;" data-postid="<?php echo $reply->commentOn; ?>" data-userid="<?php echo $userid; ?>" data-commentid="<?php echo $reply->commentReplyID; ?>" data-profilepic="<?php echo $userData->profilePic; ?>">
                                                                                         Reply
                                                                                     </div>
                                                                                     <div class="com-time">

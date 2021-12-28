@@ -2047,3 +2047,388 @@ path.cls-1.msg-active-noti {
   /*    stroke: white;*/
 }
 /*................. Notification END ..........*/
+
+
+/*................. HOME START ..........*/
+/*...............First section............*/
+
+.main_area {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 66px;
+}
+
+.first-section {
+  flex-basis: 15%;
+  /*    border: 1px solid gray;*/
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.active-wrap {
+  background-color: #f5f6f7;
+  /*    width: 100%;*/
+  font-family: roboto, sans-serif;
+  /*    width: 100%;*/
+  padding: 3px 85px 3px 5px;
+  border-radius: 3px;
+  box-shadow: 0.2px 0.2px 3px lightgray;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.active-wrap-2 {
+  display: flex;
+  align-items: center;
+  background-color: #f5f6f7;
+  /*    width: 100%;*/
+  font-family: roboto, sans-serif;
+  width: 95%;
+  padding: 5px 0 5px 5px;
+  border-radius: 3px;
+  box-shadow: 0.2px 0.2px 3px lightgray;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  color: black;
+}
+
+.first-sect-head {
+  color: gray;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 5px;
+  font-family: roboto, sans-serif;
+}
+
+.news-feed {
+  width: 100%;
+}
+
+.right-nav-text {
+  font-family: roboto, sans-serif;
+  font-size: 12px;
+  color: black;
+}
+
+.active-wrap-3 {
+  display: flex;
+  align-items: center;
+  /*    background-color: #f5f6f7;*/
+  /*    width: 100%;*/
+  font-family: roboto, sans-serif;
+  width: 100%;
+  padding: 5px 0 5px 5px;
+  border-radius: 3px;
+  /*    box-shadow: 0.2px 0.2px 3px lightgray;*/
+  /*    font-weight: 600;*/
+  font-size: 12px;
+  cursor: pointer;
+  color: black;
+}
+
+.active-wrap-2 img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-nav-icon {
+  margin-right: 10px;
+}
+
+.right-nav-icon img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.group-shortcuts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3px 0;
+}
+
+
+/*........... End of first section................*/
+
+
+/*........... Start of second section................*/
+
+.second-section {
+  flex-basis: 43%;
+  /*    border: 1px solid gray;*/
+  height: 100vh;
+  padding: 0 12px 12px 12px;
+  /*    width: 500px;*/
+}
+
+
+/*///////////////........... End of second section................////////////*/
+
+
+/*///////////////........... start of third section................////////////*/
+
+.third-section {
+  flex-basis: 21%;
+  /*        border: 1px solid gray;*/
+  height: 100vh;
+}
+
+.story-wrap {
+  /*        height: 327px;*/
+  /*        width: 308px;*/
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0px 0px 1px gray;
+  padding: 10px;
+}
+
+.story-head {
+  color: gray;
+  font-size: 12px;
+}
+
+.add-story {
+  margin: 10px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.add-circle {
+  font-size: 30px;
+  /*        padding: 10px;*/
+  width: 50px;
+  height: 50px;
+  /*        padding: 20px;*/
+  background-color: #f5f6f7;
+  border: 1px solid lightgray;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1479fb;
+  /*        flex-basis: 40%;*/
+}
+
+.add-your-story-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  flex-basis: 60%;
+}
+
+.add-your-story {
+  font-size: 13px;
+  color: #365899;
+  font-weight: 600;
+}
+
+.add-story-details {
+  font-size: 12px;
+  color: gray;
+}
+
+.story-photo {
+  height: 46px;
+  width: 46px;
+  padding: 2px;
+  border: 2px solid #365899;
+  border-radius: 50%;
+}
+
+.story-profile-name {
+  color: #365899;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.story-profile-time {
+  color: gray;
+  font-size: 12px;
+}
+
+.user-story {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.story-profile-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /*        align-items: center;*/
+  margin-left: 10px;
+}
+
+.more-story {
+  font-size: 12px;
+  color: #365899;
+  margin: 10px 0 0 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.birthday-gift {
+  display: flex;
+  margin: 12px 0;
+  background-color: white;
+  border-radius: 3px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 0 5px 10px;
+}
+
+.birth-name {
+  color: #365899;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.birth-date {
+  font-size: 12px;
+  color: gray;
+}
+
+.friend-request-wrap {
+  display: flex;
+  margin: 12px 0;
+  background-color: white;
+  border-radius: 3px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 0 5px 10px;
+}
+
+.friend-request-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.friend-request-text-wrap {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.friend-request-text {
+  font-size: 14px;
+  color: gray;
+}
+
+.friend-request-seeAll {
+  font-size: 13px;
+  color: #365899;
+}
+
+.request-photo {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.friend-request-user {
+  width: 100%;
+  display: flex;
+  margin: 5px;
+}
+
+.request-name-conf {}
+
+.req-name {
+  color: #365899;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.req-conf {
+  display: flex;
+  font-size: 12px;
+  color: gray;
+  margin: 5px 0;
+}
+
+.req-conf-yes {
+  padding: 3px 5px;
+  border: 1px solid gray;
+  margin-right: 5px;
+}
+
+.req-conf-del {
+  padding: 3px 5px;
+  border: 1px solid gray;
+  margin-right: 5px;
+}
+
+
+/*///////////////........... End of third section................////////////*/
+
+
+/*////////////
+
+///........... start of fourth section................////////////*/
+
+.fourth-section {
+  flex-basis: 18%;
+  /*        border: 1px solid gray;*/
+  height: 100vh;
+  /*        background-color: white;*/
+  border-radius: 3px;
+  box-shadow: 0px 0px 1px gray;
+  padding: 10px;
+  margin-left: 12px;
+}
+
+.active-user-pro-pic {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.active-user-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active-user-name {
+  color: black;
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.active-user-circle {
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background-color: green;
+}
+
+.active-user-pro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.active-user-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/*///........... end of fourth section................///////////*/
+
+/*................. HOME END ..........*/

@@ -12,9 +12,17 @@ class Post extends User
     {
         $userdata = $this->userData($user_id);
 
-        $stmt = $this->pdo->prepare("SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profile pr ON pr.userId = p.userId WHERE p.sharedBy IS NULL and p.userId =:user_id
-UNION
-SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profile pr ON pr.userId = p.userId WHERE p.userId IN (SELECT request.reqtReceiver FROM request WHERE request.reqtSender = :user_id AND request.reqStatus = 1) OR p.userId IN ( SELECT request.reqtSender FROM request WHERE request.reqtReceiver = :user_id and request.reqStatus = 1 ) OR p.userId IN (SELECT follow.receiver FROM follow WHERE follow.sender = :user_id ) ORDER BY postedOn DESC LIMIT :num");
+        $stmt = $this->pdo->prepare("SELECT * FROM post p 
+        LEFT JOIN users u ON p.userId = u.user_id  
+        LEFT JOIN profile pr ON pr.userId = p.userId WHERE p.sharedBy IS NULL AND p.userId =:user_id
+        UNION
+        SELECT * FROM post p 
+        LEFT JOIN users u ON p.userId = u.user_id  
+        LEFT JOIN profile pr ON pr.userId = p.userId 
+        WHERE p.userId IN 
+        (SELECT request.reqtReceiver FROM request WHERE request.reqtSender = :user_id AND request.reqStatus = 1) 
+        OR p.userId IN ( SELECT request.reqtSender FROM request WHERE request.reqtReceiver = :user_id AND request.reqStatus = 1 ) 
+        OR p.userId IN (SELECT follow.receiver FROM follow WHERE follow.sender = :user_id ) ORDER BY postedOn DESC LIMIT :num");
 
         $stmt->bindParam(":user_id", $profileId, PDO::PARAM_INT);
         $stmt->bindParam(":num", $num, PDO::PARAM_INT);
@@ -1210,7 +1218,14 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
 
     public function lastPersonWithAllUserMSG($userid)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON (SELECT IF(messages.messageFrom = :userid, messages.messageTo, messages.messageFrom)) = profile.userId LEFT JOIN users ON profile.userId = users.user_id WHERE (messages.messageTo = :userid OR messages.messageFrom = :userid) AND messages.messageID IN (SELECT MAX(messages.messageID) FROM messages GROUP BY messages.messageTo, messages.messageFrom ORDER BY messages.messageID DESC) GROUP BY profile.id ORDER BY messages.messageOn DESC;");
+        $stmt = $this->pdo->prepare("SELECT * FROM messages 
+                                        LEFT JOIN profile ON (SELECT IF(messages.messageFrom = :userid, messages.messageTo, messages.messageFrom)) = profile.userId 
+                                        LEFT JOIN users ON profile.userId = users.user_id 
+                                        WHERE (messages.messageTo = :userid OR messages.messageFrom = :userid) 
+                                        AND messages.messageID IN (SELECT MAX(messages.messageID) 
+                                        FROM messages GROUP BY messages.messageTo, messages.messageFrom 
+                                        ORDER BY messages.messageID DESC) GROUP BY profile.id ORDER BY messages.messageOn DESC;
+                                    ");
 
         $stmt->bindParam(":userid", $userid, PDO::PARAM_INT);
         $stmt->execute();
@@ -1281,6 +1296,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
     public function requestNotificationCount($userid)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM notification 
@@ -1322,7 +1338,7 @@ SELECT * FROM post p LEFT JOIN users u ON p.userId = u.user_id  LEFT JOIN profil
     {
         $stmt = $this->pdo->prepare("UPDATE notification SET notificationCount = '1' WHERE notificationFor = :userid AND notificationCount = '0' AND type = :type ");
         $stmt->bindValue(':userid', $userid, PDO::PARAM_INT);
-        $stmt->bindValue(':type', $notiType, PDO::PARAM_INT);
+        $stmt->bindValue(':type', $notiType, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }

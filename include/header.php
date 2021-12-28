@@ -6,7 +6,7 @@ include 'core/load.php';
 if (login::isLoggedIn()) {
    $userid = login::isLoggedIn();
 } else {
-   header('Location: sign.php');
+   header('location: sign.php');
 }
 
 if (isset($_GET['username']) == true && empty($_GET['username']) === false) {
@@ -20,35 +20,27 @@ $userData = $loadFromUser->userData($userid);
 $requestCheck = $loadFromPost->requestCheck($userid, $profileId);
 $requestConf = $loadFromPost->requestConf($profileId, $userid);
 $followCheck = $loadFromPost->followCheck($profileId, $userid);
-$allusers = $loadFromPost->lastPersonWithAllUserMSG($userid);
-$lastPersonIdFromPost = $loadFromPost->lastPersonMsg($userid);
-
-if (!empty($lastPersonIdFromPost)) {
-   $lastpersonid = $lastPersonIdFromPost->userId;
-};
 
 $notification = $loadFromPost->notification($userid);
 $notificationCount = $loadFromPost->notificationCount($userid);
 $requestNotificationCount = $loadFromPost->requestNotificationCount($userid);
 $messageNotification = $loadFromPost->messageNotificationCount($userid);
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
    <meta charset="UTF-8">
-   <title>Messenger</title>
-
-   <link rel="stylesheet" href="assets/dist/emojionearea.min.css">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title><?php echo ''. $profileData->firstName .' '. $profileData->lastName .''; ?></title>
    <link rel="stylesheet" href="assets/css/style.css">
+   <link rel="stylesheet" href="assets/dist/emojionearea.min.css">
 </head>
 
-<body style=" height:100vh; overflow:hidden;">
-   <div class="loader"></div>
-   <header>
+<body>
+   <div class="u_p_id" data-uid="<?php echo $userid ?>" data-pid="<?php echo $profileId ?>"></div>
+<header>
       <div class="top-bar">
          <div class="top-left-part">
             <div class="profile-logo"><img src="assets/image/logo.jpg" alt=""></div>
@@ -68,7 +60,7 @@ $messageNotification = $loadFromPost->messageNotificationCount($userid);
          </div>
          <div class="top-right-part">
             <div class="top-pic-name-wrap">
-               <a href="profile.php?username=<?php echo $userData->userLink; ?>" class="top-pic-name ">
+               <a href="<?php echo $userData->userLink; ?>" class="top-pic-name ">
                   <div class="top-pic"><img src="<?php echo $userData->profilePic; ?>" alt=""></div>
                   <span class="top-name top-css border-left ">
                      <?php echo $userData->firstName; ?>
@@ -121,9 +113,7 @@ $messageNotification = $loadFromPost->messageNotificationCount($userid);
                   <ul style="margin:0; padding:0;" class="notify-ul">
                      <?php if (empty($requestNotificationCount)) {
                      } else {
-                        foreach ($requestNotificationCount as $notify) {
-
-                     ?>
+                        foreach ($requestNotificationCount as $notify) { ?>
 
                            <li class="item-notification-wrap <?php echo ($notify->status == '0') ? 'unread-notification' : 'read-notification' ?>" data-postid="<?php echo $notify->postid; ?>" data-notificationid="<?php echo $notify->ID; ?>" data-profileid="<?php echo $notify->userId; ?>">
                               <?php if ($notify->type == 'request') { ?>
@@ -221,9 +211,28 @@ $messageNotification = $loadFromPost->messageNotificationCount($userid);
                      <?php if (empty($notification)) {
                      } else {
                         foreach ($notification as $notify) {
+
                            if ($notify->type == 'request' || $notify->type == 'message') {
-                           } else {
-                     ?>
+                           } else if ($notify->type == 'mention') {  ?>
+                              <li class="item-notification-wrap <?php echo ($notify->status == '0') ? 'unread-notification' : 'read-notification' ?>" data-postid="<?php echo $notify->postid; ?>" data-notificationid="<?php echo $notify->ID; ?>" data-profileid="<?php echo $notify->userId; ?>">
+                                 <?php if ($notify->type == 'request') { ?>
+                                    <a href="<?php echo $notify->userLink; ?>" target="_blank" class="item-notification">
+
+                                    <?php } else if ($notify->type == 'message') {
+                                 } else { ?>
+                                       <a href="post.php?username=<?php echo $notify->userLink; ?>&postid=<?php echo $notify->postid; ?>&profileid=<?php echo $notify->userId; ?>" target="_blank" class="item-notification">
+                                       <?php } ?>
+                                       <img src="<?php echo $notify->profilePic; ?>" style="height:40px; width:40px; border-radius:50%;" alt="">
+                                       <div class="notification-type-details">
+                                          <span style="font-weight:600; font-size:14px; color:#CDDC39;margin-left:5px;">
+                                             <?php echo '' . $notify->firstName . ' ' . $notify->lastName . ''; ?></span>
+                                             <?php echo 'mentioned you in a <span>post</span>'; ?>
+                                       </div>
+                                       </a>
+                              </li>
+
+
+                           <?php } else { ?>
 
                               <li class="item-notification-wrap <?php echo ($notify->status == '0') ? 'unread-notification' : 'read-notification' ?>" data-postid="<?php echo $notify->postid; ?>" data-notificationid="<?php echo $notify->ID; ?>" data-profileid="<?php echo $notify->userId; ?>">
                                  <?php if ($notify->type == 'request') { ?>
@@ -301,395 +310,3 @@ $messageNotification = $loadFromPost->messageNotificationCount($userid);
          </div>
       </div>
    </header>
-   <div class="main" style="">
-      <div class="mes-top-bar" style="display: flex; width: 100%;height: 100vh;">
-         <div class="top-left" style="flex-basis: 20%; border-bottom:1px solid lightgray;">
-            <div class="top-area" style="height: 50px; width: 100%; border-bottom:1px solid lightgray;">
-               <div class="msg-setting-write" style="height: 100%;display: flex;justify-content: space-around;align-items: center;">
-                  <div class="msg-setting">
-                     <img src="assets/image/messenger/msgSetting.JPG" alt="">
-                  </div>
-                  <div class="msg-name-text" style="font-size: 22px;">Message</div>
-                  <div class="msg-write-button">
-                     <img src="assets/image/messenger/writeMsg.JPG" alt="">
-                  </div>
-               </div>
-            </div>
-            <div class="user-search-wrap" style="margin: 5px 0;padding: 0 10px;position:relative;">
-               <input type="text" name="" class="user-search" placeholder="Find user" style="width:90%;height: 25px;border-radius: 34px;border: 1px solid lightgray;padding:5px;text-align:center;">
-               <div class="user-show" style="width:90%;position:absolute;text-align:center;">
-
-               </div>
-            </div>
-            <ul class="msg-user-add" style="padding: 0 10px;">
-
-               <?php
-
-               ?>
-
-            </ul>
-         </div>
-         <div class="top-middle" style="flex-basis: 60%;border:1px solid lightgray;/* overflow: scroll; */position: relative;border-top: none;border-right: none;">
-            <div class="top-area" style="height: 50px;width: 100%;border-bottom:1px solid lightgray;/* display: block; */">
-               <?php if (!empty($lastPersonIdFromPost)) { ?>
-                  <div class="top-user-name-pic-wrap " style="display: flex;margin-left:5px;height: 100%;align-items: center;">
-                     <div class="top-msg-user-photo ">
-
-                        <img src="<?php echo $lastPersonIdFromPost->profilePic; ?>" alt="" style="height:40px;width:40px;border-radius:50%;">
-                     </div>
-                     <div class="top-msg-user-name align-middle" style="margin-left: 10px; font-size: 17px; font-weight:600;">
-                        <?php echo '' . $lastPersonIdFromPost->firstName . ' ' . $lastPersonIdFromPost->lastName . '' ?>
-                     </div>
-                  </div>
-               <?php } else { ?>
-                  <div class="top-user-name-pic-wrap " style="display: flex;margin-left:5px;height: 100%;align-items: center;">
-                     <div class="top-msg-user-photo ">
-                        <img src="assets/image/defaultProfile.png" alt="" style="height:40px;width:40px;border-radius:50%;">
-                     </div>
-                     <div class="top-msg-user-name align-middle" style="margin-left: 10px; font-size: 17px; font-weight:600;">
-                     </div>
-                  </div>
-               <?php }  ?>
-
-            </div>
-
-            <div class="msgg-details" style=" height: 78%;overflow-y: scroll;">
-               <div class="msg-show-wrap">
-                  <div class="user-info" data-userid="<?php echo $userid; ?>" data-otherid="<?php if (!empty($lastpersonid)) {
-                                                                                                echo $lastpersonid;
-                                                                                             } ?>"></div>
-                  <div class="msg-box" style="    display: flex;flex-direction: column;">
-
-                  </div>
-               </div>
-            </div>
-            <div class="img-text-send-show">
-               <div class="msg-image-up"><i class="fa fa-picture-o" aria-hidden="true"></i></div>
-               <textarea name="" id="msgInput" cols="30" rows="10" placeholder="type a message... " style="height: 50px;width: 100%;    border-radius: 20px;position: absolute;bottom: 42px;"></textarea>
-               <div class="msg-send-btn"></div>
-            </div>
-         </div>
-         <div class="top-right" style="flex-basis: 20%; border-bottom:1px solid lightgray;">
-            <div class="top-area" style="height: 50px; width: 100%; border-bottom:1px solid lightgray;"></div>
-            <div class="right-users-details align-middle" style="height: 100%; flex-direction: column;margin-top: -100px;">
-               <div class="users-right-pro-pic">
-                  <img src="<?php if (!empty($lastPersonIdFromPost)) {
-                                 echo $lastPersonIdFromPost->profilePic;
-                              } ?>" alt="" style="height:100px; width: 100px;border-radius: 50%;">
-               </div>
-               <div class="users-right-pro-name" style="font-size: 20px;margin-top:10px; font-weight: 600;">
-                  <?php if (!empty($lastPersonIdFromPost)) {
-                     echo '' . $lastPersonIdFromPost->firstName . ' ' . $lastPersonIdFromPost->lastName . '';
-                  } else {
-                  } ?>
-               </div>
-
-
-            </div>
-         </div>
-      </div>
-      <div class="mes-rest-bar"></div>
-
-   </div>
-   <script src="assets/js/jquery.js"></script>
-   <script src="assets/dist/emojionearea.min.js"></script>
-   <script>
-      $(document).ready(function() {
-
-         BASE_URL = "http://localhost/facebookclone/";
-
-         $('textarea#msgInput').emojioneArea({
-            pickerPosition: "top",
-            spellcheck: true
-         })
-
-
-         function userLoad() {
-            var userid = '<?php echo $userid; ?>';
-            $.post(BASE_URL + 'core/ajax/mesgFetch.php', {
-               loadUserid: userid
-            }, function(data) {
-               $('ul.msg-user-add').html(data);
-            })
-         }
-
-         userLoad();
-
-         var lastpersonid = '<?php if (!empty($lastpersonid)) {
-                                 echo $lastpersonid;
-                              } ?>';
-
-         if (lastpersonid != '') {
-
-            var userid = '<?php echo $userid; ?>';
-
-            $.post(BASE_URL + 'core/ajax/mesgFetch.php', {
-               lastpersonid: lastpersonid,
-               userid: userid
-            }, function(data) {
-               $('.msg-box').html(data);
-               scrollItself();
-               $('.loader').hide();
-            })
-         } else {
-            $('.loader').hide();
-         }
-
-
-
-         var useridd = $('.user-info').data('userid');
-         var otheridd = $('.user-info').data('otherid');
-
-
-         var useridForAjax;
-         var otherid;
-
-         function abc(var1, var2) {
-
-            if (var1 === undefined || var2 === undefined) {
-               return useridForAjax = useridd, otherid = otheridd;
-
-            } else {
-               return useridForAjax = var1, otherid = var2;
-
-            }
-         }
-
-         function xyz(name, surname, callback) {
-            if (typeof callback == "function") {
-
-               callback(name, surname);
-
-            } else {
-               alert("Argument is not function type");
-            }
-         }
-
-
-         setTimeout(function() {
-            $(document).on('keyup', '.emojionearea .emojionearea-editor', function(e) {
-               if (e.keyCode == 13) {
-                  var ThisEl = $(this);
-                  var rawMsg = $(this).html();
-                  if (useridForAjax === undefined) {
-                     xyz(useridForAjax, otherid, abc);
-                  }
-                  var msg = rawMsg.slice(0, -15);
-                  $.ajax({
-                     type: "POST",
-                     url: BASE_URL + "core/ajax/message.php",
-                     data: {
-                        useridForAjax: useridForAjax,
-                        otherid: otherid,
-                        msg: msg
-
-
-                     },
-                     success: function(data) {
-                        userLoad();
-                        $('.msg-box').html(data);
-                        $(ThisEl).text('');
-                        scrollItself();
-                     }
-                  })
-
-
-
-
-
-               }
-            })
-         }, 500);
-
-         function scrollItself() {
-            var elViewHeight = $('.msgg-details').height();
-            var elTotalHeight = $('.msgg-details')[0].scrollHeight;
-            if (elTotalHeight > elViewHeight) {
-               $('.msgg-details').scrollTop(elTotalHeight - elViewHeight);
-            }
-
-         }
-         scrollItself();
-
-         function loadMessage() {
-            var pastDataCount = $('.past-data-count').data('datacount');
-
-            $.ajax({
-               type: "POST",
-               url: BASE_URL + "core/ajax/message.php",
-               data: {
-                  showmsg: otheridd,
-                  yourid: useridd
-               },
-               success: function(data) {
-                  $('.msg-box').html(data);
-
-               }
-            })
-
-            $.post(BASE_URL + 'core/ajax/message.php', {
-               dataCount: otheridd,
-               profileid: useridd
-            }, function(data) {
-               if (pastDataCount == data) {
-                  console.log('data is same');
-               } else {
-                  scrollItself();
-                  console.log('data is not same');
-               }
-            })
-         }
-
-         var loadTimer = setInterval(function() {
-            loadMessage();
-         }, 1000);
-
-         $(document).on('keyup', 'input.user-search', function() {
-            var searchText = $(this).val();
-
-            if (searchText == '') {
-               $('.user-show').empty();
-            } else {
-               $.post(BASE_URL + 'core/ajax/search.php', {
-                  msgUser: searchText,
-                  userid: useridd
-               }, function(data) {
-                  if (data == '') {
-                     console.log('No user found.')
-                  } else {
-                     $('.user-show').html(data);
-                  }
-               })
-            }
-         })
-         var intervalId;
-         var intervalIdtwo;
-         $(document).on('click', 'li.mention-individuals', function() {
-            $('.user-search').val('');
-            $('.loader').show();
-            clearInterval(loadTimer);
-            var otheridFromSearch = $(this).data('profileid');
-            var searchImage = $(this).find('img.search-image').attr('src');
-            var searchName = $(this).find('.mention-name').text();
-            $('.users-right-pro-pic img').attr('src', searchImage);
-            $('.users-right-pro-name').text(searchName);
-
-            $('.user-info').attr("data-otherid", otheridFromSearch);
-
-            xyz(useridd, otheridFromSearch, abc);
-
-            $.post(BASE_URL + 'core/ajax/message.php', {
-               showmsg: otheridFromSearch,
-               yourid: useridForAjax
-            }, function(data) {
-               $('.msg-box').html(data);
-               $('.user-show').empty();
-               $('.top-msg-user-photo').attr('src', searchImage);
-               $('.top-msg-user-name').text(searchName);
-               scrollItself();
-               $('.loader').hide();
-
-            })
-
-            if (!intervalId) {
-               intervalId = setInterval(function() {
-                  loadMessageFromSearch(useridForAjax, otheridFromSearch);
-               }, 1000);
-
-               clearInterval(intervalIdtwo);
-               intervalIdtwo = null;
-
-            } else if (!intervalIdtwo) {
-               clearInterval(intervalId);
-               intervalId = null;
-               intervalIdtwo = setInterval(function() {
-                  loadMessageFromSearch(useridForAjax, otheridFromSearch)
-               }, 1000)
-            } else {
-               alert('Nothing found');
-            }
-
-
-         })
-
-         function loadMessageFromSearch(useridForAjax, otheridFromSearch) {
-
-            var pastDataCount = $('.past-data-count').data('datacount');
-
-            $.ajax({
-               type: "POST",
-               url: BASE_URL + "core/ajax/message.php",
-               data: {
-                  showmsg: otheridFromSearch,
-                  yourid: useridForAjax
-               },
-               success: function(data) {
-                  $('.msg-box').html(data);
-                  $('.loader').hide();
-
-
-               }
-            })
-
-            $.post(BASE_URL + 'core/ajax/message.php', {
-               dataCount: otheridFromSearch,
-               profileid: useridForAjax
-            }, function(data) {
-               if (pastDataCount == data) {
-                  console.log('data is same');
-               } else {
-                  scrollItself();
-                  console.log('data is not same');
-               }
-            })
-         }
-
-         $(document).on('click', 'ul.msg-user-add > li', function() {
-            $('ul.msg-user-add > li').css("background-color", "#e9ebee");
-            $(this).css('background-color', 'lightgray');
-         })
-
-         $(document).on('click', 'li.msg-user-name-wrap.align-middle', function() {
-            $('.loader').show();
-            var profileName = $(this).find('.msg-user-name').text();
-            var userProPic = $(this).find('.msg-user-photo img').attr('src');
-            $('.top-msg-user-photo').attr('src', userProPic);
-            $('.top-msg-user-name').text(profileName);
-            $('.users-right-pro-pic img').attr('src', userProPic);
-            $('.users-right-pro-name').text(profileName);
-            clearInterval(loadTimer);
-            scrollItself();
-
-            var userProfileId = $(this).data('profileid');
-
-            xyz(useridd, userProfileId, abc);
-
-            if (!intervalId) {
-               intervalId = setInterval(function() {
-                  loadMessageFromSearch(useridForAjax, userProfileId);
-               }, 1000);
-
-               clearInterval(intervalIdtwo);
-               intervalIdtwo = null;
-
-            } else if (!intervalIdtwo) {
-               clearInterval(intervalId);
-               intervalId = null;
-               intervalIdtwo = setInterval(function() {
-                  loadMessageFromSearch(useridForAjax, userProfileId)
-               }, 1000)
-            } else {
-               alert('Nothing found');
-            }
-
-
-
-
-         })
-
-      });
-   </script>
-
-</body>
-
-</html>
