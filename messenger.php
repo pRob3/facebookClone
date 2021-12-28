@@ -301,7 +301,7 @@ $messageNotification = $loadFromPost->messageNotificationCount($userid);
          </div>
       </div>
    </header>
-   <div class="main" style="">
+   <div class="main">
       <div class="mes-top-bar" style="display: flex; width: 100%;height: 100vh;">
          <div class="top-left" style="flex-basis: 20%; border-bottom:1px solid lightgray;">
             <div class="top-area" style="height: 50px; width: 100%; border-bottom:1px solid lightgray;">
