@@ -1329,6 +1329,27 @@ $(function() {
    //........................... Settings end ......................
 
 
+   //........................... BLOCK ......................
+
+   $(document).on('click', '.block-wrap', function () { 
+      $('.block-show').toggle(200);
+   });
+
+   $(document).on('click', '.block-show', function () { 
+      let profileid = $(this).data("profileid");
+      let userid = $(this).data("userid");
+      console.log("Block "+ profileid)
+      $.post(BASE_URL + 'core/ajax/block.php', {
+         profileid: profileid,
+         userid: userid
+      }, function(data) {
+         location.reload();
+      })
+   });
+
+   //........................... BLOCK end ......................
+
+
 
 
 

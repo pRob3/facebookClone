@@ -112,3 +112,4 @@ if (isset($_POST['oldPassword'])) {
       echo $error;
    }
 }
+?>

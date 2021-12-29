@@ -2516,3 +2516,29 @@ input.input-style {
 /*...........Settings END.............*/
 
 
+/*...Block...*/
+
+.block-wrap {
+  position: relative;
+  cursor: pointer;
+}
+
+.block-action {
+  margin-top: 5px;
+}
+
+.block-show {
+  display: none;
+  position: absolute;
+  background-color: white;
+  color: gray;
+  font-size: 12px;
+  padding: 10px 15px;
+  box-shadow: 0 0 3px;
+  margin-top: -3px;
+  width: 60px;
+  cursor: pointer;
+}
+
+
+/*...Block end...*/

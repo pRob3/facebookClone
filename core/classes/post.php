@@ -264,7 +264,7 @@ class Post extends User
                                                 if (!empty($blockedUserComment)) {
                                                 } else {
 
-                                        ?>
+                                                ?>
                                                     <li class="new-comment">
                                                         <div class="com-details">
                                                             <div class="com-pro-pic">
@@ -1398,30 +1398,38 @@ class Post extends User
         $stmt = $this->pdo->prepare("SELECT * FROM follow LEFT JOIN profile ON profile.userId = follow.sender LEFT JOIN users ON users.user_id = follow.sender WHERE follow.receiver = :profileid");
         $stmt->bindParam(":profileid", $profileid, PDO::PARAM_INT);
         $stmt->execute();
+
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     
     public function yourPhoto($profileId)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM `post` WHERE postImage != '' and postBy = :profileid");
+        $stmt = $this->pdo->prepare("SELECT * FROM `post` WHERE postImage != '' AND postBy = :profileid");
         $stmt->bindParam(":profileid", $profileId, PDO::PARAM_INT);
         $stmt->execute();
+
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function block($profileId, $userid)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM block WHERE (blockerID = :userid AND blockedID = :profileid) OR (blockerID = :profileid AND blockedID = :userid) ");
+        $stmt = $this->pdo->prepare("SELECT * FROM block 
+                                            WHERE (blockerID = :userid AND blockedID = :profileid) OR 
+                                            (blockerID = :profileid AND blockedID = :userid) ");
+
         $stmt->bindParam(":profileid", $profileId, PDO::PARAM_INT);
         $stmt->bindParam(":userid", $userid, PDO::PARAM_INT);
         $stmt->execute();
+
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
     public function loadMentionUser($mention)
     {
-        $stmt = $this->pdo->prepare("SELECT user_id,first_name, last_name,userLink,profilePic FROM users as u LEFT JOIN profile as p ON p.userId = u.user_id WHERE first_name LIKE :mention OR userLink LIKE :mention ");
+        $stmt = $this->pdo->prepare("SELECT user_id,first_name, last_name,userLink,profilePic FROM users AS u LEFT JOIN profile AS p ON p.userId = u.user_id WHERE first_name LIKE :mention OR userLink LIKE :mention ");
         $stmt->bindValue(":mention", $mention . '%');
         $stmt->execute();
+
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -1430,6 +1438,7 @@ class Post extends User
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE userLink = :userlink ");
         $stmt->bindParam(":userlink", $userLink, PDO::PARAM_STR);
         $stmt->execute();
+
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
