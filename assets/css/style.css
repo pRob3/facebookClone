@@ -2432,3 +2432,87 @@ path.cls-1.msg-active-noti {
 /*///........... end of fourth section................///////////*/
 
 /*................. HOME END ..........*/
+
+
+/*...........settings.............*/
+
+.setting-option:hover {
+  background-color: lightgray;
+}
+
+.logout-option:hover {
+  background-color: lightgray;
+}
+
+.settings-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80vw;
+  margin-top: 40px;
+}
+
+.sett-head {
+  color: gray;
+  flex-basis: 40%;
+  border-right: 1px solid #9E9E9E;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.justify {
+  width: 800px;
+  height: 60px;
+  padding: 0 10px;
+  border: 1px solid darkgray;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 5px lightgrey;
+}
+
+.justify:hover {
+  width: 800px;
+  height: 60px;
+  padding: 0 10px;
+  border: 1px solid darkgray;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 5px lightgrey;
+  background-color: gainsboro;
+}
+
+.change-input-wrap {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  justify-content: center;
+  left: 0px;
+  display: flex;
+  background-color: #000000c4;
+  z-index: 9999;
+}
+
+.change-input {
+  background-color: white;
+  height: 159px;
+  padding: 46px;
+}
+
+input.input-style {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #4caf50;
+  cursor: pointer;
+}
+
+
+/*...........Settings END.............*/
+
+

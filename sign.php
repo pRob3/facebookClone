@@ -172,15 +172,9 @@ if (isset($_POST['in-email-mobile']) && !empty($_POST['in-email-mobile'])) {
 <html lang="en">
 
 <head>
-
-
     <meta charset="UTF-8">
-
     <title>facebook</title>
-
-
     <link rel="stylesheet" href="assets/css/style.css">
-
 </head>
 
 <body>

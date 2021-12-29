@@ -158,7 +158,7 @@ $(function() {
       var file_size = file_data["size"];
       var file_type = file_data["type"].split('/').pop();
 
-      var userid = '<?php echo $userid; ?>';
+      var userid = u_id;
       var imgName = 'user/' + userid + '/coverphoto/' + name + '';
 
       var form_data = new FormData();
@@ -244,7 +244,7 @@ $(function() {
             for (var i = 0; i < files.length; i++) {
                var name = document.getElementById('multiple_files').files[i].name;
 
-               storeImage += '{\"imageName\":\"user/<?php echo $userid; ?>/postImage/' + name + '\"},';
+               storeImage += '{\"imageName\":\"user/'+ u_id +'/postImage/' + name + '\"},';
 
                var ext = name.split('.').pop().toLowerCase();
 
@@ -503,7 +503,7 @@ $(function() {
    })
 
    function mainReactSubmit(typeR, postId, userId, nf_3) {
-      var profileid = "<?php echo $profileId; ?>";
+      var profileid = p_id;
       $.post(BASE_URL + 'core/ajax/react.php', {
          reactType: typeR,
          postId: postId,
@@ -515,7 +515,7 @@ $(function() {
    }
 
    function mainReactDelete(typeR, postId, userId, nf_3) {
-      var profileid = "<?php echo $profileId; ?>";
+      var profileid = p_id;
       $.post(BASE_URL + 'core/ajax/react.php', {
          deleteReactType: typeR,
          postId: postId,
@@ -610,7 +610,7 @@ $(function() {
          var comment = $(this).val();
          var postid = $(this).data('postid');
          var userid = $(this).data('userid');
-         var profileid = "<?php echo $profileId; ?>";
+         var profileid = p_id;
          var commentPlaceholder = $(this).parents('.nf-5').find('ul.add-comment');
          if (comment === '') {
             alert("No empty comments!");
@@ -641,7 +641,7 @@ $(function() {
 
       $('.com-like-react').hover(function() {
          var mainReact = $(this).find('.com-react-bundle-wrap');
-         $(mainReact).html('<div class="react-bundle align-middle" style="position:absolute;margin-top: -45px; margin-left: -40px; display:flex; background-color:white;padding: 0 2px;border-radius: 25px; box-shadow: 0px 0px 5px black; height:45px; width:270px; justify-content:space-around; transition: 0.3s;z-index:2"><div class="com-like-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/like.png "; ?>" alt=""></div><div class="com-love-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/love.png "; ?>" alt=""></div><div class="com-haha-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/haha.png "; ?>" alt=""></div><div class="com-wow-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/wow.png "; ?>" alt=""></div><div class="com-sad-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/sad.png "; ?>" alt=""></div><div class="com-angry-react-click align-middle"><img class="com-main-icon-css" src="<?php echo " " . BASE_URL . "assets/image/react/angry.png "; ?>" alt=""></div></div>');
+         $(mainReact).html('<div class="react-bundle align-middle" style="position:absolute;margin-top: -45px; margin-left: -40px; display:flex; background-color:white;padding: 0 2px;border-radius: 25px; box-shadow: 0px 0px 5px black; height:45px; width:270px; justify-content:space-around; transition: 0.3s;z-index:2"><div class="com-like-react-click align-middle"><img class="com-main-icon-css" src="'+ BASE_URL+'assets/image/react/like.png" alt=""></div><div class="com-love-react-click align-middle"><img class="com-main-icon-css" src="'+ BASE_URL+'assets/image/react/love.png" alt=""></div><div class="com-haha-react-click align-middle"><img class="com-main-icon-css" src="'+ BASE_URL+'assets/image/react/haha.png" alt=""></div><div class="com-wow-react-click align-middle"><img class="com-main-icon-css" src="'+ BASE_URL+'assets/image/react/wow.png" alt=""></div><div class="com-sad-react-click align-middle"><img class="com-main-icon-css" src="'+ BASE_URL+'assets/image/react/sad.png" alt=""></div><div class="com-angry-react-click align-middle"><img class="com-main-icon-css" src="'+ BASE_URL+'assets/image/react/angry.png" alt=""></div></div>');
 
       }, function() {
          var mainReact = $(this).find('.com-react-bundle-wrap');
@@ -1311,5 +1311,25 @@ $(function() {
       }, function(data) {})
    })
    //...........................follow end ......................
+
+
+   //........................... Settings ..........................
+
+   $(document).on('click', '.watchmore-wrap', function () { 
+      $('.setting-logout-wrap').toggle();
+   });
+   
+   $(document).on('click', '.setting-option', function () { 
+      window.location.href = "settings.php";
+   });
+
+   $(document).on('click', '.logout-option', function () { 
+      window.location.href = "logout.php";
+   });
+   //........................... Settings end ......................
+
+
+
+
 
 });

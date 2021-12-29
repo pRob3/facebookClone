@@ -87,6 +87,30 @@ class User {
         $stmt->execute();
     }
 
+    public function userUpdate($table, $user_id, $fields = array()){
+        $columns = '';
+        $i = 1;
+
+        foreach($fields as $name => $value){
+            $columns .= "{$name} = :{$name}";
+//            coverPic = :coverPic, profilePic = :profilePic,
+            if($i < count($fields)){
+                $columns .= ', ';
+            }
+            $i++;
+        }
+         $sql = "UPDATE {$table} SET {$columns} WHERE user_id = {$user_id}";
+//        UPDATE profile SET coverPic = :coverPic, profilePic = :profilePic WHERE userId = 10;
+        if($stmt = $this->pdo->prepare($sql)){
+            foreach($fields as $key => $value){
+                $stmt->bindValue(':'.$key, $value);
+            }
+        }
+        $stmt->execute();
+
+    }
+
+
     public function timeAgo($datetime){
         $time = strToTime($datetime);
         $current = time();
@@ -157,5 +181,3 @@ class User {
     }
     
 }
-
-?>
