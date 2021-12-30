@@ -226,15 +226,12 @@ $(function() {
    });
 
 
-   $('.status-share-button').on('click', function() {
+   $('.status-share-button').on('click', function () {
+      
       var statusText = $('.emojionearea-editor').html();
-
       var formData = new FormData()
-
       var storeImage = [];
-
-      var error_images = [];
-
+      var error_images = [];      
       var files = $('#multiple_files')[0].files;
 
       if (files.length != 0) {
@@ -302,9 +299,14 @@ $(function() {
       }
 
 
+
+      var mention_user = statusText.match(regex);
+
+
       if (stIm == '') {
          $.post(BASE_URL + 'core/ajax/postSubmit.php', {
-            onlyStatusText: statusText
+            onlyStatusText: statusText,
+            mention_user: mention_user
          }, function(data) {
             $('#adv_dem').html(data);
             location.reload();
@@ -313,7 +315,8 @@ $(function() {
       } else {
          $.post(BASE_URL + 'core/ajax/postSubmit.php', {
             stIm: stIm,
-            statusText: statusText
+            statusText: statusText,
+            mention_user: mention_user
 
          }, function(data) {
             $('#adv_dem').html(data);
@@ -1348,6 +1351,37 @@ $(function() {
    });
 
    //........................... BLOCK end ......................
+   
+   //........................... MENTION ......................
+
+   var regex = /[#|@](\w+)$/ig;
+
+   $(document).on('keyup', '.emojionearea-editor', function() {
+      let status_text = $.trim($(this).text());
+      let regex_text = status_text.match(regex);
+
+      if (regex_text != null) {
+         $.post(BASE_URL + 'core/ajax/hashtag_mention.php', {
+            regex_text_placeholder: regex_text
+         }, function(data) {
+            $('ul.hash-men-holder').html(data);
+            $('li.mention-user').click(function () {
+               var mention_userLink = $(this).find('.mention-name').data('userlink');
+               var mention_profileid = $(this).find('.mention-name').data('profileid');
+
+               var status_old = $('.emojionearea-editor').text();
+               var status_new = status_old.replace(regex, '');
+               $('.emojionearea-editor').text('' + status_new + '@' + mention_userLink + '');
+               $('ul.hash-men-holder').empty();
+            })
+         })
+      }
+      else {
+         $('ul.hash-men-holder').empty();
+      }
+   })
+
+   //........................... MENTION end ......................
 
 
 

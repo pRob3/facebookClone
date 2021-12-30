@@ -12,8 +12,9 @@
                                  <img src="<?php echo $userData->profilePic ?>" alt="">
                               </div>
                            </div>
-                           <div class="status-prof-textarea">
+                           <div class="status-prof-textarea" style="position: relative;">
                               <textarea name="textStatus" id="statusEmoji" cols="5" rows="5" class="status align-middle"></textarea>
+                              <ul class="hash-men-holder" style="position: absolute;margin-top: 0;"></ul>
                            </div>
                         </div>
                         <div class="status-bot">

@@ -93,7 +93,11 @@ class Post extends User
                             <div class="nf-2">
                                 <div class="nf-2-text" data-postid="<?php echo $post->post_id; ?>" data-userid="<?php echo $user_id ?>" data-profilePic="<?php echo $post->profilePic; ?>">
                                     <?php if (empty($post->sharedId)) {
-                                        echo $post->post;
+
+                                        $status_post = $post->post;
+                                        $status_post = preg_replace("/@([\w]+)/", "<a href='".BASE_URL."$1'>$0</a>", $status_post);
+
+                                        echo $status_post;
                                     } else {
                                         if (empty($shareDetails)) {
                                             echo 'Share has not found.';
@@ -1424,10 +1428,16 @@ class Post extends User
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function loadMentionUser($mention)
+    public function loadMentionUser($mention, $user_id)
     {
-        $stmt = $this->pdo->prepare("SELECT user_id,first_name, last_name,userLink,profilePic FROM users AS u LEFT JOIN profile AS p ON p.userId = u.user_id WHERE first_name LIKE :mention OR userLink LIKE :mention ");
+        $stmt = $this->pdo->prepare("SELECT user_id, first_name, last_name, userLink, profilePic 
+                                        FROM users AS u 
+                                        LEFT JOIN profile AS p ON p.userId = u.user_id 
+                                        WHERE (first_name LIKE :mention OR userLink LIKE :mention) AND user_id != :userid");
+
         $stmt->bindValue(":mention", $mention . '%');
+        $stmt->bindParam(":userid", $user_id, PDO::PARAM_INT);
+
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_OBJ);
